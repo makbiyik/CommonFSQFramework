@@ -111,7 +111,7 @@ class Step2_Selection_2(CommonFSQFramework.Core.ExampleProofReader.ExampleProofR
 
 
             if not firstRun:
-                self.hist[histcalibrationname] = inputFile.Get("data_Cosmics_MuonHLTSkim_2015E_4T/2DMuonSignalMap")
+                self.hist[histcalibrationname] = inputFile.Get("data_Cosmics_MuonHLTSkim_2015E_0T/2DMuonSignalMap")
                 print "Extracted histogram from file. Checking entries:",  self.hist[histcalibrationname].GetEntries()
 
             else: #first time running analyser the calibration constants are all set to 1
@@ -1048,7 +1048,7 @@ if __name__ == "__main__":
         print ("ERROR: SPECIFY iDeltaStart, iDeltaEnd, dataset.  ")
         print ("       iDeltaStart: minimal muon exclusivity (number of empty sectors next to muon)")
         print ("       iDeltaEnd: maximal muon exclusivity around muon")
-        print ("       dataset: data_Cosmics_MuonHLTSkim_2015E_4T or data_MinimumBias_Run2015A")
+        print ("       dataset: data_Cosmics_MuonHLTSkim_2015E_0T or data_MinimumBias_Run2015A")
         print ("Try again!!")
         sys.exit(1)
     
@@ -1063,8 +1063,8 @@ if __name__ == "__main__":
         sys.exit(1)
         
     datasetname = str(sys.argv[3])
-    if datasetname != "data_Cosmics_MuonHLTSkim_2015E_4T" and datasetname != "data_MinimumBias_Run2015A" :
-        print ("dataset must be either: data_Cosmics_MuonHLTSkim_2015E_4T or data_MinimumBias_Run2015A")
+    if datasetname != "data_Cosmics_MuonHLTSkim_2015E_0T" and datasetname != "data_MinimumBias_Run2015A" :
+        print ("dataset must be either: data_Cosmics_MuonHLTSkim_2015E_0T or data_MinimumBias_Run2015A")
         sys.exit(1)
 
 
@@ -1078,7 +1078,7 @@ if __name__ == "__main__":
     # Run printTTree.py alone to get the samples list
     sampleList = []
 #    sampleList.append("data_MinimumBias_Run2015A") # all triggers, 18MEvents
-#    sampleList.append("data_Cosmics_MuonHLTSkim_2015E_4T") # only the muon triggers 
+#    sampleList.append("data_Cosmics_MuonHLTSkim_2015E_0T") # only the muon triggers 
     sampleList.append(datasetname) 
 
     
