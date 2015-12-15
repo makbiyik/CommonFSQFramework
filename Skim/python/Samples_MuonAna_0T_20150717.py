@@ -82,6 +82,7 @@ sam["data_Cosmics_MuonHLTSkim_2015E_4T"]["isData"]=True
 sam["data_Cosmics_MuonHLTSkim_2015E_4T"]["numEvents"]=4486825
 sam["data_Cosmics_MuonHLTSkim_2015E_4T"]["pathSE"]='srm://dcache-se-cms.desy.de:8443/srm/managerv2?SFN=/pnfs/desy.de/cms/tier2/store/user/cwohrman/CFF/CastorMuon/Cosmics/MuonAna_0T_20150717_data_Cosmics_MuonHLTSkim_2015E_4T/151210_095015/0000/'
 sam["data_Cosmics_MuonHLTSkim_2015E_4T"]["pathTrees"]='/XXXTMFTTree/tier2/store/user/cwohrman/CFF/CastorMuon/Cosmics/MuonAna_0T_20150717_data_Cosmics_MuonHLTSkim_2015E_4T/151210_095015/0000//'
+# json file includes both 4T HI and pp-ref. runs of 2015E => depending on used dataset 'sam[...]["DS"]' what one collect
 sam["data_Cosmics_MuonHLTSkim_2015E_4T"]["json"]='CommonFSQFramework/Skim/lumi/Cosmics_CastorMuonRuns_2015E_4T.json'
 sam["data_Cosmics_MuonHLTSkim_2015E_4T"]["lumiMinBias"]=-1
 sam["data_Cosmics_MuonHLTSkim_2015E_4T"]["XS"]=-1
@@ -89,7 +90,7 @@ sam["data_Cosmics_MuonHLTSkim_2015E_4T"]["pathPAT"]='/XXXTMFPAT/tier2/store/user
 sam["data_Cosmics_MuonHLTSkim_2015E_4T"]["DS"]='/Cosmics/Run2015E-v1/RAW'
 
 # CFF Skim using interfill data from run HI 2015E
-# the first part of HI data
+# between pp-Ref. and HI and also runs before pp-Ref.
 # This data is stored in the Cosmic dataset therefore it needed to run 
 # on RAW data (Cosmics/RECO has no Castor RecHit producer included). 
 # Need also to copy dataset from tape to T2_BE_IIHE to access it.
@@ -126,6 +127,7 @@ sam["data_Cosmics_MuonHLTSkim_HI2015E_4T"]["isData"]=True
 sam["data_Cosmics_MuonHLTSkim_HI2015E_4T"]["numEvents"]=4486825
 sam["data_Cosmics_MuonHLTSkim_HI2015E_4T"]["pathSE"]='srm://dcache-se-cms.desy.de:8443/srm/managerv2?SFN=/pnfs/desy.de/cms/tier2/store/user/cwohrman/CFF/CastorMuon/Cosmics/MuonAna_0T_20150717_data_Cosmics_MuonHLTSkim_2015E_4T/151209_200510/0000/'
 sam["data_Cosmics_MuonHLTSkim_HI2015E_4T"]["pathTrees"]='/XXXTMFTTree/tier2/store/user/cwohrman/CFF/CastorMuon/Cosmics/MuonAna_0T_20150717_data_Cosmics_MuonHLTSkim_2015E_4T/151209_200510/0000//'
+# json file includes both 4T HI and pp-ref. runs of 2015E => depending on used dataset 'sam[...]["DS"]' what one collect
 sam["data_Cosmics_MuonHLTSkim_HI2015E_4T"]["json"]='CommonFSQFramework/Skim/lumi/Cosmics_CastorMuonRuns_2015E_4T.json'
 sam["data_Cosmics_MuonHLTSkim_HI2015E_4T"]["lumiMinBias"]=-1
 sam["data_Cosmics_MuonHLTSkim_HI2015E_4T"]["XS"]=-1
@@ -147,12 +149,12 @@ sam["data_Cosmics_MuonHLTSkim_HI2015E_ppHVInterfill"]["GT"]='75X_dataRun2_Prompt
 sam["data_Cosmics_MuonHLTSkim_HI2015E_ppHVInterfill"]["name"]='data_Cosmics_MuonHLTSkim_HI2015E_ppHVInterfill'
 sam["data_Cosmics_MuonHLTSkim_HI2015E_ppHVInterfill"]["isData"]=True
 sam["data_Cosmics_MuonHLTSkim_HI2015E_ppHVInterfill"]["numEvents"]=4486825
-# sam["data_Cosmics_MuonHLTSkim_HI2015E_ppHVInterfill"]["pathSE"]='srm://dcache-se-cms.desy.de:8443/srm/managerv2?SFN=/pnfs/desy.de/cms/tier2/store/user/cwohrman/CFF/CastorMuon/Cosmics/MuonAna_0T_20150717_data_Cosmics_MuonHLTSkim_2015E_4T/151209_200510/0000/'
-# sam["data_Cosmics_MuonHLTSkim_HI2015E_ppHVInterfill"]["pathTrees"]='/XXXTMFTTree/tier2/store/user/cwohrman/CFF/CastorMuon/Cosmics/MuonAna_0T_20150717_data_Cosmics_MuonHLTSkim_2015E_4T/151209_200510/0000//'
+sam["data_Cosmics_MuonHLTSkim_HI2015E_ppHVInterfill"]["pathSE"]='srm://dcache-se-cms.desy.de:8443/srm/managerv2?SFN=/pnfs/desy.de/cms/tier2/store/user/cwohrman/CFF/CastorMuon/Cosmics/MuonAna_0T_20150717_data_Cosmics_MuonHLTSkim_HI2015E_ppHVInterfill/151214_112427/0000/'
+sam["data_Cosmics_MuonHLTSkim_HI2015E_ppHVInterfill"]["pathTrees"]='/XXXTMFTTree/tier2/store/user/cwohrman/CFF/CastorMuon/Cosmics/MuonAna_0T_20150717_data_Cosmics_MuonHLTSkim_HI2015E_ppHVInterfill/151214_112427/0000//'
 sam["data_Cosmics_MuonHLTSkim_HI2015E_ppHVInterfill"]["json"]='CommonFSQFramework/Skim/lumi/Cosmics_CastorMuonRuns_HIRun2015E_ppHVInterfill.json'
 sam["data_Cosmics_MuonHLTSkim_HI2015E_ppHVInterfill"]["lumiMinBias"]=-1
 sam["data_Cosmics_MuonHLTSkim_HI2015E_ppHVInterfill"]["XS"]=-1
-# sam["data_Cosmics_MuonHLTSkim_HI2015E_ppHVInterfill"]["pathPAT"]='/XXXTMFPAT/tier2/store/user/cwohrman/CFF/CastorMuon/Cosmics/MuonAna_0T_20150717_data_Cosmics_MuonHLTSkim_2015E_4T/151209_200510/0000//'
+sam["data_Cosmics_MuonHLTSkim_HI2015E_ppHVInterfill"]["pathPAT"]='/XXXTMFPAT/tier2/store/user/cwohrman/CFF/CastorMuon/Cosmics/MuonAna_0T_20150717_data_Cosmics_MuonHLTSkim_HI2015E_ppHVInterfill/151214_112427/0000//'
 sam["data_Cosmics_MuonHLTSkim_HI2015E_ppHVInterfill"]["DS"]='/Cosmics/HIRun2015-v1/RAW'
 
 
