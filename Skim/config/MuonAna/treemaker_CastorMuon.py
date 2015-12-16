@@ -16,13 +16,13 @@ else:
 # isData = True
 
 # when isRawData = True the unpacker is used to create castor Digis and also RecHits
-isRawData = True
+isRawData = False
 
 process = cms.Process("Treemaker")
 
 process.load("FWCore.MessageService.MessageLogger_cfi")
 
-process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(10))
+process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(1000))
 
 process.MessageLogger.cerr.FwkReport.reportEvery = 1000
 process.options = cms.untracked.PSet(wantSummary = cms.untracked.bool(True))
@@ -34,8 +34,9 @@ process.source = cms.Source("PoolSource",
     #fileNames = cms.untracked.vstring('/store/mc/RunIISpring15DR74/ReggeGribovPartonMC_13TeV-EPOS/GEN-SIM-RECO/NoPURawReco_castor_MCRUN2_74_V8B-v1/10000/BC62D29E-7707-E511-A6D9-AC853D9F5344.root')
     #fileNames = cms.untracked.vstring('/store/data/Run2015A/ZeroBias/RECO/PromptReco-v1/000/247/607/00000/52EA626D-9210-E511-843F-02163E01451D.root')
     # fileNames = cms.untracked.vstring('/store/data/Run2015A/MinimumBias/RECO/PromptReco-v1/000/247/403/00000/061A4C94-3B0F-E511-B492-02163E0140E0.root')
-    # fileNames = cms.untracked.vstring('/store/hidata/HIRun2013/PAMinBiasUPC/RECO/PromptReco-v1/000/209/948/00000/184CCE65-8C60-E211-B2D4-003048D2BE12.root')
-    fileNames = cms.untracked.vstring('/store/hidata/HIRun2015/Cosmics/RAW/v1/000/262/611/00000/AE2C3478-B793-E511-957C-02163E011B19.root')
+    fileNames = cms.untracked.vstring('/store/hidata/HIRun2013/PAMinBiasUPC/RECO/PromptReco-v1/000/210/321/00000/448E474C-3A62-E211-B402-BCAEC532971B.root')
+    # fileNames = cms.untracked.vstring('/store/hidata/HIRun2015/Cosmics/RAW/v1/000/262/611/00000/AE2C3478-B793-E511-957C-02163E011B19.root')
+    # fileNames = cms.untracked.vstring('file:/tmp/cwohrman/3A28079F-4262-E211-B6D7-5404A640A63D.root')
 )
 
 # from PhysicsTools.PatAlgos.patInputFiles_cff import filesRelValProdTTbarGENSIMRECO
@@ -45,7 +46,7 @@ process.source = cms.Source("PoolSource",
 process.load("Configuration.Geometry.GeometryRecoDB_cff")
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_condDBv2_cff')
 from Configuration.AlCa.GlobalTag_condDBv2 import GlobalTag
-if isData: process.GlobalTag = GlobalTag(process.GlobalTag, '75X_dataRun2_Prompt_ppAt5TeV_v0', '')
+if isData: process.GlobalTag = GlobalTag(process.GlobalTag, 'GR_R_75_V5A', '')
 if not isData: process.GlobalTag = GlobalTag(process.GlobalTag, 'auto:run2_mc', '')
 process.load("Configuration.StandardSequences.MagneticField_cff")
 
@@ -173,7 +174,8 @@ process.patJetsAK4Calo.useLegacyJetMCFlavour=True # Need to use legacy flavour s
 process.hltcastormuon = cms.EDFilter("HLTHighLevel",
      TriggerResultsTag = cms.InputTag("TriggerResults","","HLT"),
      # HLTPaths = cms.vstring('HLT_L1CastorMuon_v1','HLT_L1Tech59_CASTORHaloMuon_v1'), # provide list of HLT paths (or patterns) you want
-     HLTPaths = cms.vstring('HLT_L1Tech59_CastorMuon_v1'), # provide list of HLT paths (or patterns) you want
+     # HLTPaths = cms.vstring('HLT_L1Tech59_CastorMuon_v1'), # provide list of HLT paths (or patterns) you want
+     HLTPaths = cms.vstring('HLT_PAL1Tech63_CASTORHaloMuon_v1'), # provide list of HLT paths (or patterns) you want
      eventSetupPathsKey = cms.string(''), # not empty => use read paths from AlCaRecoTriggerBitsRcd via this key #HLT_MinBiasBSC # HLT_L1Tech_BSC_minBias
      andOr = cms.bool(True),             # how to deal with multiple triggers: True (OR) accept if ANY is true, False (AND) accept if ALL are true
      throw = cms.bool(False)    # throw exception on unknown path names
@@ -214,7 +216,8 @@ if not isData:
 # process.MuonCastorVTwo._Parameterizable__setParameters(CommonFSQFramework.Core.CastorViewsConfigs.get(["ak5CastorJetView"]))
 process.MuonCastorVTwo._Parameterizable__setParameters(CommonFSQFramework.Core.CastorViewsConfigs.get(["CastorRecHitViewFull"]))
 # process.MuonCastorVTwo._Parameterizable__setParameters(CommonFSQFramework.Core.PFObjectsViewsConfigs.get(["PFCandidateView","ecalPFClusterView","hcalPFClusterView","hfPFClusterView"]))
-process.MuonCastorVTwo._Parameterizable__setParameters(CommonFSQFramework.Core.TriggerResultsViewsConfigs.get(["CastorSpecialMuonTriggerResultsView","L1GTriggerResultsView"]))
+# process.MuonCastorVTwo._Parameterizable__setParameters(CommonFSQFramework.Core.TriggerResultsViewsConfigs.get(["CastorSpecialMuonTriggerResultsView","L1GTriggerResultsView"]))
+process.MuonCastorVTwo._Parameterizable__setParameters(CommonFSQFramework.Core.TriggerResultsViewsConfigs.get(["CastorSpecialMuonTriggerResultsView_2013PA","L1GTriggerResultsView"]))
 #process.MuonCastorVTwo._Parameterizable__setParameters(CommonFSQFramework.Core.JetViewsConfigs.get(["JetViewAK4Calo"]))
 
 if not isData:

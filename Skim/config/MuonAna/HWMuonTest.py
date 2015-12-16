@@ -94,7 +94,9 @@ if __name__ == "__main__":
     # sampleList.append("data_Cosmics_MuonHLTSkim_2015E_4T")
     # sampleList.append("data_Cosmics_MuonHLTSkim_2015E_0T")
     # sampleList.append("data_Cosmics_MuonHLTSkim_HI2015E_4T")
-    sampleList.append("data_Cosmics_MuonHLTSkim_HI2015E_ppHVInterfill")
+    # sampleList.append("data_Cosmics_MuonHLTSkim_HI2015E_ppHVInterfill")
+    # sampleList.append("data_PAMinBiasUPC_Run2013")
+    sampleList.append("data_PPMinBias_Run2013")
     # maxFilesMC = 1
     # maxFilesData = 1
     # maxFilesData = 1
