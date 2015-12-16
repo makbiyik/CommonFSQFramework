@@ -158,6 +158,47 @@ sam["data_Cosmics_MuonHLTSkim_HI2015E_ppHVInterfill"]["pathPAT"]='/XXXTMFPAT/tie
 sam["data_Cosmics_MuonHLTSkim_HI2015E_ppHVInterfill"]["DS"]='/Cosmics/HIRun2015-v1/RAW'
 
 
+# CFF Skim using interfill data from HI run 2013
+# using only PA data
+# MagnetFiedl: 4T
+# Filtered on CastorMuon HLT path:
+#     HLT_PAL1Tech63_CASTORHaloMuon_v1
+sam["data_PAMinBiasUPC_Run2013"]={}
+sam["data_PAMinBiasUPC_Run2013"]["crabJobs"]=5736
+sam["data_PAMinBiasUPC_Run2013"]["GT"]='GR_R_75_V5A'
+sam["data_PAMinBiasUPC_Run2013"]["name"]='data_PAMinBiasUPC_Run2013'
+sam["data_PAMinBiasUPC_Run2013"]["isData"]=True
+sam["data_PAMinBiasUPC_Run2013"]["numEvents"]=286814246
+sam["data_PAMinBiasUPC_Run2013"]["pathSE"]='srm://dcache-se-cms.desy.de:8443/srm/managerv2?SFN=/pnfs/desy.de/cms/tier2/store/user/cwohrman/CFF/CastorMuon/PAMinBiasUPC/MuonAna_0T_20150717_data_PAMinBiasUPC_Run2013/151215_131046/0000/'
+sam["data_PAMinBiasUPC_Run2013"]["pathTrees"]='/XXXTMFTTree/store/user/cwohrman/CFF/CastorMuon/PAMinBiasUPC/MuonAna_0T_20150717_data_PAMinBiasUPC_Run2013/151215_131046/0000//'
+# json file includes both HI and pp-ref. runs of 2013 => depending on used dataset 'sam[...]["DS"]' what is collected
+sam["data_PAMinBiasUPC_Run2013"]["json"]='CommonFSQFramework/Skim/lumi/MinBias_CastorMuonRuns_HIRun2013_4T.json'
+sam["data_PAMinBiasUPC_Run2013"]["lumiMinBias"]=-1
+sam["data_PAMinBiasUPC_Run2013"]["XS"]=-1
+sam["data_PAMinBiasUPC_Run2013"]["pathPAT"]='/XXXTMFPAT/store/user/cwohrman/CFF/CastorMuon/PAMinBiasUPC/MuonAna_0T_20150717_data_PAMinBiasUPC_Run2013/151215_131046/0000//'
+sam["data_PAMinBiasUPC_Run2013"]["DS"]='/PAMinBiasUPC/HIRun2013-PromptReco-v1/RECO'
+
+
+# CFF Skim using interfill data from HI run 2013
+# using only pp data
+# MagnetFiedl: 4T
+# Filtered on CastorMuon HLT path:
+#     HLT_PAL1Tech63_CASTORHaloMuon_v1
+sam["data_PPMinBias_Run2013"]={}
+sam["data_PPMinBias_Run2013"]["crabJobs"]=688
+sam["data_PPMinBias_Run2013"]["GT"]='GR_R_75_V5A'
+sam["data_PPMinBias_Run2013"]["name"]='data_PPMinBias_Run2013'
+sam["data_PPMinBias_Run2013"]["isData"]=True
+sam["data_PPMinBias_Run2013"]["numEvents"]=34393913
+sam["data_PPMinBias_Run2013"]["pathSE"]='srm://dcache-se-cms.desy.de:8443/srm/managerv2?SFN=/pnfs/desy.de/cms/tier2/store/user/cwohrman/CFF/CastorMuon/PPMinBias/MuonAna_0T_20150717_data_PPMinBias_Run2013/151215_162305/0000/'
+sam["data_PPMinBias_Run2013"]["pathTrees"]='/XXXTMFTTree/store/user/cwohrman/CFF/CastorMuon/PPMinBias/MuonAna_0T_20150717_data_PPMinBias_Run2013/151215_162305/0000//'
+# json file includes both HI and pp-ref. runs of 2013 => depending on used dataset 'sam[...]["DS"]' what is collected
+sam["data_PPMinBias_Run2013"]["json"]='CommonFSQFramework/Skim/lumi/MinBias_CastorMuonRuns_HIRun2013_4T.json'
+sam["data_PPMinBias_Run2013"]["lumiMinBias"]=-1
+sam["data_PPMinBias_Run2013"]["XS"]=-1
+sam["data_PPMinBias_Run2013"]["pathPAT"]='/XXXTMFPAT/store/user/cwohrman/CFF/CastorMuon/PPMinBias/MuonAna_0T_20150717_data_PPMinBias_Run2013/151215_162305/0000//'
+sam["data_PPMinBias_Run2013"]["DS"]='/PPMinBias/Run2013A-PromptReco-v1/RECO'
+
 def fixLocalPaths(sam):
         import os,imp
         if "SmallXAnaDefFile" not in os.environ:
