@@ -7,7 +7,7 @@ export SmallXAnaDefFile="/afs/cern.ch/work/m/makbiyik/public/HALOMUON/CMSSW_7_3_
 # export SmallXAnaVersion="CommonFSQFramework.Skim.Samples_MuonAna_0T_20150723"
 
 # this is 2015 LHCf-run dataset(use that one )
-export SmallXAnaVersion="CommonFSQFramework.Skim.Samples_MuonAna_CastorMuonSamples.py"
+export SmallXAnaVersion="CommonFSQFramework.Skim.Samples_MuonAna_CastorMuonSamples"
 
 # this is 2015 LHCf-run dataset (not including all interfill runs)
 # export SmallXAnaVersion="CommonFSQFramework.Skim.Samples_MuonAna_0T_20150624"
