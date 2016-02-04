@@ -140,7 +140,7 @@ if __name__ == "__main__":
     ROOT.gSystem.Load("libFWCoreFWLite.so")
     ROOT.AutoLibraryLoader.enable()
     sampleList = []
-    sampleList.append("data_MinimumBias_MuonHLTSkim_Run2015A")
+    sampleList.append("data_MinimumBias_Run2015A")
     #sampleList = None # run through all
     maxFilesMC = None # run through all ffiles found
     maxFilesData = None # same
