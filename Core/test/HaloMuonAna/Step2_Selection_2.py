@@ -18,6 +18,7 @@ from ROOT import edm
 from math import sqrt, log10
 from array import *
 import copy
+import json
 # import time
 
 # from outsource_analzye_muon import *
@@ -44,8 +45,8 @@ outfolder = os.environ["HaloMuonOutput"]
 class Step2_Selection_2(CommonFSQFramework.Core.ExampleProofReader.ExampleProofReader):
     def init( self, maxEvents = None):
         #####
-#        self.flag_use_merjin_electronic_channel_noise = False # mine RMS
-        self.flag_use_merjin_electronic_channel_noise = True # RU CHECK: is this Gaussian fit ?? 
+#        self.flag_use_merijn_electronic_channel_noise = False # mine RMS
+        self.flag_use_merijn_electronic_channel_noise = True 
         #####
 
 
@@ -62,7 +63,7 @@ class Step2_Selection_2(CommonFSQFramework.Core.ExampleProofReader.ExampleProofR
         
         #if not self.isData:
 
-        #Getting sector RMS and Mean
+        # Getting sector RMS and Mean
         if firstRun:
             inputFile = ROOT.TFile(join(outfolder,"mean_rms.root"))
             inputFile_noise = ROOT.TFile(join(outfolder,"Histograms_StatFitInformationPedNoise.root"))
@@ -73,17 +74,34 @@ class Step2_Selection_2(CommonFSQFramework.Core.ExampleProofReader.ExampleProofR
         
 
 
-
-        # create the branches and assign the fill-variables to them
-
-        # ftree = ROOT.TFile("tree.root", "recreate")
-        # tree = ROOT.TTree("nt", "nt")
-        # np= np.zeros(1, dtype=float)
-        # tree.Branch('ch_energy', ch_energy, 'ch_energy')
-
-
+        #############################################################
+        # also write a ttree with the final muon events!            #
+        # in same format at CFF, but reduced content                #
+        # create the branches and assign the fill-variables to them #
+        #############################################################
         
+        outTree = ROOT.TTree("muons", "selected muon events")
+        
+        self.OUTtrgl1L1GTTech = array( 'i', 103 * [0] )
+        self.OUTtrgRandom = array( 'i', [0] )
+        self.OUTtrgCastorHaloMuon = array( 'i', [0] )
+        self.OUTCastorRecHitEnergy = array( 'd', 224 * [0.0])
+        self.OUTrun = array( 'i', [0] )
+        self.OUTlumi = array( 'i', [0] )
 
+        outTree.Branch('trgl1L1GTTech', self.OUTtrgl1L1GTTech, 'trgl1L1GTTech[103]/I' )
+        outTree.Branch('trgRandom', self.OUTtrgRandom, 'trgRandom/I')
+        outTree.Branch('trgCastorHaloMuon', self.OUTtrgCastorHaloMuon, 'trgCastorHaloMuon/I')
+        outTree.Branch('CastorRecHitEnergy', self.OUTCastorRecHitEnergy, 'CastorRecHitEnergy[224]/D')
+        outTree.Branch('run', self.OUTrun, 'run/I')
+        outTree.Branch('lumi', self.OUTlumi, 'lumi/I')
+
+        setattr(self, "outTree", outTree)
+        self.addToOutput(self.outTree)
+        
+        
+        
+        
         # #Getting channel RMS and Mean
         # hist_ch_Mean = inputFile.Get("data_MinimumBias_Run2015A/hist_ch_Mean")
         # hist_ch_RMS =  inputFile.Get("data_MinimumBias_Run2015A/hist_ch_RMS")
@@ -111,7 +129,7 @@ class Step2_Selection_2(CommonFSQFramework.Core.ExampleProofReader.ExampleProofR
 
 
             if not firstRun:
-                self.hist[histcalibrationname] = inputFile.Get("data_MinimumBias_Run2015A/2DMuonSignalMap")
+                self.hist[histcalibrationname] = inputFile.Get("data_PAMinBiasUPC_Run2013/2DMuonSignalMap")
                 print "Extracted histogram from file. Checking entries:",  self.hist[histcalibrationname].GetEntries()
 
             else: #first time running analyser the calibration constants are all set to 1
@@ -144,7 +162,7 @@ class Step2_Selection_2(CommonFSQFramework.Core.ExampleProofReader.ExampleProofR
 
             # self.hist["2DMuonNoTriggerCountMap"] =  ROOT.TH2D("2DMuonNoTriggerCountMap","2DMuonNoTriggerCountMap", 14, -0.5, 13.5, 16, -0.5, 15.5)
             self.hist["GoodMuonCountPerSec_Excl"+str(iDelta)] =  ROOT.TH1D("GoodMuonCountPerSec_Excl"+str(iDelta),"GoodMuonCountPerSec;sector;N_{muon};", 16, 0.5, 16.5)
-            #            self.hist["RunsWithGoodMuons_Excl"+str(iDelta)] =  ROOT.TH1D("RunsWithGoodMuons_Excl"+str(iDelta),"RunsWithGoodMuons", 10000, 247000-0.5, 257000-0.5)
+            self.hist["RunsWithGoodMuons_Excl"+str(iDelta)] =  ROOT.TH1D("RunsWithGoodMuons_Excl"+str(iDelta), "RunsWithGoodMuons", 1, 1, 0)
             self.hist["DeltaSigma_Excl"+str(iDelta)+"_MuoEvt"] = ROOT.TH1D("DeltaSigma_Excl"+str(iDelta)+"_MuoEvt","DeltaSigma_MuoEvt;#Delta#sigma;;",100, 0, 50)
             self.hist["DeltaSigma_Excl"+str(iDelta)+"_RndEvt"] = ROOT.TH1D("DeltaSigma_Excl"+str(iDelta)+"_RndEvt","DeltaSigma_RndEvt;Delta#sigma;;",100, 0, 50)
             self.hist["DeltaSigma_Excl"+str(iDelta)+"_MuoCand"] = ROOT.TH1D("DeltaSigma_Excl"+str(iDelta)+"_MuoCand","DeltaSigma_MuoCand;#Delta#sigma;;",100, 0, 50)
@@ -170,10 +188,10 @@ class Step2_Selection_2(CommonFSQFramework.Core.ExampleProofReader.ExampleProofR
 
 
             hnameAllsec= 'MuonSignalAllSec_Excl'+str(iDelta)+'_energy'
-            self.hist[hnameAllsec] = ROOT.TH1D(hnameAllsec, hnameAllsec+";Energy;;", 100, 0, 1000)
+            self.hist[hnameAllsec] = ROOT.TH1D(hnameAllsec, hnameAllsec+";Energy;;", 150, 0, 2500)
             
             henergyGeV='MuonSignalAllSec_GeV_Excl'+str(iDelta)+'_energy'
-            self.hist[henergyGeV] = ROOT.TH1D(henergyGeV, henergyGeV+";Energy;;", 100, 0, 500) 
+            self.hist[henergyGeV] = ROOT.TH1D(henergyGeV, henergyGeV+";Energy;;", 500, 0, 75)
 
             histMuonSignalMean = "1DMuonsignalMean_Excl"+str(iDelta)
             self.hist[histMuonSignalMean] = ROOT.TH1D(histMuonSignalMean,histMuonSignalMean+";channel;<Energy>;",224,-0.5,223.5)
@@ -214,12 +232,17 @@ class Step2_Selection_2(CommonFSQFramework.Core.ExampleProofReader.ExampleProofR
        #         self.hist[hnoise_randomtrg] = ROOT.TH1D(hnoise_randomtrg, hnoise_randomtrg, 50, -100, 400)
 
 
-                
 
+        # TProfile for storing (means) and RMS
+        self.hist['hist_sec_Mean'] = ROOT.TProfile('hist_sec_Mean','hist_sec_Mean',16,0.5,16.5)
+        self.hist['hist_sec_RMS'] = ROOT.TProfile('hist_sec_RMS','hist_sec_RMS',16,0.5,16.5) #change later to hist_sec_mean
+        self.hist['hist_ch_RMS'] = ROOT.TProfile('hist_ch_RMS','hist_ch_RMS',224,0.5,224.5)
+        self.hist['hist_ch_good'] = ROOT.TProfile('hist_ch_good','hist_ch_good',224,0.5,224.5)
+                
                 
         # Getting electronic noise from in the Merijns file
-        hist_ch_noise_RMS= inputFile_noise.Get("SumHistoNoiseFit")
-
+        hist_ch_noise_RMS = inputFile_noise.Get("SumHistoNoiseFit")  # this is the Gaussian Fit !!
+        
         #get channel energies from input file
         self.ch_mean = [[0 for _ in xrange(14)] for _ in xrange(16)]
         self.ch_RMS = [[0 for _ in xrange(14)] for _ in xrange(16)]
@@ -230,10 +253,16 @@ class Step2_Selection_2(CommonFSQFramework.Core.ExampleProofReader.ExampleProofR
             #print sec, mod
             #i = sec*14+module   -> sec0 mod0 -> i=0   ; sec9 mod 4
             self.ch_mean[isec][imod] = hist_ch_Mean.GetBinContent(i+1) #+1 because of underflow
-            if self.flag_use_merjin_electronic_channel_noise:
+            if self.flag_use_merijn_electronic_channel_noise:
                 self.ch_RMS[isec][imod] = hist_ch_noise_RMS.GetBinContent(i+1) #+1 because of underflow
             else:
                 self.ch_RMS[isec][imod] = hist_ch_RMS.GetBinContent(i+1) #+1 because of underflow
+
+            # and also remember for later reference
+            self.hist['hist_ch_RMS'].Fill(i+1, self.ch_RMS[isec][imod])
+            if [isec+1,imod+1] not in badChannelsSecMod:
+                self.hist['hist_ch_good'].Fill(i+1, 1)
+
 
             #print i, "sec,mod", sec, mod, hist_ch_RMS.GetBinContent(i+1)
 
@@ -245,24 +274,28 @@ class Step2_Selection_2(CommonFSQFramework.Core.ExampleProofReader.ExampleProofR
             self.sec_mean[i] = hist_sec_Mean.GetBinContent(i+1) #+1 because of underflow
             self.sec_RMS[i] = hist_sec_RMS.GetBinContent(i+1) #+1 because of underflow
 
+            # and also remember for later reference
+            self.hist['hist_sec_RMS'].Fill(i+1, self.sec_RMS[i])
+            self.hist['hist_sec_Mean'].Fill(i+1, self.sec_mean[i])
+
         #these ones are needed to update mean and RMS for the new calibration constants
 #        self.new_ch_mean = [[0 for _ in xrange(14)] for _ in xrange(16)]
 #        self.new_ch_RMS = [[0 for _ in xrange(14)] for _ in xrange(16)]
 #        self.new_sec_mean = [0] * 16
 #        self.new_sec_RMS = [0] * 16
 
-        #TProfile for storing means and RMS. and when jobs are merged, the averge is taken
-        self.hist['hist_sec_Mean'] = ROOT.TProfile('hist_sec_Mean','hist_sec_Mean',16,0.5,16.5)
-        self.hist['hist_sec_RMS'] = ROOT.TProfile('hist_sec_RMS','hist_sec_RMS',16,0.5,16.5) #change later to hist_sec_mean
-        self.hist['hist_ch_Mean'] = ROOT.TProfile('hist_ch_Mean','hist_ch_Mean',224,0.5,224.5)
-        self.hist['hist_ch_RMS'] = ROOT.TProfile('hist_ch_RMS','hist_ch_RMS',224,0.5,224.5)
         
 
+        
+        
         for h in self.hist:
             self.hist[h].Sumw2()
             self.GetOutputList().Add(self.hist[h])
 
 
+
+
+        # from Merijn using the characterization data
         self.TranspositionFactor = [[17.8879, 13.2482, 14.0743, 13.3278, 2.12091, 2.12543, 3.21527, 2.98481, 2.11992, 2.06513, 2.10157, 4.18052, 2.10157, 2.10157],
                     [15.5813, 14.3688, 13.9962, 15.8174, 2.14671, 2.16158, 2.94851, 3.03287, 2.07367, 2.09709, 2.02886, 5.6682, 2.10157, 2.10157],
                     [17.1485, 14.2758, 13.6352, 13.7265, 2.19081, 2.16161, 3.12191, 3.12444, 2.11671, 2.14295, 1.68227, 2.62755, 2.90551, 2.25366], 
@@ -281,6 +314,7 @@ class Step2_Selection_2(CommonFSQFramework.Core.ExampleProofReader.ExampleProofR
                     [13.4984, 13.0597, 13.3461, 13.7108, 2.1543, 2.14047, 2.89888, 3.05443, 2.07617, 2.12138, 2.25668, 2.10459, 2.3318, 2.07519]]
 
 
+        # from Melike using everything, also muon intercalib results
         self.Absolutecalibration2015 = [[0.016874, 0.016531, 0.02974, 0.015972, 0.004336, 0.005311, 0.005042, 0.005669, 0.00246, 0.003017, 0.00382, 0.006415, 0.008673, 0.004469], 
                     [0.019528, 0.013637, 0.039159, 0.017504, 0.005906, 0.004969, 0.0, 0.004563, 0.002357, 0.0, 0.002439, 0.005647, 0.00515, 0.004313], 
                     [0.018033, 0.015976, 0.032389, 0.016185, 0.003734, 0.00437, 0.005185, 0.0, 0.001718, 0.002401, 0.0, 0.004594, 0.008272, 0.005952],
@@ -297,6 +331,15 @@ class Step2_Selection_2(CommonFSQFramework.Core.ExampleProofReader.ExampleProofR
                     [0.013626, 0.026727, 0.034807, 0.026609, 0.004608, 0.015818, 0.006961, 0.0, 0.002699, 0.002787, 0.009467, 0.005394, 0.013983, 0.121789],
                     [0.014901, 0.017273, 0.035037, 0.071443, 0.002436, 0.008082, 0.005174, 0.004774, 0.002453, 0.001865, 0.000842, 0.003679, 0.011773, 0.00654], 
                     [0.014908, 0.01537, 0.033796, 0.078791, 0.002585, 0.014259, 0.005098, 0.005297, 0.002803, 0.002401, 0.002467, 0.002542, 0.006237, 0.004821]]
+
+
+
+        # eventually read additional json file for LS selection
+        json_file = open(join(outfolder,"../json_450GeV/muon_2015_3.8T.json"))
+        self.JSON = json.loads(json_file.read())
+        json_file.close()
+
+
 
 
 
@@ -423,18 +466,20 @@ class Step2_Selection_2(CommonFSQFramework.Core.ExampleProofReader.ExampleProofR
         weight = 1 # Ralf: what is this used for ? CFF internal?
         num = 0 # Ralf: what is this used for ? CFF internal?
                 
-
-        # genTracks
-        #num = self.fChain.genTracks.size()
-        #print num
-        #print self.maxEta # see slaveParams below
         
         self.hist["EventCount"].Fill("all",1)
-        #print "EventCount 1 :", self.hist["EventCount"].GetEntries()
-
-#        self.hist["RunsAllTrigger"].Fill(self.fChain.run)
-
-
+        
+        
+        if self.JSON != None:
+            goodLS = False
+            if str(self.fChain.run) in self.JSON: 
+                for LS in self.JSON[str(self.fChain.run)]:
+                    if self.fChain.lumi>=LS[0] and self.fChain.lumi<=LS[1]:
+                        goodLS = True
+            if not goodLS:
+                return 0
+            self.hist["EventCount"].Fill("goodLS",1)
+            
 
 
         if DATASOURCE == "DATA":
@@ -491,7 +536,7 @@ class Step2_Selection_2(CommonFSQFramework.Core.ExampleProofReader.ExampleProofR
 
         isZeroBias = isBptxminus and isBptxplus
 
-        # if self.flag_use_merjin_electronic_channel_noise:
+        # if self.flag_use_merijn_electronic_channel_noise:
 #        for isec in xrange(16):
  #           for imod in xrange(14):
   #              hnoise_electronic_RMS = 'CastorNoise_electronic_RMS_mod_{mod}_sec_{sec}'.format(mod=str(imod+1), sec=str(isec+1))
@@ -629,7 +674,8 @@ class Step2_Selection_2(CommonFSQFramework.Core.ExampleProofReader.ExampleProofR
         ###############################################
         # the main muon selection loop starts here    #
         ###############################################
-        
+
+        event_with_muon = False
         
         num_muons = [0] * (self.iDeltaEnd-self.iDeltaStart)
         num_muons_rnd = [0] * (self.iDeltaEnd-self.iDeltaStart)
@@ -698,7 +744,6 @@ class Step2_Selection_2(CommonFSQFramework.Core.ExampleProofReader.ExampleProofR
                 # cut on muon candidate sector #
                 ################################
                 if SigmaSecHottestSector > 3: # WARNING: CUT VALUE ON NOISE HARDCODED HERE !!!! Melike: 2.5
-#                    return 0
                     continue
 
                 muonSec = HottestSector
@@ -803,6 +848,9 @@ class Step2_Selection_2(CommonFSQFramework.Core.ExampleProofReader.ExampleProofR
                 ################################################################################
 
                 if goodMuonEventWithoutAnyTriggerSelection:
+
+                    event_with_muon = True
+
                     # RU was: if goodMuonEvent:                    
                     # print "Good event in (sec,mod)", sec, mod, "Front,Mid,Back", Front_Module, Mid_Module, Rear_Module
 
@@ -838,7 +886,6 @@ class Step2_Selection_2(CommonFSQFramework.Core.ExampleProofReader.ExampleProofR
 
 
                     if hasMuonTrigger:
-
                         
                         self.hist["DeltaSigma_Excl" + str(iDeltaSector) + "_MuoCand"].Fill(DeltaSigma)
                         self.hist["2DDeltaSigma_Vs_SecRMSSecondHot_Excl" + str(iDeltaSector) + "_MuoCand"].Fill(DeltaSigma,SigmaSecHottestSector)
@@ -876,7 +923,7 @@ class Step2_Selection_2(CommonFSQFramework.Core.ExampleProofReader.ExampleProofR
                         
                         self.hist["MuonFluctuations_Excl"+str(iDeltaSector)].Fill(energy_secsum[muonSec], max_channel[muonSec])
 
-#                        self.hist["RunsWithGoodMuons_Excl" + str(iDeltaSector)].Fill(self.fChain.run)
+                        self.hist["RunsWithGoodMuons_Excl" + str(iDeltaSector)].Fill(str(self.fChain.run), 1)
 
                         for imod in xrange(0,14):
                             hname = 'MuonSignalSecCh_Excl' + str(iDeltaSector) + '_mod_{mod}_sec_{sec}'.format(mod=str(imod+1), sec=str(muonSec+1))
@@ -890,23 +937,46 @@ class Step2_Selection_2(CommonFSQFramework.Core.ExampleProofReader.ExampleProofR
                         #self.tree["nt"].Fill()
 
 
-            for iDeltaSector in xrange(self.iDeltaStart,self.iDeltaEnd): 
-                
-                self.hist["MuonCount_Muo_Excl" + str(iDeltaSector)].Fill(num_muons[iDeltaSector-self.iDeltaStart])
-                self.hist["MuonCount_Rnd_Excl" + str(iDeltaSector)].Fill(num_muons_rnd[iDeltaSector-self.iDeltaStart])
-
-
-
+                            
+        for iDeltaSector in xrange(self.iDeltaStart,self.iDeltaEnd): 
+            self.hist["MuonCount_Muo_Excl" + str(iDeltaSector)].Fill(num_muons[iDeltaSector-self.iDeltaStart])
+            self.hist["MuonCount_Rnd_Excl" + str(iDeltaSector)].Fill(num_muons_rnd[iDeltaSector-self.iDeltaStart])
+        
+        
+        if event_with_muon:
+            
+            for i in xrange(0, len(self.OUTtrgl1L1GTTech)):
+                if i<len(self.fChain.trgl1L1GTTech):
+                    self.OUTtrgl1L1GTTech[i] = self.fChain.trgl1L1GTTech[i]
+                else:
+                    self.OUTtrgl1L1GTTech[i] = 0
+            self.OUTtrgRandom = self.fChain.trgRandom
+            self.OUTtrgCastorHaloMuon = self.fChain.trgCastorHaloMuon
+            for i in xrange(0, len(self.OUTCastorRecHitEnergy)):
+                if i<len(self.fChain.CastorRecHitEnergy):
+                    self.OUTCastorRecHitEnergy[i] = self.fChain.CastorRecHitEnergy[i]
+                else:
+                    self.OUTCastorRecHitEnergy[i] = 0
+            self.OUTrun = self.fChain.run
+            self.OUTlumi = self.fChain.lumi
+            self.outTree.Fill()
+            
         return 1
 
+
+
+
     def finalize(self):
+        
+        if hasattr(self, 'outTree'):
+            self.outTree.AutoSave()
+        
         print "Finalize:"
 
-    def finalizeWhenMerged(self):
-        whenDebugAnalyzeKillFinalizeWhenMerged = False
-        if whenDebugAnalyzeKillFinalizeWhenMerged:
-            return
 
+
+
+    def finalizeWhenMerged(self):
         # print "Finalize when merged"
         olist = self.GetOutputList()
         histos = {}
@@ -919,7 +989,6 @@ class Step2_Selection_2(CommonFSQFramework.Core.ExampleProofReader.ExampleProofR
         #     print " TH1/2 histogram in output: ", o.GetName()
         # print "finsihed printing olist of", self
           
-
 
         for isec in xrange(0,16):
             for imod in xrange(0,14):
@@ -1053,7 +1122,7 @@ if __name__ == "__main__":
         print ("ERROR: SPECIFY iDeltaStart, iDeltaEnd, dataset.  ")
         print ("       iDeltaStart: minimal muon exclusivity (number of empty sectors next to muon)")
         print ("       iDeltaEnd: maximal muon exclusivity around muon")
-        print ("       dataset:data_Cosmics_MuonHLTSkim_HI2015E_ppHVInterfill or data_Cosmics_MuonHLTSkim_HI2015E_ppHVInterfill")
+        print ("       dataset:data_PAMinBiasUPC_Run2013 or data_MinimumBias_Run2015A")
         print ("Try again!!")
         sys.exit(1)
     
@@ -1068,8 +1137,8 @@ if __name__ == "__main__":
         sys.exit(1)
         
     datasetname = str(sys.argv[3])
-    if datasetname != "data_Cosmics_MuonHLTSkim_HI2015E_ppHVInterfill" and datasetname != "data_Cosmics_MuonHLTSkim_HI2015E_ppHVInterfill" :
-        print ("dataset must be either: data_Cosmics_MuonHLTSkim_HI2015E_ppHVInterfill or data_Cosmics_MuonHLTSkim_HI2015E_ppHVInterfill")
+    if datasetname != "data_PAMinBiasUPC_Run2013" and datasetname != "data_MinimumBias_Run2015A" :
+        print ("dataset must be either: data_PAMinBiasUPC_Run2013 or data_MinimumBias_Run2015A")
         sys.exit(1)
 
 
@@ -1082,17 +1151,21 @@ if __name__ == "__main__":
     # debug config:
     # Run printTTree.py alone to get the samples list
     sampleList = []
-#    sampleList.append("data_Cosmics_MuonHLTSkim_HI2015E_ppHVInterfill") # all triggers, 18MEvents
-#    sampleList.append("data_Cosmics_MuonHLTSkim_HI2015E_ppHVInterfill") # only the muon triggers 
+#    sampleList.append("data_MinimumBias_Run2015A") # all triggers, 18MEvents
+#    sampleList.append("data_PAMinBiasUPC_Run2013") # only the muon triggers 
     sampleList.append(datasetname) 
 
     
+
+#    print json.__class__.__name__
+#    sys.exit(1)
 
     slaveParams = {}
     
     slaveParams['iDeltaStart'] = iDeltaStart
     slaveParams['iDeltaEnd'] = iDeltaEnd
-    
+    # slaveParams['json'] = json
+
 
     if DATASOURCE == "DATA":
         #check which output files already exist
