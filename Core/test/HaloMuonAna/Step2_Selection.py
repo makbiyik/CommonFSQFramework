@@ -590,9 +590,6 @@ class Step2_Selection(CommonFSQFramework.Core.ExampleProofReader.ExampleProofRea
 
             if not isBptxminus:
                self.hist["EventCount"].Fill("Bptx(+) goodMuonEvent cut",1)
-
-
-
          
             #Energy of muon
             energy_secsum = [0.0] * 16
