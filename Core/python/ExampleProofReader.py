@@ -361,7 +361,7 @@ class ExampleProofReader( ROOT.TPySelector ):
                 continue
 
             dataset = ROOT.TDSet( 'TTree', 'data', treeName) # the last name is the directory name inside the root file
-            for file in treeFilesAndNormalizations[t]["files"]:
+            for file in treeFilesAndNormalizations[sample]["files"]:
                 dataset.Add(file)
 #            dataset = ROOT.TDSet( 'TTree', 'data', 'data_MinimumBias_Run2015A') # the last name is the directory name inside the root file
 #            dataset.Add('/afs/cern.ch/user/u/ulrich/scratch0/CMSSW_7_4_7/src/CommonFSQFramework/Core/test/HaloMuonAna/preselect.v2.root')
