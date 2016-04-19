@@ -2,8 +2,7 @@ import FWCore.ParameterSet.Config as cms
 import CommonFSQFramework.Core.Util
 import os
 
-isData = False
-
+isData = True
 if "TMFSampleName" not in os.environ:
     print "TMFSampleName not found, assuming we are running on MC"
 else:
@@ -12,21 +11,47 @@ else:
     isData =  sampleList[s]["isData"]
     if isData: print "Disabling MC-specific features for sample",s
         
-	
+# JUST FOR CROSSCHeck
+isData = True
+
 
 process = cms.Process("Treemaker")
 
 process.load("FWCore.MessageService.MessageLogger_cfi")
 
-process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(1000))
+process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(-1))
 
 process.MessageLogger.cerr.FwkReport.reportEvery = 1000
 process.options = cms.untracked.PSet(wantSummary = cms.untracked.bool(True))
 
 # Source
 process.source = cms.Source("PoolSource",
-    #fileNames = cms.untracked.vstring('/store/user/hvanhaev/ZeroBias1/Run2015A-v1_RERECO_Run247324_GR_P_V54_withCustomCond-v1/150608_213851/0000/output_data_rereco_1.root')
-    #fileNames = cms.untracked.vstring('/store/user/hvanhaev/MinBias_TuneMonash13_13TeV-pythia8/RunIISpring15DR74-NoPU0T_MCRUN2_740TV0_step2-v2/150610_055012/0000/step2_RAW2DIGI_L1Reco_RECO_1.root')
+    # fileNames = cms.untracked.vstring('/store/user/sbaur/MinBias_CUETP8M1_13TeV-pythia8/MinBias_CUETP8M1_13TeV-pythia8_MagnetOff_CASTORmeasured_RECO/160207_214204/0000/MinBias_CUETP8M1_13TeV-pythia8_CASTORmeasured_RECO_1.root')
+    fileNames = cms.untracked.vstring(
+  
+  '/store/user/hvanhaev/ZeroBias1/Run2015A-v1_RERECO_Run247324_GR_P_V54_withCustomCond-v1/150608_213851/0000/output_data_rereco_60.root',
+  '/store/user/hvanhaev/ZeroBias1/Run2015A-v1_RERECO_Run247324_GR_P_V54_withCustomCond-v1/150608_213851/0000/output_data_rereco_69.root',
+  '/store/user/hvanhaev/ZeroBias1/Run2015A-v1_RERECO_Run247324_GR_P_V54_withCustomCond-v1/150608_213851/0000/output_data_rereco_19.root',
+  '/store/user/hvanhaev/ZeroBias1/Run2015A-v1_RERECO_Run247324_GR_P_V54_withCustomCond-v1/150608_213851/0000/output_data_rereco_23.root',
+  '/store/user/hvanhaev/ZeroBias1/Run2015A-v1_RERECO_Run247324_GR_P_V54_withCustomCond-v1/150608_213851/0000/output_data_rereco_61.root',
+  '/store/user/hvanhaev/ZeroBias1/Run2015A-v1_RERECO_Run247324_GR_P_V54_withCustomCond-v1/150608_213851/0000/output_data_rereco_38.root',
+  '/store/user/hvanhaev/ZeroBias1/Run2015A-v1_RERECO_Run247324_GR_P_V54_withCustomCond-v1/150608_213851/0000/output_data_rereco_80.root',
+  '/store/user/hvanhaev/ZeroBias1/Run2015A-v1_RERECO_Run247324_GR_P_V54_withCustomCond-v1/150608_213851/0000/output_data_rereco_43.root',
+  '/store/user/hvanhaev/ZeroBias1/Run2015A-v1_RERECO_Run247324_GR_P_V54_withCustomCond-v1/150608_213851/0000/output_data_rereco_55.root',
+  '/store/user/hvanhaev/ZeroBias1/Run2015A-v1_RERECO_Run247324_GR_P_V54_withCustomCond-v1/150608_213851/0000/output_data_rereco_52.root',
+  '/store/user/hvanhaev/ZeroBias1/Run2015A-v1_RERECO_Run247324_GR_P_V54_withCustomCond-v1/150608_213851/0000/output_data_rereco_28.root',
+  '/store/user/hvanhaev/ZeroBias1/Run2015A-v1_RERECO_Run247324_GR_P_V54_withCustomCond-v1/150608_213851/0000/output_data_rereco_53.root',
+  '/store/user/hvanhaev/ZeroBias1/Run2015A-v1_RERECO_Run247324_GR_P_V54_withCustomCond-v1/150608_213851/0000/output_data_rereco_30.root',
+  '/store/user/hvanhaev/ZeroBias1/Run2015A-v1_RERECO_Run247324_GR_P_V54_withCustomCond-v1/150608_213851/0000/output_data_rereco_14.root',
+  '/store/user/hvanhaev/ZeroBias1/Run2015A-v1_RERECO_Run247324_GR_P_V54_withCustomCond-v1/150608_213851/0000/output_data_rereco_32.root',
+  '/store/user/hvanhaev/ZeroBias1/Run2015A-v1_RERECO_Run247324_GR_P_V54_withCustomCond-v1/150608_213851/0000/output_data_rereco_44.root',
+  '/store/user/hvanhaev/ZeroBias1/Run2015A-v1_RERECO_Run247324_GR_P_V54_withCustomCond-v1/150608_213851/0000/output_data_rereco_112.root',
+  '/store/user/hvanhaev/ZeroBias1/Run2015A-v1_RERECO_Run247324_GR_P_V54_withCustomCond-v1/150608_213851/0000/output_data_rereco_2.root',
+  '/store/user/hvanhaev/ZeroBias1/Run2015A-v1_RERECO_Run247324_GR_P_V54_withCustomCond-v1/150608_213851/0000/output_data_rereco_3.root',
+  '/store/user/hvanhaev/ZeroBias1/Run2015A-v1_RERECO_Run247324_GR_P_V54_withCustomCond-v1/150608_213851/0000/output_data_rereco_4.root'
+
+      )
+
 )
 
 # Geometry and Detector Conditions
@@ -34,9 +59,12 @@ process.load("Configuration.Geometry.GeometryRecoDB_cff")
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_condDBv2_cff')
 from Configuration.AlCa.GlobalTag_condDBv2 import GlobalTag
 if isData: process.GlobalTag = GlobalTag(process.GlobalTag, 'auto:run2_data', '')
+# if isData: process.GlobalTag = GlobalTag(process.GlobalTag, '74X_dataRun2_Prompt_v2', '')
 if not isData: process.GlobalTag = GlobalTag(process.GlobalTag, 'auto:run2_mc', '')
+# print = "process.GlobalTag" ,process.GlobalTag
 process.load("Configuration.StandardSequences.MagneticField_cff")
 process.load("Configuration.StandardSequences.Reconstruction_cff")
+
 
 # get custom CASTOR conditions to mark/remove bad channels
 process.load("CondCore.DBCommon.CondDBSetup_cfi")
@@ -46,7 +74,7 @@ process.es_ascii = cms.ESSource("CastorTextCalibrations",
    input = cms.VPSet(
        cms.PSet(
            object = cms.string('ChannelQuality'),
-           file = cms.FileInPath('data/customcond/castor/quality__2015.txt')
+           file = cms.FileInPath('data/quality__2015.txt')
        ),
    )
 )
@@ -60,6 +88,12 @@ if not isData:
 
 # produce HF PFClusters
 process.PFClustersHF = cms.Path(process.particleFlowRecHitHF*process.particleFlowClusterHF)
+
+#in data produce Tracker Rechits
+if isData:
+  process.PixelRecHits = cms.Path(process.siPixelRecHits)
+process.StripMatchedRecHits = cms.Path(process.siStripMatchedRecHits)
+
 
 # Here starts the CFF specific part
 import CommonFSQFramework.Core.customizePAT
@@ -82,7 +116,12 @@ if not isData:
     import CommonFSQFramework.Core.GenLevelViewsConfigs
     
 
-process.EflowTree._Parameterizable__setParameters(CommonFSQFramework.Core.VerticesViewsConfigs.get(["VerticesView"]))
+
+if not isData:
+    process.EflowTree._Parameterizable__setParameters(CommonFSQFramework.Core.VerticesViewsConfigs.get(["VerticesView","ZeroTeslaVertexView_Pixel_PreSplitting","ZeroTeslaVertexView_Pixel_noPreSplitting","ZeroTeslaVertexView_Strips"]))
+if isData:
+    process.EflowTree._Parameterizable__setParameters(CommonFSQFramework.Core.VerticesViewsConfigs.get(["VerticesView","ZeroTeslaVertexView_Pixel_noPreSplitting","ZeroTeslaVertexView_Strips"]))
+# process.EflowTree._Parameterizable__setParameters(CommonFSQFramework.Core.VerticesViewsConfigs.get(["VerticesView"]))
 process.EflowTree._Parameterizable__setParameters(CommonFSQFramework.Core.CaloRecHitViewsConfigs.get(["EcalRecHitView","HBHERecHitView","HFRecHitView"]))
 process.EflowTree._Parameterizable__setParameters(CommonFSQFramework.Core.CaloTowerViewsConfigs.get(["CaloTowerView"]))
 process.EflowTree._Parameterizable__setParameters(CommonFSQFramework.Core.CastorViewsConfigs.get(["CastorRecHitViewFull","CastorTowerView"]))
@@ -95,6 +134,9 @@ if not isData:
 # add paths
 if not isData:
     process = CommonFSQFramework.Core.customizePAT.addPath(process, process.CastorReReco)
-
+if isData:
+    process = CommonFSQFramework.Core.customizePAT.addPath(process, process.PixelRecHits)
+    
+process = CommonFSQFramework.Core.customizePAT.addPath(process, process.StripMatchedRecHits)
 process = CommonFSQFramework.Core.customizePAT.addPath(process, process.PFClustersHF)
 process = CommonFSQFramework.Core.customizePAT.addTreeProducer(process, process.EflowTree)
