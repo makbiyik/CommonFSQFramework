@@ -37,6 +37,12 @@ EventViewBase(iConfig,  tree)
     registerVecFloat("x",tree);
     registerVecFloat("y",tree);
     registerVecFloat("z",tree);
+
+    registerVecFloat("trkX",tree);
+    registerVecFloat("trkY",tree);
+    registerVecFloat("trkZ",tree);
+    
+
     registerVecFloat("trktheta",tree);
     registerVecFloat("trkphi",tree);
     registerVecFloat("trkdeltaeta",tree);
@@ -154,4 +160,16 @@ void ZeroTeslaVertexView::fillSpecific(const edm::Event& iEvent, const edm::Even
     }
     
 	
+
+
+    // std::vector<double> PixelRecHitX, PixelRecHitY, PixelRecHitZ;
+  
+    for(std::vector<RawPixelRecHit>::iterator RecHit = RawPixelRecHits.begin(); RecHit != RawPixelRecHits.end(); ++RecHit){
+        addToFVec("trkX",RecHit->x);
+        addToFVec("trkY",RecHit->y);
+        addToFVec("trkZ",RecHit->z);
+    }
+    
+
+    
 }
