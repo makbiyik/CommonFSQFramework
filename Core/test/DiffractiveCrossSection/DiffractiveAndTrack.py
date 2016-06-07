@@ -43,12 +43,14 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
         self.maxEvents = maxEvents
         self.hist = {}
         self.hist["hNentries"] = ROOT.TH1F("hNentries","hNentries",10, 0, 20)
-        self.hist["BunchCrossing"] =  ROOT.TH1F("BunchCrossing", "BunchCrossing",  3600, 0-0.5, 3600-0.5)
+        self.hist["BunchCrossing"] = ROOT.TH1F("BunchCrossing", "BunchCrossing",  3600, 0-0.5, 3600-0.5)
         self.hist["Runs"] =  ROOT.TH1F("Runs", "Runs",  2000, 246000-0.5, 278000-0.5)
         self.hist["HFEnergy"] = ROOT.TH1F("HFEnergy","HFEnergy",100, 0, 200)
-        self.hist["Hist_sum_CAS_E"] =  ROOT.TH1F("Hist_sum_CAS_E", "Hist_sum_CAS_E" ,100,0,600)
+        self.hist["Hist_sum_CAS_E"] = ROOT.TH1F("Hist_sum_CAS_E", "Hist_sum_CAS_E" ,100,0,600)
         self.hist["hParticleCounts"] = ROOT.TH1F("hParticleCounts","hParticleCounts",10, 0, 20) 
-           
+        self.hist["Hist_Angle"] = ROOT.TH1F("Hist_Angle", "Hist_Angle", 200, 0, 5)    
+        self.hist["Hist_2DExEy"] = ROOT.TH2D("Hist_2DExEy", "Hist_2DExEy", 200, 0, 800,200, 0, 800)    
+
         nEtaBins = 8
         EtaBins = array('d',[-6.6, -5.2, -3.2, -2.6, -1.4, 1.4, 2.6, 3.2, 5.2])
     
@@ -66,6 +68,7 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
         NbrDetaBins = 50
         BinDetaMin = 0
         BinDetaMax = 10
+       
 
         self.hist["Hist_Eta_Min"] =  ROOT.TH1F("Hist_Eta_Min", "Hist_Eta_Min", NbrEtaBins, BinEtaMin, BinEtaMax)
         self.hist["Hist_Eta_Max"] =  ROOT.TH1F("Hist_Eta_Max", "Hist_Eta_Max", NbrEtaBins, BinEtaMin, BinEtaMax)
@@ -178,6 +181,9 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
             self.hist["Hist_2Dlog10MxMy"+str(ip)] =  ROOT.TH2D("Hist_2Dlog10MxMy"+str(ip), "Hist_2Dlog10MxMy"+str(ip), NbrLogMBins, BinLogMMin, BinLogMMax, NbrLogMBins, BinLogMMin, BinLogMMax)
             self.hist["Hist_log10Mx"+str(ip)] =  ROOT.TH1D("Hist_log10Mx"+str(ip), "Hist_log10Mx"+str(ip), NbrLogMBins, BinLogMMin, BinLogMMax)
             self.hist["Hist_log10My"+str(ip)] =  ROOT.TH1D("Hist_log10My"+str(ip), "Hist_log10My"+str(ip), NbrLogMBins, BinLogMMin, BinLogMMax)
+            self.hist["Hist_GP_log10Mx"+str(ip)] =  ROOT.TH1D("Hist_GP_log10Mx"+str(ip), "Hist_GP_log10Mx"+str(ip), NbrLogMBins, BinLogMMin, BinLogMMax)
+            self.hist["Hist_GP_log10My"+str(ip)] =  ROOT.TH1D("Hist_GP_log10My"+str(ip), "Hist_GP_log10My"+str(ip), NbrLogMBins, BinLogMMin, BinLogMMax)
+            self.hist["Hist_GP_2Dlog10MxMy"+str(ip)] =  ROOT.TH2D("Hist_GP_2Dlog10MxMy"+str(ip), "Hist_GP_2Dlog10MxMy"+str(ip), NbrLogMBins, BinLogMMin, BinLogMMax, NbrLogMBins, BinLogMMin, BinLogMMax)
 
             self.hist["Hist_XiSD"+str(ip)] =  ROOT.TH1F("Hist_XiSD"+str(ip), "Hist_XiSD"+str(ip), NbrXiBins, BinXiMin, BinXiMax)
             self.hist["Hist_XiDD"+str(ip)] =  ROOT.TH1F("Hist_XiDD"+str(ip), "Hist_XiDD"+str(ip), NbrXiBins, BinXiMin, BinXiMax)
@@ -189,6 +195,9 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
             self.hist["Hist_log10XiX"+str(ip)] =  ROOT.TH1F("Hist_log10XiX"+str(ip), "Hist_log10XiX"+str(ip), NbrLogXiBins, BinLogXiMin, BinLogXiMax)
             self.hist["Hist_log10XiY"+str(ip)] =  ROOT.TH1F("Hist_log10XiY"+str(ip), "Hist_log10XiY"+str(ip), NbrLogXiBins, BinLogXiMin, BinLogXiMax)
 
+            self.hist["Hist_2Dlog10XiXXiY"+str(ip)] = ROOT.TH2D("Hist_2Dlog10XiXXiY"+str(ip), "Hist_2Dlog10XiXXiY"+str(ip), NbrLogXiBins, BinLogXiMin, BinLogXiMax, NbrLogXiBins, BinLogXiMin, BinLogXiMax)
+            self.hist["Hist_GenLogXiXRecoLogXiX"+str(ip)] = ROOT.TH2D("Hist_GenLogXiXRecoLogXiX"+str(ip), "Hist_GenLogXiXRecoLogXiX"+str(ip), NbrLogXiBins, BinLogXiMin, BinLogXiMax, NbrLogXiBins, BinLogXiMin, BinLogXiMax)
+            self.hist["Hist_GenLogXiYRecoLogXiY"+str(ip)] = ROOT.TH2D("Hist_GenLogXiYRecoLogXiY"+str(ip), "Hist_GenLogXiYRecoLogXiY"+str(ip), NbrLogXiBins, BinLogXiMin, BinLogXiMax, NbrLogXiBins, BinLogXiMin, BinLogXiMax)
 
         
 
@@ -250,7 +259,7 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
         if HFCut == False : return 0
         
         Eta = 0
-        GenParticleClass = []
+        # GenParticleClass = []
         ReduceGenParticleClass = []
         theta = 0
        
@@ -261,7 +270,7 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
         if not self.fChain.ZeroTeslaPixelnoPreSplittingVtx_vrtxX.size() == 1: return 0
 
         if  not self.isData:
-            GenParticleClass = []
+            # GenParticleClass = []
             ngenParticle = self.fChain.genParticlesp4.size()
 
             # self.CMenergy= self.fChain.cmenergy
@@ -275,7 +284,7 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
               
                 if genst != 1: continue
 
-                GenParticleClass.append([genp4,genid])
+                # GenParticleClass.append([genp4,genid])
 
                 if self.pdg_helper.charge(genid) == 0 : continue 
               
@@ -284,6 +293,7 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
       
     ##################Track##############################################################3
         TrackCandClass = []
+       
         nTrackCand = self.fChain.ZeroTeslaPixelnoPreSplittingVtx_trktheta.size()
         for itrk in xrange(nTrackCand):
             
@@ -292,6 +302,8 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
        
             Eta = -np.log(math.tan(theta/2))
             TrackCandClass.append([Eta,trkphi])
+            
+
 
 
         mineta =-10000
@@ -315,9 +327,12 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
         delta_Reco_zero_pos = -1
         deltaetamax = -1
         deltaetamax_Reco_pos = -1
-        
+        minangle = float("inf")
+        r = -10000
+       
         for jtrk in xrange(0,len(TrackCandClass)): #change   GenParticleClass to  TrackCandClass for testing
             tracketa  =  TrackCandClass[jtrk][0]
+            trackphi = TrackCandClass[jtrk][1]
             # trackid  =  TrackCandClass[itrack][1]
 
             self.hist["Hist_trkEta"].Fill(TrackCandClass[jtrk][0])
@@ -339,8 +354,25 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
             
             self.hist["Hist_Eta_DeltaZero"].Fill(delta_zero)
             self.hist["Hist_Eta_DeltaMax"].Fill(deltaetamax)
-          
-       
+            if  not self.isData:
+                
+            
+                for iGP in xrange(len(ReduceGenParticleClass)):
+                    genp4  = ReduceGenParticleClass[iGP][0]
+                    dEta = tracketa - genp4.eta()
+                    dPhi = trackphi - genp4.phi()
+                  
+                    r = sqrt((dEta**2) + (dPhi**2))
+                    
+                    if (r < minangle):
+                        minangle = r
+
+            self.hist["Hist_Angle"].Fill(minangle) 
+
+
+
+
+
          
         if not self.isData: #Rapidity -> chanded to eta again :)
 
@@ -457,6 +489,38 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
             GenXiY = My2/self.CMenergy/self.CMenergy
            
       
+        Process_ID_Ext = '_NONE'
+        if not self.isData:
+            if self.fChain.processID == 101:
+                Proces_ND= self.fChain.processID == 101
+                Process_ID_Ext = '_ND'
+            if self.fChain.processID == 103:    
+                Proces_SD1= self.fChain.processID == 103   
+                Process_ID_Ext = '_SD1'
+            if self.fChain.processID == 104: 
+                Proces_SD2= self.fChain.processID==104
+                Process_ID_Ext = '_SD2'
+            if self.fChain.processID == 105:
+                process_DD= self.fChain.processID == 105 
+                Process_ID_Ext = '_DD'
+            if self.fChain.processID == 106:
+                process_CD= self.fChain.processID == 106 
+                Process_ID_Ext = '_CD'
+         
+             
+            self.hist["Hist_GP_log10Mx"+ Process_ID_Ext].Fill(log10(Mx))
+            self.hist["Hist_GP_log10My"+ Process_ID_Ext].Fill(log10(My))
+            self.hist["Hist_GP_2Dlog10MxMy"+ Process_ID_Ext].Fill(log10(Mx),log10(My))
+          
+        self.hist["Hist_Eta_Min" + Process_ID_Ext].Fill(mineta)
+        self.hist["Hist_Eta_Max" + Process_ID_Ext].Fill(maxeta)  
+        self.hist["Hist_Eta_Delta" + Process_ID_Ext].Fill(Deltaeta) 
+        self.hist["Hist_Eta_DeltaMax"+ Process_ID_Ext].Fill(deltaetamax)
+        self.hist["Hist_Eta_DeltaZero"+ Process_ID_Ext].Fill(delta_zero)
+ 
+
+
+
          ####################################Calotower######################################
 
 
@@ -510,10 +574,7 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
             self.castor_tower_E[isec] += self.fChain.CastorRecHitEnergy[i]
 
 
-        miny= 0
-        maxy= 0
-        DeltaY =0 
-        deltaeta = 0
+      
         for isec in xrange(0,16): 
             self.sum_CAS_E[isec] = self.sum_CAS_E_em[isec] + self.sum_CAS_E_had[isec]
             self.hist["Hist_sum_CAS_E"].Fill(self.sum_CAS_E[isec])
@@ -537,39 +598,8 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
                                 self.sum_CAS_E_had[isec]])
            
 
-       
 
-       
 
-        
-        if len(CaloCandClass) == 0:
-            return 0
-
-       
-
-        Process_ID_Ext = '_NONE'
-        if not self.isData:
-            if self.fChain.processID == 101:
-                Proces_ND= self.fChain.processID == 101
-                Process_ID_Ext = '_ND'
-            if self.fChain.processID == 103:    
-                Proces_SD1= self.fChain.processID == 103   
-                Process_ID_Ext = '_SD1'
-            if self.fChain.processID == 104: 
-                Proces_SD2= self.fChain.processID==104
-                Process_ID_Ext = '_SD2'
-            if self.fChain.processID == 105:
-                process_DD= self.fChain.processID == 105 
-                Process_ID_Ext = '_DD'
-            if self.fChain.processID == 106:
-                process_CD= self.fChain.processID == 106 
-                Process_ID_Ext = '_CD'
-         
-            self.hist["Hist_Eta_Min" + Process_ID_Ext].Fill(miny)
-            self.hist["Hist_Eta_Max" + Process_ID_Ext].Fill(maxy)  
-            self.hist["Hist_Eta_Delta" + Process_ID_Ext].Fill(DeltaY)  
-
-        
         XEtot =  0
         XPxtot = 0
         XPytot = 0
@@ -583,6 +613,8 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
         Mx2 = 0
         My2 = 0
      
+        if len(CaloCandClass) == 0:
+            return 0
        
         for icalo in xrange(0,len(CaloCandClass)):
             calop4  = CaloCandClass[icalo][0]
@@ -646,7 +678,8 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
                 YPytot += calop4.Py()
                 YPztot += calop4.Pz()
 
-        
+        self.hist["Hist_2DExEy"].Fill(XEtot,YEtot)
+
         Mx2 = XEtot*XEtot - XPxtot*XPxtot - XPytot*XPytot - XPztot*XPztot
         My2 = YEtot*YEtot - YPxtot*YPxtot - YPytot*YPytot - YPztot*YPztot
 
@@ -680,31 +713,31 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
 
             self.hist["Hist_2Dlog10XiXXiY"].Fill(log10(xix),log10(xiy))
 
-            # self.hist["Hist_XiX"+Process_ID_Ext].Fill(xix)
-            # self.hist["Hist_XiY"+Process_ID_Ext].Fill(xiy)
-            # self.hist["Hist_XiSD"+Process_ID_Ext].Fill(xisd)
-            # self.hist["Hist_XiDD"+Process_ID_Ext].Fill(xidd)
+            self.hist["Hist_XiX"+Process_ID_Ext].Fill(xix)
+            self.hist["Hist_XiY"+Process_ID_Ext].Fill(xiy)
+            self.hist["Hist_XiSD"+Process_ID_Ext].Fill(xisd)
+            self.hist["Hist_XiDD"+Process_ID_Ext].Fill(xidd)
 
-            # self.hist["Hist_log10XiX"+Process_ID_Ext].Fill(log10(xix))
-            # self.hist["Hist_log10XiY"+Process_ID_Ext].Fill(log10(xiy))
-            # self.hist["Hist_log10XiSD"+Process_ID_Ext].Fill(log10(xisd))
-            # self.hist["Hist_log10XiDD"+Process_ID_Ext].Fill(log10(xidd))
+            self.hist["Hist_log10XiX"+Process_ID_Ext].Fill(log10(xix))
+            self.hist["Hist_log10XiY"+Process_ID_Ext].Fill(log10(xiy))
+            self.hist["Hist_log10XiSD"+Process_ID_Ext].Fill(log10(xisd))
+            self.hist["Hist_log10XiDD"+Process_ID_Ext].Fill(log10(xidd))
 
-            # self.hist["Hist_2Dlog10XiXXiY"+Process_ID_Ext].Fill(log10(xix),log10(xiy))
+            self.hist["Hist_2Dlog10XiXXiY"+Process_ID_Ext].Fill(log10(xix),log10(xiy))
 
             self.hist["Hist_log10Mx"].Fill(log10(Mx))
             self.hist["Hist_log10My"].Fill(log10(My))
             self.hist["Hist_2Dlog10MxMy"].Fill(log10(Mx),log10(My))
 
-            # self.hist["Hist_log10Mx"+ Process_ID_Ext].Fill(log10(Mx))
-            # self.hist["Hist_log10My"+ Process_ID_Ext].Fill(log10(My))
-            # self.hist["Hist_2Dlog10MxMy"+ Process_ID_Ext].Fill(log10(Mx),log10(My))
+            self.hist["Hist_log10Mx"+ Process_ID_Ext].Fill(log10(Mx))
+            self.hist["Hist_log10My"+ Process_ID_Ext].Fill(log10(My))
+            self.hist["Hist_2Dlog10MxMy"+ Process_ID_Ext].Fill(log10(Mx),log10(My))
 
             if not self.isData:
                 self.hist["Hist_GenLogXiXRecoLogXiX"].Fill(log10(xix),log10(GenXiX))
                 self.hist["Hist_GenLogXiYRecoLogXiY"].Fill(log10(xiy),log10(GenXiY))
-                # self.hist["Hist_GenLogXiXRecoLogXiX"+Process_ID_Ext].Fill(log10(xix),log10(GenXiX))
-                # self.hist["Hist_GenLogXiYRecoLogXiY"+Process_ID_Ext].Fill(log10(xiy),log10(GenXiY))
+                self.hist["Hist_GenLogXiXRecoLogXiX"+Process_ID_Ext].Fill(log10(xix),log10(GenXiX))
+                self.hist["Hist_GenLogXiYRecoLogXiY"+Process_ID_Ext].Fill(log10(xiy),log10(GenXiY))
 
 
 
@@ -727,8 +760,8 @@ if __name__ == "__main__":
     ROOT.AutoLibraryLoader.enable()
 
     sampleList = []
-    # sampleList.append("data_ZeroBias1_CASTOR")
-    sampleList.append("MinBias_CUETP8M1_13TeV-pythia8_MagnetOff_CASTOR")
+    sampleList.append("data_ZeroBias1_CASTOR")
+    sampleList.append("MinBias_CUETP8M1_13TeV-pythia8_MagnetOff_CASTORmeasured_newNoise")
     maxFilesMC = None# run through all ffiles found
     maxFilesData = None# same
     nWorkers = 8# Use all cpu cores
@@ -748,4 +781,4 @@ if __name__ == "__main__":
            nWorkers=nWorkers,
            maxNevents = 4000,
            verbosity = 2,
-           outFile = "trackanddiffractive_test.root" )
+           outFile = "trackanddiffractive.root" )
