@@ -163,6 +163,10 @@ sam["data_ZeroBias1_Run2015A"]["pathPAT"]='/XXXTMFPAT/store/user/hvanhaev/ZeroBi
 sam["data_ZeroBias1_Run2015A"]["DS"]='/ZeroBias1/hvanhaev-Run2015A-v1_RERECO_Run247324_GR_P_V54_withCustomCond-v1-77d74a60d7253c04389dd59f634a8fe9/USER'
 
 
+
+
+
+
 def fixLocalPaths(sam):
         import os,imp
         if "SmallXAnaDefFile" not in os.environ:
