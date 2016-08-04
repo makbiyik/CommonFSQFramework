@@ -162,6 +162,22 @@ sam["data_ZeroBias1"]["XS"]=-1
 sam["data_ZeroBias1"]["pathPAT"]='/XXXTMFPAT/store/user/hvanhaev/ZeroBias1/Run2015A_B0T_lowPU_09022016_data_ZeroBias1/160209_134655/0000//'
 sam["data_ZeroBias1"]["DS"]='/ZeroBias1/hvanhaev-Run2015A-v1_B0T_LowPU_RERECO_74X_dataRun2_Prompt_v2_withCustomCond-v2-5f2ef5d60b472daaeedca9cb4892d16d/USER'
 
+# sam["NeutrinoGun_MagnetOff"]={}
+# sam["NeutrinoGun_MagnetOff"]["crabJobs"]=10
+# sam["NeutrinoGun_MagnetOff"]["GT"]='MCRUN2_740TV0'
+# sam["NeutrinoGun_MagnetOff"]["name"]='NeutrinoGun_MagnetOff'
+# sam["NeutrinoGun_MagnetOff"]["isData"]=False
+# sam["NeutrinoGun_MagnetOff"]["numEvents"]=997146
+# sam["NeutrinoGun_MagnetOff"]["pathSE"]='srm://srm-eoscms.cern.ch:8443/srm/v2/server?SFN=/eos/cms/store/group/phys_heavyions/makbiyi\
+# k/NeutrinoGun/'
+# sam["NeutrinoGun_MagnetOff"]["pathTrees"]='/XXXTMFTTree/store/group/phys_heavyions/makbiyik/NeutrinoGun/'
+# sam["NeutrinoGun_MagnetOff"]["json"]=''
+# sam["NeutrinoGun_MagnetOff"]["lumiMinBias"]=1.271571467920794e-05
+# sam["NeutrinoGun_MagnetOff"]["XS"]=78418400000.0
+# sam["NeutrinoGun_MagnetOff"]["pathPAT"]='/XXXTMFPAT/store/group/phys_heavyions/makbiyik/NeutrinoGun//'
+# sam["NeutrinoGun_MagnetOff"]["DS"]='/NeutrinoGun/MagnetOff/'
+
+
 
 def fixLocalPaths(sam):
         import os,imp

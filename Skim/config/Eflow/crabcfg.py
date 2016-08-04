@@ -1,17 +1,28 @@
 from WMCore.Configuration import Configuration
 config = Configuration()
 
-config.section_("User")
-config.User.voGroup = 'becms'
-
 config.section_("General")
+config.General.workArea = 'crab_projects'
 
 config.section_("JobType")
 config.JobType.pluginName = 'Analysis'
-config.JobType.psetName = 'treemaker_Eflow_74X_NoCastor.py'
+config.JobType.psetName = 'treemaker_Eflow_74X_mc.py'
 
 config.section_("Data")
-#config.Data.totalUnits = 1000000 # use this only for MC, when you want to limit number of events to process
+config.Data.inputDataset = '/A/B/C'
+config.Data.inputDBS = 'global'
+
+# config.Data.inputDBS = 'phys03'
+config.Data.splitting = 'FileBased' # alt: LumiBased                                                                                
+config.Data.unitsPerJob = 200000
+# config.Data.totalUnits = 10000 # havent worked last time, use lumi mask?                                                          
+#config.Data.lumiMask = "CommonFSQFramework/Skim/lumi/Run2015A_lowPU_B0T.json"
+#config.Data.dbsUrl = "global"                                                                                                      
+config.Data.allowNonValidInputDataset = True
+
+config.Data.publication = False
+# config.Data.publishDataName = 'MA_Diffractive'                                                                                    
 
 config.section_("Site")
-config.Site.storageSite = "T2_BE_IIHE"
+config.Site.storageSite = 'T2_CH_CERN'
+config.Data.outLFNDirBase = '/store/group/phys_heavyions/makbiyik/MC_newNoise_1'

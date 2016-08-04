@@ -34,19 +34,21 @@ EventViewBase(iConfig,  tree)
     if(m_usePixels) iC.consumes<SiPixelRecHitCollection >(m_src);
     else iC.consumesMany<SiStripMatchedRecHit2DCollection >();
 
-    registerVecFloat("x",tree);
-    registerVecFloat("y",tree);
-    registerVecFloat("z",tree);
-
-    registerVecFloat("trkX",tree);
-    registerVecFloat("trkY",tree);
-    registerVecFloat("trkZ",tree);
-    
-
-    registerVecFloat("trktheta",tree);
-    registerVecFloat("trkphi",tree);
-    registerVecFloat("trkdeltaeta",tree);
-    registerVecInt("Ntracks", tree);    
+    registerVecFloat("_vrtxX",tree);
+    registerVecFloat("_vrtxY",tree);
+    registerVecFloat("_vrtxZ",tree);
+    registerVecFloat("_HitX",tree);
+    registerVecFloat("_HitY",tree);
+    registerVecFloat("_HitZ",tree);
+    // registerVecFloat("_PiX", tree);
+    // registerVecFloat("_PiY",tree);
+    registerVecFloat("_trkVertex",tree);
+    // registerVecFloat("PiZ",tree );
+           
+    registerVecFloat("_trktheta",tree);
+    registerVecFloat("_trkphi",tree);
+    registerVecFloat("_rkdelta",tree);
+    registerVecInt("_Ntracks", tree);    
 }
 
 
@@ -82,7 +84,8 @@ void ZeroTeslaVertexView::fillSpecific(const edm::Event& iEvent, const edm::Even
                 GlobalPoint p = theTracker->idToDet(id)->toGlobal(lpos);
                 SiPixelRecHit::ClusterRef const & cluster = recHit->cluster();
                 vector<SiPixelCluster::Pixel> pixels = cluster->pixels();
-  
+                
+                
                 bool isFirst = true;
                 unsigned int xmin=0, xmax=0, ymin=0, ymax=0;
                 for(vector<SiPixelCluster::Pixel>::const_iterator pixel = pixels.begin(); pixel!= pixels.end(); pixel++) {
@@ -91,6 +94,11 @@ void ZeroTeslaVertexView::fillSpecific(const edm::Event& iEvent, const edm::Even
                     if(pixel->y > ymax || isFirst) ymax = pixel->y;
                     if(pixel->y < ymin || isFirst) ymin = pixel->y;
                     isFirst = false;
+                    // addToFVec("PiX", pixel->x);
+                    // addToFVec("PiY", pixel->y);
+                    // // addToFVec("PiZ", pixel->z);
+               
+
                 }
     
                 RawPixelRecHit tmp;
@@ -133,43 +141,46 @@ void ZeroTeslaVertexView::fillSpecific(const edm::Event& iEvent, const edm::Even
         }
     }
 
-    // Calculate vertices
+    // C
+    for(std::vector<RawPixelRecHit>::iterator RecHit = RawPixelRecHits.begin(); RecHit != RawPixelRecHits.end(); ++RecHit){
+        addToFVec("_HitX",RecHit->x);
+        addToFVec("_HitY",RecHit->y);
+        addToFVec("_HitZ",RecHit->z);
+    }
+    
     // Calculate vertices
     LineTrackingProducer theProducer(m_usePixels, beamSpot.x0(), beamSpot.y0());
     if (m_usePixels) theProducer.run(RawPixelRecHits);
     if (!m_usePixels) theProducer.run(RawStripRecHits);
     // Get result
     std::vector<double> VerticesX, VerticesY, VerticesZ;
-    std:: vector<int> nTracks;
+    std::vector<int> nTracks;
     int nVertices = theProducer.getVertices(VerticesX, VerticesY, VerticesZ, nTracks);
 
     // fill trees
     for ( int i=0; i<nVertices; i++){
-    	addToFVec("x",VerticesX[i]);
-	    addToFVec("y",VerticesY[i]);
-	    addToFVec("z",VerticesZ[i]);
-	    addToIVec("Ntracks",nTracks[i]);
+        addToFVec("_vrtxX",VerticesX[i]);
+        addToFVec("_vrtxY",VerticesY[i]);
+        addToFVec("_vrtxZ",VerticesZ[i]);
+        addToIVec("_Ntracks",nTracks[i]);
     }
-    std::vector<double> TracksPhi,Trackstheta, TracksDeltaEta;
-	int ntrk = theProducer.getTracks(Trackstheta, TracksPhi,TracksDeltaEta);
-	
+    std::vector<double> TracksPhi,Trackstheta,TracksDelta;
+    std:: vector<int> TracksVertex;
+    int ntrk = theProducer.getTracks(Trackstheta, TracksPhi,TracksDelta,TracksVertex);
+    
     for ( int i=0; i<ntrk; i++){
-    	addToFVec("trktheta",Trackstheta[i]);
-	    addToFVec("trkphi",TracksPhi[i]);
-        addToFVec("trkdeltaeta",TracksDeltaEta[i]);
+        addToFVec("_trktheta",Trackstheta[i]);
+        addToFVec("_trkphi",TracksPhi[i]);
+        addToFVec("_trkdelta",TracksDelta[i]);
+        addToFVec("_trkVertex",TracksVertex[i]);
+
     }
     
-	
+    
 
 
     // std::vector<double> PixelRecHitX, PixelRecHitY, PixelRecHitZ;
   
-    for(std::vector<RawPixelRecHit>::iterator RecHit = RawPixelRecHits.begin(); RecHit != RawPixelRecHits.end(); ++RecHit){
-        addToFVec("trkX",RecHit->x);
-        addToFVec("trkY",RecHit->y);
-        addToFVec("trkZ",RecHit->z);
-    }
-    
 
     
 }

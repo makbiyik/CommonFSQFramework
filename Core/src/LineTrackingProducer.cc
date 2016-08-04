@@ -478,13 +478,41 @@ int LineTrackingProducer::getVertices(std::vector<double> & VerticesX, std::vect
   return verticesResult.size();
 }
 
-int LineTrackingProducer::getTracks(std::vector<double> & Trackstheta, std::vector<double> & TracksPhi, std::vector<double> & TracksDeltaEta)
+int LineTrackingProducer::getTracks(std::vector<double> & Trackstheta, std::vector<double> & TracksPhi, std::vector<double> & TracksDelta, std::vector<int>& TracksVertex)
 {
-   for(vector<LineTrack>::const_iterator track = linesResult.begin();
-                                             track!= linesResult.end(); track++) {
-        Trackstheta.push_back(track->parsFree.theta);
-        TracksPhi.push_back(track->parsFree.phi);
-        TracksDeltaEta.push_back(track->parsFree.delta);
+    const int nTracks = linesResult.size();
+    for(int iTrack = 0; iTrack<nTracks; ++iTrack) {
+
+      const LineTrack& track = linesResult[iTrack];
+ 
+        Trackstheta.push_back(track.parsFree.theta);
+        TracksPhi.push_back(track.parsFree.phi);
+        TracksDelta.push_back(track.parsFree.delta);
+
+        int vertexCheck = -1;
+        int iVertex = 0;
+        // loop over vertices
+        for(vector<LineVertex>::const_iterator vertex = verticesResult.begin();
+                                               vertex!= verticesResult.end(); vertex++) {
+
+          // loop over tracks in vertices
+          for(std::vector<int>::const_iterator ivtx_trk = vertex->tracks.begin(); 
+                                               ivtx_trk!= vertex->tracks.end(); ivtx_trk++) {
+
+            // check if vertex track id is same as stand alone track id
+            if (iTrack == *ivtx_trk) {
+              // if a track belongs to more than one vertex give error message
+              if (vertexCheck>=0) {
+                std::cerr << "LineTrackingProducer: ERROR. Track is part of several vertices!!" << std::endl;
+              }
+              vertexCheck = iVertex;  
+            }
+          } // loop over tracks in vertices
+
+          iVertex++;
+        } // loop over vertices
+
+        TracksVertex.push_back(vertexCheck);
   }
   return linesResult.size();
 }

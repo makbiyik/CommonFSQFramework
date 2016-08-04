@@ -136,7 +136,7 @@ sam["data_L1TechBPTXPlusOnly"]["DS"]='/L1TechBPTXPlusOnly/hvanhaev-Run2015A-v1_B
 
 sam["data_L1TechBPTXQuiet"]={}
 sam["data_L1TechBPTXQuiet"]["crabJobs"]=0
-sam["data_L1TechBPTXQuiet"]["GT"]='74X_dataRun2_Prompt_v2'
+sam["data_L1TechBPTXQuiet"]["GT"]='76X_dataRun2_v16'
 sam["data_L1TechBPTXQuiet"]["name"]='data_L1TechBPTXQuiet'
 sam["data_L1TechBPTXQuiet"]["isData"]=True
 sam["data_L1TechBPTXQuiet"]["numEvents"]=-1
@@ -149,18 +149,134 @@ sam["data_L1TechBPTXQuiet"]["pathPAT"]='/XXXTMFPAT/store/user/hvanhaev/L1TechBPT
 sam["data_L1TechBPTXQuiet"]["DS"]='/L1TechBPTXQuiet/hvanhaev-Run2015A-v1_B0T_LowPU_RERECO_74X_dataRun2_Prompt_v2_withCustomCond-v1-5f2ef5d60b472daaeedca9cb4892d16d/USER'
 
 sam["data_ZeroBias1"]={}
-sam["data_ZeroBias1"]["crabJobs"]=0
-sam["data_ZeroBias1"]["GT"]='74X_dataRun2_Prompt_v2'
+sam["data_ZeroBias1"]["crabJobs"]=99
+sam["data_ZeroBias1"]["GT"]='76X_dataRun2_v16'
 sam["data_ZeroBias1"]["name"]='data_ZeroBias1'
 sam["data_ZeroBias1"]["isData"]=True
 sam["data_ZeroBias1"]["numEvents"]=-1
-sam["data_ZeroBias1"]["pathSE"]='srm://maite.iihe.ac.be:8443/srm/managerv2?SFN=/pnfs/iihe/cms/store/user/hvanhaev/ZeroBias1/Run2015A_B0T_lowPU_14102015_data_ZeroBias1/151014_123458/0000/'
-sam["data_ZeroBias1"]["pathTrees"]='/XXXTMFTTree/store/user/hvanhaev/ZeroBias1/Run2015A_B0T_lowPU_14102015_data_ZeroBias1/151014_123458/0000//'
+# sam["data_ZeroBias1"]["pathSE"]='srm://maite.iihe.ac.be:8443/srm/managerv2?SFN=/pnfs/iihe/cms/store/user/hvanhaev/ZeroBias1/Run2015A_B0T_lowPU_14102015_data_ZeroBias1/151014_123458/0000/'
+# sam["data_ZeroBias1"]["pathTrees"]='/XXXTMFTTree/store/user/hvanhaev/ZeroBias1/Run2015A_B0T_lowPU_14102015_data_ZeroBias1/151014_123458/0000//'
 sam["data_ZeroBias1"]["json"]='CommonFSQFramework/Skim/lumi/Run2015A_lowPU_B0T.json'
 sam["data_ZeroBias1"]["lumiMinBias"]=-1
 sam["data_ZeroBias1"]["XS"]=-1
-sam["data_ZeroBias1"]["pathPAT"]='/XXXTMFPAT/store/user/hvanhaev/ZeroBias1/Run2015A_B0T_lowPU_14102015_data_ZeroBias1/151014_123458/0000//'
-sam["data_ZeroBias1"]["DS"]='/ZeroBias1/hvanhaev-Run2015A-v1_B0T_LowPU_RERECO_74X_dataRun2_Prompt_v2_withCustomCond-v2-5f2ef5d60b472daaeedca9cb4892d16d/USER'
+# sam["data_ZeroBias1"]["pathPAT"]='/XXXTMFPAT/store/user/hvanhaev/ZeroBias1/Run2015A_B0T_lowPU_14102015_data_ZeroBias1/151014_123458/0000//'
+#sam["data_ZeroBias1"]["DS"]='/ZeroBias1/hvanhaev-Run2015A-v1_B0T_LowPU_RERECO_74X_dataRun2_Prompt_v2_withCustomCond-v2-5f2ef5d60b472daaeedca9cb4892d16d/USER'
+sam["data_ZeroBias1"]["DS"]='/ZeroBias1/Run2015A-PromptReco-v1/RECO'
+
+# sam["MinBias_CUETP8M1_13TeV-pythia8_MagnetOff_CASTORmeasured"]={}
+# sam["MinBias_CUETP8M1_13TeV-pythia8_MagnetOff_CASTORmeasured"]["crabJobs"]=99
+# sam["MinBias_CUETP8M1_13TeV-pythia8_MagnetOff_CASTORmeasured"]["GT"]='76X_mcRun2_asymptotic_v14'
+# sam["MinBias_CUETP8M1_13TeV-pythia8_MagnetOff_CASTORmeasured"]["name"]='MinBias_CUETP8M1_13TeV-pythia8_MagnetOff_CASTORmeasured'
+# sam["MinBias_CUETP8M1_13TeV-pythia8_MagnetOff_CASTORmeasured"]["isData"]=False
+# sam["MinBias_CUETP8M1_13TeV-pythia8_MagnetOff_CASTORmeasured"]["numEvents"]=4917500
+# # sam["MinBias_CUETP8M1_13TeV-pythia8_MagnetOff_CASTORmeasured"]["pathSE"]='srm://dcache-se-cms.desy.de:8443/srm/managerv2?SFN=/pnfs/desy.de/cms/tier2/store/user/sbaur/MinBias_CUETP8M1_13TeV-pythia8/MinBias_CUETP8M1_13TeV-pythia8_MagnetOff_CASTORmeasured_CFF/160210_103222/0000'
+# # sam["MinBias_CUETP8M1_13TeV-pythia8_MagnetOff_CASTORmeasured"]["pathTrees"]='/XXXTMFTTree/store/user/sbaur/MinBias_CUETP8M1_13TeV-pythia8/MinBias_CUETP8M1_13TeV-pythia8_MagnetOff_CASTORmeasured_CFF/160210_103222/0000'
+# sam["MinBias_CUETP8M1_13TeV-pythia8_MagnetOff_CASTORmeasured"]["json"]=''
+# sam["MinBias_CUETP8M1_13TeV-pythia8_MagnetOff_CASTORmeasured"]["lumiMinBias"]=6.88821963860484642e-05
+# sam["MinBias_CUETP8M1_13TeV-pythia8_MagnetOff_CASTORmeasured"]["XS"]=71.39e+09
+# # sam["MinBias_CUETP8M1_13TeV-pythia8_MagnetOff_CASTORmeasured"]["pathPAT"]='/XXXTMFPAT/store/user/sbaur/MinBias_CUETP8M1_13TeV-pythia8/MinBias_CUETP8M1_13TeV-pythia8_MagnetOff_CASTORmeasured_CFF/160210_103222/0000'
+# sam["MinBias_CUETP8M1_13TeV-pythia8_MagnetOff_CASTORmeasured"]["DS"]='/MinBias_CUETP8M1_13TeV-pythia8/sbaur-MinBias_CUETP8M1_13TeV-pythia8_MagnetOff_CASTORmeasured_RECO-ea75752f65bd25232845285a23f93f6b/USER'
+
+# ##### Samples with new CASTOR simulation and noise - including 0Ttracking #####
+
+# sam["MinBias_TuneMBR_13TeV-pythia8_MagnetOff_CASTORmeasured_newNoise"]={}
+# sam["MinBias_TuneMBR_13TeV-pythia8_MagnetOff_CASTORmeasured_newNoise"]["crabJobs"]=98
+# sam["MinBias_TuneMBR_13TeV-pythia8_MagnetOff_CASTORmeasured_newNoise"]["GT"]='76X_mcRun2_asymptotic_v14'
+# sam["MinBias_TuneMBR_13TeV-pythia8_MagnetOff_CASTORmeasured_newNoise"]["name"]='MinBias_TuneMBR_13TeV-pythia8_MagnetOff_CASTORmeasured_newNoise'
+# sam["MinBias_TuneMBR_13TeV-pythia8_MagnetOff_CASTORmeasured_newNoise"]["isData"]=False
+# sam["MinBias_TuneMBR_13TeV-pythia8_MagnetOff_CASTORmeasured_newNoise"]["numEvents"]=4862000
+# # sam["MinBias_TuneMBR_13TeV-pythia8_MagnetOff_CASTORmeasured_newNoise"]["pathSE"]='srm://dcache-se-cms.desy.de:8443/srm/managerv2?SFN=/pnfs/desy.de/cms/tier2/store/user/sbaur/MinBias_TuneMBR_13TeV-pythia8/MinBias_TuneMBR_13TeV-pythia8_MagnetOff_CASTORmeasured_newCASTORnoise_CFF_2/160610_100853/0000/'
+# # sam["MinBias_TuneMBR_13TeV-pythia8_MagnetOff_CASTORmeasured_newNoise"]["pathTrees"]='/XXXTMFTTree/store/user/sbaur/MinBias_TuneMBR_13TeV-pythia8/MinBias_TuneMBR_13TeV-pythia8_MagnetOff_CASTORmeasured_newCASTORnoise_CFF_2/160610_100853/0000/'
+# sam["MinBias_TuneMBR_13TeV-pythia8_MagnetOff_CASTORmeasured_newNoise"]["json"]=''
+# sam["MinBias_TuneMBR_13TeV-pythia8_MagnetOff_CASTORmeasured_newNoise"]["lumiMinBias"]=6.20007549248645671e-05
+# sam["MinBias_TuneMBR_13TeV-pythia8_MagnetOff_CASTORmeasured_newNoise"]["XS"]=78418400000.0
+# # sam["MinBias_TuneMBR_13TeV-pythia8_MagnetOff_CASTORmeasured_newNoise"]["pathPAT"]='/XXXTMFPAT/store/user/sbaur/MinBias_TuneMBR_13TeV-pythia8/MinBias_TuneMBR_13TeV-pythia8_MagnetOff_CASTORmeasured_newCASTORnoise_CFF_2/160610_100853/0000/'
+# sam["MinBias_TuneMBR_13TeV-pythia8_MagnetOff_CASTORmeasured_newNoise"]["DS"]='/MinBias_TuneMBR_13TeV-pythia8/sbaur-MinBias_TuneMBR_13TeV-pythia8_MagnetOff_CASTORmeasured_newCASTORnoise_fix_RECO-288ab5be9a42aa4a7ffd90fa253c6744/USER'
+
+
+
+
+
+
+#From mine EOS repository:
+
+sam["NeutrinoGun_MagnetOff"]={}
+sam["NeutrinoGun_MagnetOff"]["crabJobs"]=10
+sam["NeutrinoGun_MagnetOff"]["GT"]='MCRUN2_740TV0'
+sam["NeutrinoGun_MagnetOff"]["name"]='NeutrinoGun_MagnetOff'
+sam["NeutrinoGun_MagnetOff"]["isData"]=False
+sam["NeutrinoGun_MagnetOff"]["numEvents"]=997146
+sam["NeutrinoGun_MagnetOff"]["pathSE"]='srm://srm-eoscms.cern.ch:8443/srm/v2/server?SFN=/eos/cms/store/group/phys_heavyions/makbiyik/NeutrinoGun/'
+sam["NeutrinoGun_MagnetOff"]["pathTrees"]='/XXXTMFTTree/store/group/phys_heavyions/makbiyik/NeutrinoGun/'
+sam["NeutrinoGun_MagnetOff"]["json"]=''
+sam["NeutrinoGun_MagnetOff"]["lumiMinBias"]=1.271571467920794e-05
+sam["NeutrinoGun_MagnetOff"]["XS"]=78418400000.0
+sam["NeutrinoGun_MagnetOff"]["pathPAT"]='/XXXTMFPAT/store/group/phys_heavyions/makbiyik/NeutrinoGun//'
+sam["NeutrinoGun_MagnetOff"]["DS"]='/NeutrinoGun/MagnetOff/'
+
+sam["data_ZeroBias1_CASTOR"]={}
+sam["data_ZeroBias1_CASTOR"]["crabJobs"]=10
+sam["data_ZeroBias1_CASTOR"]["GT"]='74X_dataRun2_Prompt_v2'
+sam["data_ZeroBias1_CASTOR"]["name"]='data_ZeroBias1_CASTOR'
+sam["data_ZeroBias1_CASTOR"]["isData"]=True
+sam["data_ZeroBias1_CASTOR"]["numEvents"]=-1
+sam["data_ZeroBias1_CASTOR"]["pathSE"]='srm://srm-eoscms.cern.ch:8443/srm/v2/server?SFN=/eos/cms/store/group/phys_heavyions/makbiyik/Diff_38T_Data/'
+sam["data_ZeroBias1_CASTOR"]["pathTrees"]='/XXXTMFTTree/store/group/phys_heavyions/makbiyik/Diff_38T_Data/'
+sam["data_ZeroBias1_CASTOR"]["json"]='CommonFSQFramework/Skim/lumi/Run2015A_lowPU_B0T.json'
+sam["data_ZeroBias1_CASTOR"]["lumiMinBias"]=-1
+sam["data_ZeroBias1_CASTOR"]["XS"]=-1
+sam["data_ZeroBias1_CASTOR"]["pathPAT"]='/XXXTMFPAT/store/group/phys_heavyions/makbiyik/Diff_38T_Data//'
+sam["data_ZeroBias1_CASTOR"]["DS"]='/data_ZeroBias1_CASTOR/'
+
+
+sam["data_ZeroBias1_CASTOR247934"]={}
+sam["data_ZeroBias1_CASTOR247934"]["crabJobs"]=10
+sam["data_ZeroBias1_CASTOR247934"]["GT"]='74X_dataRun2_Prompt_v2'
+sam["data_ZeroBias1_CASTOR247934"]["name"]='data_ZeroBias1_CASTOR247934'
+sam["data_ZeroBias1_CASTOR247934"]["isData"]=True
+sam["data_ZeroBias1_CASTOR247934"]["numEvents"]=-1
+sam["data_ZeroBias1_CASTOR247934"]["pathSE"]='srm://srm-eoscms.cern.ch:8443/srm/v2/server?SFN=/eos/cms/store/group/phys_heavyions/makbiyik/Diff_38T_Data/ZeroBias1/Run2015A_B0T_lowPU_14102015_data_ZeroBias1/160518_141003/0000/'
+sam["data_ZeroBias1_CASTOR247934"]["pathTrees"]='/XXXTMFTTree/store/group/phys_heavyions/makbiyik/Diff_38T_Data/ZeroBias1/Run2015A_B0T_lowPU_14102015_data_ZeroBias1/160518_141003/0000/'
+sam["data_ZeroBias1_CASTOR247934"]["json"]='CommonFSQFramework/Skim/lumi/Run2015A_lowPU_B0T.json'
+sam["data_ZeroBias1_CASTOR247934"]["lumiMinBias"]=-1
+sam["data_ZeroBias1_CASTOR247934"]["XS"]=-1
+sam["data_ZeroBias1_CASTOR247934"]["pathPAT"]='/XXXTMFPAT/store/group/phys_heavyions/makbiyik/Diff_38T_Data/ZeroBias1/Run2015A_B0T_lowPU_14102015_data_ZeroBias1/160518_141003/0000//'
+sam["data_ZeroBias1_CASTOR247934"]["DS"]='/data_ZeroBias1_CASTOR247934/'
+
+
+
+
+# sam["MinBias_CUETP8M1_13TeV-pythia8_MagnetOff_CASTOR"]={}
+# sam["MinBias_CUETP8M1_13TeV-pythia8_MagnetOff_CASTOR"]["crabJobs"]=99
+# sam["MinBias_CUETP8M1_13TeV-pythia8_MagnetOff_CASTOR"]["GT"]='76X_mcRun2_asymptotic_v14'
+# sam["MinBias_CUETP8M1_13TeV-pythia8_MagnetOff_CASTOR"]["name"]='MinBias_CUETP8M1_13TeV-pythia8_MagnetOff_CASTOR'
+# sam["MinBias_CUETP8M1_13TeV-pythia8_MagnetOff_CASTOR"]["isData"]=False
+# sam["MinBias_CUETP8M1_13TeV-pythia8_MagnetOff_CASTOR"]["numEvents"]=4917500
+# sam["MinBias_CUETP8M1_13TeV-pythia8_MagnetOff_CASTOR"]["pathSE"]='srm://srm-eoscms.cern.ch:8443/srm/v2/server?SFN=/eos/cms/store/group/phys_heavyions/makbiyik/Diff_38T_MC/MinBias_CUETP8M1_13TeV-pythia8/Run2015A_B0T_lowPU_14102015_MinBias_CUETP8M1_13TeV-pythia8_MagnetOff_CASTORmeasured/160517_144637/0000/'
+# sam["MinBias_CUETP8M1_13TeV-pythia8_MagnetOff_CASTOR"]["pathTrees"]='/XXXTMFTTree/store/group/phys_heavyions/makbiyik/Diff_38T_MC/MinBias_CUETP8M1_13TeV-pythia8/Run2015A_B0T_lowPU_14102015_MinBias_CUETP8M1_13TeV-pythia8_MagnetOff_CASTORmeasured/160517_144637/0000/'
+# sam["MinBias_CUETP8M1_13TeV-pythia8_MagnetOff_CASTOR"]["json"]=''
+# sam["MinBias_CUETP8M1_13TeV-pythia8_MagnetOff_CASTOR"]["lumiMinBias"]=6.88821963860484642e-05
+# sam["MinBias_CUETP8M1_13TeV-pythia8_MagnetOff_CASTOR"]["XS"]=71.39e+09
+# sam["MinBias_CUETP8M1_13TeV-pythia8_MagnetOff_CASTOR"]["pathPAT"]='/XXXTMFPAT/store/group/phys_heavyions/makbiyik/Diff_38T_MC/MinBias_CUETP8M1_13TeV-pythia8/Run2015A_B0T_lowPU_14102015_MinBias_CUETP8M1_13TeV-pythia8_MagnetOff_CASTORmeasured/160517_144637/0000//'
+# sam["MinBias_CUETP8M1_13TeV-pythia8_MagnetOff_CASTOR"]["DS"]='/MinBias_CUETP8M1_13TeV-pythia8_MagnetOff_CASTOR/'
+
+
+######################################################
+sam["MinBias_TuneMBR_13TeV-pythia8_MagnetOff_CASTORmeasured_newNoise"]={}
+sam["MinBias_TuneMBR_13TeV-pythia8_MagnetOff_CASTORmeasured_newNoise"]["crabJobs"]=98
+sam["MinBias_TuneMBR_13TeV-pythia8_MagnetOff_CASTORmeasured_newNoise"]["GT"]='76X_mcRun2_asymptotic_v14'
+sam["MinBias_TuneMBR_13TeV-pythia8_MagnetOff_CASTORmeasured_newNoise"]["name"]='MinBias_TuneMBR_13TeV-pythia8_MagnetOff_CASTORmeasured_newNoise'
+sam["MinBias_TuneMBR_13TeV-pythia8_MagnetOff_CASTORmeasured_newNoise"]["isData"]=False
+sam["MinBias_TuneMBR_13TeV-pythia8_MagnetOff_CASTORmeasured_newNoise"]["numEvents"]=4862000
+sam["MinBias_TuneMBR_13TeV-pythia8_MagnetOff_CASTORmeasured_newNoise"]["pathSE"]='srm://srm-eoscms.cern.ch:8443/srm/v2/server?SFN=/eos/cms/store/group/phys_heavyions/makbiyik/MC_newNoise_1/MinBias_TuneMBR_13TeV-pythia8/Run2015A_B0T_lowPU_14102015_MinBias_TuneMBR_13TeV-pythia8_MagnetOff_CASTORmeasured_newNoise/160617_101348/0000/'
+sam["MinBias_TuneMBR_13TeV-pythia8_MagnetOff_CASTORmeasured_newNoise"]["pathTrees"]='/XXXTMFTTree/store/group/phys_heavyions/makbiyik/MC_newNoise_1/MinBias_TuneMBR_13TeV-pythia8/Run2015A_B0T_lowPU_14102015_MinBias_TuneMBR_13TeV-pythia8_MagnetOff_CASTORmeasured_newNoise/160617_101348/0000/'
+sam["MinBias_TuneMBR_13TeV-pythia8_MagnetOff_CASTORmeasured_newNoise"]["json"]=''
+sam["MinBias_TuneMBR_13TeV-pythia8_MagnetOff_CASTORmeasured_newNoise"]["lumiMinBias"]=6.20007549248645671e-05
+sam["MinBias_TuneMBR_13TeV-pythia8_MagnetOff_CASTORmeasured_newNoise"]["XS"]=78418400000.0
+sam["MinBias_TuneMBR_13TeV-pythia8_MagnetOff_CASTORmeasured_newNoise"]["pathPAT"]='/XXXTMFPAT/store/group/phys_heavyions/makbiyik/MC_newNoise_1/MinBias_TuneMBR_13TeV-pythia8/Run2015A_B0T_lowPU_14102015_MinBias_TuneMBR_13TeV-pythia8_MagnetOff_CASTORmeasured_newNoise/160617_101348/0000//'
+sam["MinBias_TuneMBR_13TeV-pythia8_MagnetOff_CASTORmeasured_newNoise"]["DS"]='/MinBias_TuneMBR_13TeV-pythia8/sbaur-MinBias_TuneMBR_13TeV-pythia8_MagnetOff_CASTORmeasured_newCASTORnoise_fix_RECO-288ab5be9a42aa4a7ffd90fa253c6744/USER'
+
+
 
 
 def fixLocalPaths(sam):
