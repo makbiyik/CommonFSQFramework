@@ -25,15 +25,9 @@ process.options = cms.untracked.PSet(wantSummary = cms.untracked.bool(True))
 # Source
 process.source = cms.Source("PoolSource",
     fileNames = cms.untracked.vstring(
-      # '/store/user/sbaur/MinBias_CUETP8M1_13TeV-pythia8/MinBias_CUETP8M1_13TeV-pythia8_MagnetOff_CASTORmeasured_RECO/160207_214204/0000/MinBias_CUETP8M1_13TeV-pythia8_CASTORmeasured_RECO_511.root',
-      # '/store/user/sbaur/MinBias_CUETP8M1_13TeV-pythia8/MinBias_CUETP8M1_13TeV-pythia8_MagnetOff_CASTORmeasured_RECO/160207_214204/0000/MinBias_CUETP8M1_13TeV-pythia8_CASTORmeasured_RECO_551.root',
-      # '/store/user/sbaur/MinBias_CUETP8M1_13TeV-pythia8/MinBias_CUETP8M1_13TeV-pythia8_MagnetOff_CASTORmeasured_RECO/160207_214204/0000/MinBias_CUETP8M1_13TeV-pythia8_CASTORmeasured_RECO_10.root',
-      # '/store/user/sbaur/MinBias_CUETP8M1_13TeV-pythia8/MinBias_CUETP8M1_13TeV-pythia8_MagnetOff_CASTORmeasured_RECO/160207_214204/0000/MinBias_CUETP8M1_13TeV-pythia8_CASTORmeasured_RECO_51.root',
-      # '/store/user/sbaur/MinBias_CUETP8M1_13TeV-pythia8/MinBias_CUETP8M1_13TeV-pythia8_MagnetOff_CASTORmeasured_RECO/160207_214204/0000/MinBias_CUETP8M1_13TeV-pythia8_CASTORmeasured_RECO_105.root',
-      # '/store/user/sbaur/MinBias_CUETP8M1_13TeV-pythia8/MinBias_CUETP8M1_13TeV-pythia8_MagnetOff_CASTORmeasured_RECO/160207_214204/0000/MinBias_CUETP8M1_13TeV-pythia8_CASTORmeasured_RECO_48.root',
-      # '/store/user/sbaur/MinBias_CUETP8M1_13TeV-pythia8/MinBias_CUETP8M1_13TeV-pythia8_MagnetOff_CASTORmeasured_RECO/160207_214204/0000/MinBias_CUETP8M1_13TeV-pythia8_CASTORmeasured_RECO_83.root',
-      # '/store/user/sbaur/MinBias_CUETP8M1_13TeV-pythia8/MinBias_CUETP8M1_13TeV-pythia8_MagnetOff_CASTORmeasured_RECO/160207_214204/0000/MinBias_CUETP8M1_13TeV-pythia8_CASTORmeasured_RECO_90.root'
-      #        
+       '/store/user/sbaur/MinBias_CUETP8M1_13TeV-pythia8/MinBias_CUETP8M1_13TeV-pythia8_MagnetOff_CASTORmeasured_RECO/160207_214204/0000/MinBias_CUETP8M1_13TeV-pythia8_CASTORmeasured_RECO_511.root') 
+
+
        )
     
        
@@ -47,10 +41,11 @@ process.load("Configuration.Geometry.GeometryRecoDB_cff")
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_condDBv2_cff')
 from Configuration.AlCa.GlobalTag_condDBv2 import GlobalTag
 if isData: process.GlobalTag = GlobalTag(process.GlobalTag, 'auto:run2_data', '')
-if not isData: process.GlobalTag = GlobalTag(process.GlobalTag, '76X_mcRun2_asymptotic_v14', '')
+# if not isData: process.GlobalTag = GlobalTag(process.GlobalTag,'76X_mcRun2_asymptotic_v14', '')
+if not isData: process.GlobalTag = GlobalTag(process.GlobalTag,'auto:run2_mc', '')
 process.load("Configuration.StandardSequences.MagneticField_cff")
 process.load("Configuration.StandardSequences.Reconstruction_cff")
-
+print process.GlobalTag.globaltag
 
 # get custom CASTOR conditions to mark/remove bad channels
 process.load("CondCore.DBCommon.CondDBSetup_cfi")
