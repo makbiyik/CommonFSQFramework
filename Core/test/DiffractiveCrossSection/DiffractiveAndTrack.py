@@ -47,6 +47,7 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
         self.hist["hNentries"] = ROOT.TH1F("hNentries","hNentries",10, 0, 20)
         self.hist["hProcessesIdPythia"] = ROOT.TH1F("hProcessesIdPythia","hProcessesIdPythia",10, 0, 20)
         self.hist["hProcessescut"] = ROOT.TH1F("hProcessescut","hProcessescut",10, 0, 20)
+        self.hist["hProcessescuteta"] = ROOT.TH1F("hProcessescuteta","hProcessescuteta",10, 0, 20)
         self.hist["BunchCrossing"] = ROOT.TH1F("BunchCrossing", "BunchCrossing",  3600, 0-0.5, 3600-0.5)
         self.hist["Runs"] =  ROOT.TH1F("Runs", "Runs",  2000, 246000-0.5, 278000-0.5)
         self.hist["HFEnergy"] = ROOT.TH1F("HFEnergy","HFEnergy",100, 0, 200)
@@ -56,17 +57,17 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
         self.hist["Hist_2Drecogen_EnergyX"] = ROOT.TH2D("Hist_2Drecogen_EnergyX", "Hist_2Drecogen_EnergyX", 100, 0, 8000,100, 0, 8000)    
         self.hist["Hist_2Drecogen_EnergyY"] = ROOT.TH2D("Hist_2Drecogen_EnergyY", "Hist_2Drecogen_EnergyY", 100, 0, 8000,100, 0, 8000)
            
-        self.hist["Hist_HFplus_Numberoftowerebovenoise"] = ROOT.TH1F("Hist_HFplus_Numberoftowerebovenoise","Hist_HFplus_Numberoftowerebovenoise",30, 0,300) 
-        self.hist["Hist_HFminus_Numberoftowerebovenoise"] = ROOT.TH1F("Hist_HFminus_Numberoftowerebovenoise","Hist_HFminus_Numberoftowerebovenoise",30, 0,300) 
-        self.hist["Hist_CASTOR_Numberoftowerebovenoise"] = ROOT.TH1F("Hist_CASTOR_Numberoftowerebovenoise","Hist_CASTOR_Numberoftowerebovenoise",10, 0,50) 
-        self.hist["Hist_eventID_HFplus_Numberoftowerebovenoise"] = ROOT.TH1F("Hist_eventID_HFplus_Numberoftowerebovenoise","Hist_eventID_HFplus_Numberoftowerebovenoise",30, 0,300) 
-        self.hist["Hist_eventID_HFminus_Numberoftowerebovenoise"] = ROOT.TH1F("Hist_eventID_HFminus_Numberoftowerebovenoise","Hist_eventID_HFminus_Numberoftowerebovenoise",30, 0,300) 
-        self.hist["Hist_eventID_CASTOR_Numberoftowerebovenoise"] = ROOT.TH1F("Hist_eventID_CASTOR_Numberoftowerebovenoise","Hist_eventID_CASTOR_Numberoftowerebovenoise",10, 0,50) 
+        self.hist["Hist_numberoftowerebovenoise_forwardplus"] = ROOT.TH1F("Hist_numberoftowerebovenoise_forwardplus","Hist_numberoftowerebovenoise_forwardplus",30, 0,300) 
+        self.hist["Hist_numberoftowerebovenoise_forwardminus"] = ROOT.TH1F("Hist_numberoftowerebovenoise_forwardminus","Hist_numberoftowerebovenoise_forwardminus",30, 0,300) 
+        self.hist["Hist_numberoftowerebovenoise_castor"] = ROOT.TH1F("Hist_numberoftowerebovenoise_castor","Hist_numberoftowerebovenoise_castor",16, 0,16) 
+        self.hist["Hist_eventXiID_numberoftowerebovenoise_forwardplus"] = ROOT.TH1F("Hist_eventXiID_numberoftowerebovenoise_forwardplus","Hist_eventXiID_numberoftowerebovenoise_forwardplus",30, 0,300) 
+        self.hist["Hist_eventXiID_numberoftowerebovenoise_forwardminus"] = ROOT.TH1F("Hist_eventXiID_numberoftowerebovenoise_forwardminus","Hist_eventXiID_numberoftowerebovenoise_forwardminus",30, 0,300) 
+        self.hist["Hist_eventXiID_numberoftowerebovenoise_castor"] = ROOT.TH1F("Hist_eventXiID_numberoftowerebovenoise_castor","Hist_eventXiID_numberoftowerebovenoise_castor",16, 0,16) 
         
-        self.hist["Hist_2DHFminus_Castor_Ntowers"]= ROOT.TH2D("Hist_2DHFminus_Castor_Ntowers","Hist_2DHFminus_Castor_Ntowers",30,0,300,10,0,50)
-        self.hist["Hist_2DHFplus_Castor_Ntowers"]= ROOT.TH2D("Hist_2DHFplus_Castor_Ntowers","Hist_2DHFplus_Castor_Ntowers",30,0,300,10,0,50)
-        self.hist["Hist_eventID_2DHFminus_Castor_Ntowers"]= ROOT.TH2D("Hist_eventID_2DHFminus_Castor_Ntowers","Hist_eventID_2DHFminus_Castor_Ntowers",30,0,300,10,0,50)
-        self.hist["Hist_eventID_2DHFplus_Castor_Ntowers"]= ROOT.TH2D("Hist_eventID_2DHFplus_Castor_Ntowers","Hist_eventID_2DHFplus_Castor_Ntowers",30,0,300,10,0,50)
+        self.hist["Hist_2DHFminus_Castor_Ntowers"]= ROOT.TH2D("Hist_2DHFminus_Castor_Ntowers","Hist_2DHFminus_Castor_Ntowers",30,0,300,16,0,16)
+        self.hist["Hist_2DHFplus_Castor_Ntowers"]= ROOT.TH2D("Hist_2DHFplus_Castor_Ntowers","Hist_2DHFplus_Castor_Ntowers",30,0,300,16,0,16)
+        self.hist["Hist_eventXiID_2DHFminus_Castor_Ntowers"]= ROOT.TH2D("Hist_eventXiID_2DHFminus_Castor_Ntowers","Hist_eventXiID_2DHFminus_Castor_Ntowers",30,0,300,16,0,16)
+        self.hist["Hist_eventXiID_2DHFplus_Castor_Ntowers"]= ROOT.TH2D("Hist_eventXiID_2DHFplus_Castor_Ntowers","Hist_eventXiID_2DHFplus_Castor_Ntowers",30,0,300,16,0,16)
 
 
         nEtaBins = 8
@@ -88,53 +89,49 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
         BinDetaMax = 8
        
 
-        self.hist["Hist_GP_eventID_Min"] =  ROOT.TH1F("Hist_GP_eventID_Min", "Hist_GP_eventID_Min", NbrEtaBins, BinEtaMin, BinEtaMax)
-        self.hist["Hist_GP_eventID_Max"] =  ROOT.TH1F("Hist_GP_eventID_Max", "Hist_GP_eventID_Max", NbrEtaBins, BinEtaMin, BinEtaMax)
-        self.hist["Hist_GP_eventID_DeltaMax"] =  ROOT.TH1F("Hist_GP_eventID_DeltaMax", "Hist_GP_eventID_DeltaMax", NbrDetaBins, BinDetaMin, BinDetaMax)
-        self.hist["Hist_GP_eventID_DeltaZero"] = ROOT.TH1F("Hist_GP_eventID_DeltaZero", "Hist_GP_eventID_DeltaZero", NbrDetaBins, BinDetaMin, BinDetaMax)
-       
-        self.hist["Hist_eventID_Min"] =  ROOT.TH1F("Hist_eventID_Min", "Hist_eventID_Min", NbrEtaBins, BinEtaMin, BinEtaMax)
-        self.hist["Hist_eventID_Max"] =  ROOT.TH1F("Hist_eventID_Max", "Hist_eventID_Max", NbrEtaBins, BinEtaMin, BinEtaMax)
-        self.hist["Hist_eventID_DeltaMax"] =  ROOT.TH1F("Hist_eventID_DeltaMax", "Hist_eventID_DeltaMax", NbrDetaBins, BinDetaMin, BinDetaMax)
-        self.hist["Hist_eventID_DeltaZero"] = ROOT.TH1F("Hist_eventID_DeltaZero", "Hist_eventID_DeltaZero", NbrDetaBins, BinDetaMin, BinDetaMax)
-       
-
-
-        self.hist["Hist_Eta_Min"] =  ROOT.TH1F("Hist_Eta_Min", "Hist_Eta_Min", NbrEtaBins, BinEtaMin, BinEtaMax)
-        self.hist["Hist_Eta_Max"] =  ROOT.TH1F("Hist_Eta_Max", "Hist_Eta_Max", NbrEtaBins, BinEtaMin, BinEtaMax)
-        self.hist["Hist_Eta_Delta"] =  ROOT.TH1F("Hist_Eta_Delta", "Hist_Eta_Delta", NbrDetaBins, BinDetaMin, BinDetaMax)
+        self.hist["Hist_GP_eventXiID_Min"] = ROOT.TH1F("Hist_GP_eventXiID_Min", "Hist_GP_eventXiID_Min", NbrEtaBins, BinEtaMin, BinEtaMax)
+        self.hist["Hist_GP_eventXiID_Max"] = ROOT.TH1F("Hist_GP_eventXiID_Max", "Hist_GP_eventXiID_Max", NbrEtaBins, BinEtaMin, BinEtaMax)
+        self.hist["Hist_GP_eventXiID_DeltaMax"] = ROOT.TH1F("Hist_GP_eventXiID_DeltaMax", "Hist_GP_eventXiID_DeltaMax", NbrDetaBins, BinDetaMin, BinDetaMax)
+        self.hist["Hist_GP_eventXiID_DeltaZero"] = ROOT.TH1F("Hist_GP_eventXiID_DeltaZero", "Hist_GP_eventXiID_DeltaZero", NbrDetaBins, BinDetaMin, BinDetaMax)
+        self.hist["Hist_eventXiID_Min"] = ROOT.TH1F("Hist_eventXiID_Min", "Hist_eventXiID_Min", NbrEtaBins, BinEtaMin, BinEtaMax)
+        self.hist["Hist_eventXiID_Max"] = ROOT.TH1F("Hist_eventXiID_Max", "Hist_eventXiID_Max", NbrEtaBins, BinEtaMin, BinEtaMax)
+        self.hist["Hist_eventXiID_DeltaMax"] = ROOT.TH1F("Hist_eventXiID_DeltaMax", "Hist_eventXiID_DeltaMax", NbrDetaBins, BinDetaMin, BinDetaMax)
+        self.hist["Hist_eventXiID_DeltaZero"] = ROOT.TH1F("Hist_eventXiID_DeltaZero", "Hist_eventXiID_DeltaZero", NbrDetaBins, BinDetaMin, BinDetaMax)
+        self.hist["Hist_eventEtaID_Min"] = ROOT.TH1F("Hist_eventEtaID_Min", "Hist_eventEtaID_Min", NbrEtaBins, BinEtaMin, BinEtaMax)
+        self.hist["Hist_eventEtaID_Max"] = ROOT.TH1F("Hist_eventEtaID_Max", "Hist_eventEtaID_Max", NbrEtaBins, BinEtaMin, BinEtaMax)
+        self.hist["Hist_eventEtaID_DeltaMax"] = ROOT.TH1F("Hist_eventEtaID_DeltaMax", "Hist_eventEtaID_DeltaMax", NbrDetaBins, BinDetaMin, BinDetaMax)
+        self.hist["Hist_eventEtaID_DeltaZero"] = ROOT.TH1F("Hist_eventEtaID_DeltaZero", "Hist_eventEtaID_DeltaZero", NbrDetaBins, BinDetaMin, BinDetaMax)
+        self.hist["Hist_Eta_Min"] = ROOT.TH1F("Hist_Eta_Min", "Hist_Eta_Min", NbrEtaBins, BinEtaMin, BinEtaMax)
+        self.hist["Hist_Eta_Max"] = ROOT.TH1F("Hist_Eta_Max", "Hist_Eta_Max", NbrEtaBins, BinEtaMin, BinEtaMax)
+        self.hist["Hist_Eta_Delta"] = ROOT.TH1F("Hist_Eta_Delta", "Hist_Eta_Delta", NbrDetaBins, BinDetaMin, BinDetaMax)
         self.hist["Hist_Eta_DeltaZero"] = ROOT.TH1F("Hist_Eta_DeltaZero", "Hist_Eta_DeltaZero", NbrDetaBins, BinDetaMin, BinDetaMax)
-       
-         
-
-        
-        self.hist["Hist_Eta_DeltaMax"] =  ROOT.TH1F("Hist_Eta_DeltaMax", "Hist_Eta_DeltaMax", NbrDetaBins, BinDetaMin, BinDetaMax)
+        self.hist["Hist_Eta_DeltaMax"] = ROOT.TH1F("Hist_Eta_DeltaMax", "Hist_Eta_DeltaMax", NbrDetaBins, BinDetaMin, BinDetaMax)
         self.hist["Hist_2D_genreco_Deltapos"] = ROOT.TH2D("Hist_2D_genreco_Deltapos", "Hist_2D_genreco_Deltapos", NbrEtaBins, BinEtaMin, BinEtaMax,NbrEtaBins, BinEtaMin, BinEtaMax)
         # Gen PArticle 
         self.hist["Hist_2D_recogen_Mean"] = ROOT.TH2D("Hist_2D_recogen_Mean","Hist_2D_recogen_Mean",NbrEtaBins, BinEtaMin, BinEtaMax,NbrEtaBins, BinEtaMin, BinEtaMax)
-        self.hist["Hist_GP_Min"] =  ROOT.TH1F("Hist_GP_Min", "Hist_GP_Min", NbrEtaBins, BinEtaMin, BinEtaMax)
-        self.hist["Hist_GP_Max"] =  ROOT.TH1F("Hist_GP_Max", "Hist_GP_Max", NbrEtaBins, BinEtaMin, BinEtaMax)
-        self.hist["Hist_GP_Delta"] =  ROOT.TH1F("Hist_GP_Delta","Hist_GP_Delta", NbrDetaBins, BinDetaMin, BinDetaMax)
-        self.hist["Hist_GP_DeltaZero"] =  ROOT.TH1F("Hist_GP_DeltaZero", "Hist_GP_DeltaZero", NbrDetaBins, BinDetaMin, BinDetaMax)
-        self.hist["Hist_GP_DeltaMax"] =  ROOT.TH1F("Hist_GP_DeltaMax", "Hist_GP_DeltaMax", NbrDetaBins, BinDetaMin, BinDetaMax)
-        self.hist["Hist_Deltazero_deltagenreco"] =  ROOT.TH1F("Hist_Deltazero_deltagenreco", "Hist_Deltazero_deltagenreco", NbrDetaBins, -10, BinDetaMax)
+        self.hist["Hist_GP_Min"] = ROOT.TH1F("Hist_GP_Min", "Hist_GP_Min", NbrEtaBins, BinEtaMin, BinEtaMax)
+        self.hist["Hist_GP_Max"] = ROOT.TH1F("Hist_GP_Max", "Hist_GP_Max", NbrEtaBins, BinEtaMin, BinEtaMax)
+        self.hist["Hist_GP_Delta"] = ROOT.TH1F("Hist_GP_Delta","Hist_GP_Delta", NbrDetaBins, BinDetaMin, BinDetaMax)
+        self.hist["Hist_GP_DeltaZero"] = ROOT.TH1F("Hist_GP_DeltaZero", "Hist_GP_DeltaZero", NbrDetaBins, BinDetaMin, BinDetaMax)
+        self.hist["Hist_GP_DeltaMax"] = ROOT.TH1F("Hist_GP_DeltaMax", "Hist_GP_DeltaMax", NbrDetaBins, BinDetaMin, BinDetaMax)
+        self.hist["Hist_Deltazero_deltagenreco"] = ROOT.TH1F("Hist_Deltazero_deltagenreco", "Hist_Deltazero_deltagenreco", NbrDetaBins, -10, BinDetaMax)
         self.hist["Hist_2D_recogen_DeltaZero"] = ROOT.TH2D("Hist_2D_recogen_DeltaZero","Hist_2D_recogen_DeltaZero", NbrDetaBins,BinDetaMin, BinDetaMax,NbrDetaBins,BinDetaMin, BinDetaMax);
         self.hist["Hist_2D_recogen_DeltaMax"] = ROOT.TH2D("Hist_2D_recogen_DeltaMax","Hist_2D_recogen_DeltaMax", NbrDetaBins,BinDetaMin, BinDetaMax,NbrDetaBins,BinDetaMin, BinDetaMax);
         self.hist["Hist_2D_recogen_EtaMiniumum"] = ROOT.TH2D("Hist_2D_recogen_EtaMiniumum","Hist_2D_recogen_EtaMiniumum",NbrEtaBins, BinEtaMin, BinEtaMax,NbrEtaBins, BinEtaMin, BinEtaMax)
         self.hist["Hist_2D_recogen_EtaMax"]= ROOT.TH2D("Hist_2D_recogen_EtaMax","Hist_2D_recogen_EtaMax",NbrEtaBins, BinEtaMin, BinEtaMax,NbrEtaBins, BinEtaMin, BinEtaMax)
         
 
-
         NbrSizeBins = 50
         BinSizeEMin = 0
         BinSizeEMax = 50
         
-        self.hist["Hist_TrackCandClass"] = ROOT.TH1F("Hist_TrackCandClass","Hist_TrackCandClass",NbrSizeBins, BinSizeEMin,100)
-
-        NbrPhiBins = 50
+        self.hist["Hist_NbrTracks"] = ROOT.TH1F("Hist_NbrTracks","Hist_NbrTracks",NbrSizeBins, BinSizeEMin,100)
+        self.hist["Hist_eventXiID_NbrTracks"] = ROOT.TH1F("Hist_eventXiID_NbrTracks","Hist_eventXiID_NbrTracks",NbrSizeBins, BinSizeEMin,100)
+       
         BinPhiMin = -5
         BinPhiMax = 5
-
+        NbrPhiBins = 50
+        
         self.hist["Hist_trkPhi"] = ROOT.TH1F("Hist_trkPhi","Hist_trkPhi",NbrPhiBins,  BinPhiMin, BinPhiMax)  
         self.hist["Hist_Eta"] = ROOT.TH1F("Hist_Eta","Hist_Eta",NbrEtaBins, BinEtaMin, BinEtaMax) 
         self.hist["Hist_reducedEta"] = ROOT.TH1F("Hist_reducedEta","Hist_reducedEta",NbrEtaBins, BinEtaMin, BinEtaMax)  
@@ -153,13 +150,11 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
         BinPFEMax = 50
 
        
-        self.hist["Hist_log10Mx"] =  ROOT.TH1F("Hist_log10Mx", "Hist_log10Mx", NbrLogMBins, BinLogMMin, BinLogMMax)
-        self.hist["Hist_log10My"] =  ROOT.TH1F("Hist_log10My", "Hist_log10My", NbrLogMBins, BinLogMMin, BinLogMMax)  
-        self.hist["Hist_2Dlog10MxMy"] =  ROOT.TH2D("Hist_2Dlog10MxMy", "Hist_2Dlog10MxMy", NbrLogMBins, BinLogMMin, BinLogMMax, NbrLogMBins, BinLogMMin, BinLogMMax)
-        self.hist["Hist_eventID_2Dlog10MxMy"] =  ROOT.TH2D("Hist_eventID_2Dlog10MxMy", "Hist_eventID_2Dlog10MxMy", NbrLogMBins, BinLogMMin, BinLogMMax, NbrLogMBins, BinLogMMin, BinLogMMax)
-        
-
-        Process_ID = ["_NONE","_ND","_SD1","_SD2","_DD", "_CD"]
+        self.hist["Hist_log10Mx"] = ROOT.TH1F("Hist_log10Mx", "Hist_log10Mx", NbrLogMBins, BinLogMMin, BinLogMMax)
+        self.hist["Hist_log10My"] = ROOT.TH1F("Hist_log10My", "Hist_log10My", NbrLogMBins, BinLogMMin, BinLogMMax)  
+        self.hist["Hist_2Dlog10MxMy"] = ROOT.TH2D("Hist_2Dlog10MxMy", "Hist_2Dlog10MxMy", NbrLogMBins, BinLogMMin, BinLogMMax, NbrLogMBins, BinLogMMin, BinLogMMax)
+        self.hist["Hist_eventXiID_2Dlog10MxMy"] =  ROOT.TH2D("Hist_eventXiID_2Dlog10MxMy", "Hist_eventXiID_2Dlog10MxMy", NbrLogMBins, BinLogMMin, BinLogMMax, NbrLogMBins, BinLogMMin, BinLogMMax)
+        Process_ID = ["_NONE","_Rest","_SD1","_SD2","_DD", "_CD"]
         self.hist["Hist_NTracks"] = ROOT.TH1F("Hist_NTracks","Hist_NTracks",NbrNtrackBins, BinNtrackMin, BinNtrackMax)
         self.hist["Hist_GP_Mx"] =  ROOT.TH1F("Hist_GP_Mx", "Hist_GP_Mx", NbrLogMBins, BinLogMMin, BinLogMMax)
         self.hist["Hist_GP_My"] =  ROOT.TH1F("Hist_GP_My", "Hist_GP_My", NbrLogMBins, BinLogMMin, BinLogMMax)  
@@ -174,25 +169,23 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
         self.hist["Hist_Energy_forwardplus"] =  ROOT.TH1F("Hist_Energy_forwardplus", "Hist_Energy_forwardplus" , NbrPFEBins, BinPFEMin, BinPFEMax)
         self.hist["Hist_Energy_forwardminus"] =  ROOT.TH1F("Hist_Energy_forwardminus", "Hist_Energy_forwardminus" , NbrPFEBins, BinPFEMin, BinPFEMax)
         self.hist["Hist_Energy_Castor"] =  ROOT.TH1F("Hist_Energy_Castor", "Hist_Energy_Castor" , NbrPFEBins, BinPFEMin, BinPFEMax)
-        self.hist["Hist_eventID_Energy"] =  ROOT.TH1F("Hist_eventID_Energy", "Hist_eventID_Energy" , NbrPFEBins, BinPFEMin, BinPFEMax)
-        self.hist["Hist_eventID_Energy_barrel"] =  ROOT.TH1F("Hist_eventID_Energy_barrel", "Hist_eventID_Energy_barrel" , NbrPFEBins, BinPFEMin, BinPFEMax)
-        self.hist["Hist_eventID_Energy_endcap"] =  ROOT.TH1F("Hist_eventID_Energy_endcap", "Hist_eventID_Energy_endcap" , NbrPFEBins, BinPFEMin, BinPFEMax)
-        self.hist["Hist_eventID_Energy_endcap_forwardtransition"] =  ROOT.TH1F("Hist_eventID_Energy_endcap_forwardtransition", "Hist_eventID_Energy_endcap_forwardtransition" , NbrPFEBins, BinPFEMin, BinPFEMax)
-        self.hist["Hist_eventID_Energy_forward"] =  ROOT.TH1F("Hist_eventID_Energy_forward", "Hist_eventID_Energy_forward" , NbrPFEBins, BinPFEMin, BinPFEMax)
-        self.hist["Hist_eventID_Energy_forwardplus"] =  ROOT.TH1F("Hist_eventID_Energy_forwardplus", "Hist_eventID_Energy_forwardplus" , NbrPFEBins, BinPFEMin, BinPFEMax)
-        self.hist["Hist_eventID_Energy_forwardminus"] =  ROOT.TH1F("Hist_eventID_Energy_forwardminus", "Hist_eventID_Energy_forwardminus" , NbrPFEBins, BinPFEMin, BinPFEMax)
-        self.hist["Hist_eventID_Energy_Castor"] =  ROOT.TH1F("Hist_eventID_Energy_Castor", "Hist_eventID_Energy_Castor" , NbrPFEBins, BinPFEMin, BinPFEMax)
+        self.hist["Hist_eventXiID_Energy"] =  ROOT.TH1F("Hist_eventXiID_Energy", "Hist_eventXiID_Energy" , NbrPFEBins, BinPFEMin, BinPFEMax)
+        self.hist["Hist_eventXiID_Energy_barrel"] =  ROOT.TH1F("Hist_eventXiID_Energy_barrel", "Hist_eventXiID_Energy_barrel" , NbrPFEBins, BinPFEMin, BinPFEMax)
+        self.hist["Hist_eventXiID_Energy_endcap"] =  ROOT.TH1F("Hist_eventXiID_Energy_endcap", "Hist_eventXiID_Energy_endcap" , NbrPFEBins, BinPFEMin, BinPFEMax)
+        self.hist["Hist_eventXiID_Energy_endcap_forwardtransition"] =  ROOT.TH1F("Hist_eventXiID_Energy_endcap_forwardtransition", "Hist_eventXiID_Energy_endcap_forwardtransition" , NbrPFEBins, BinPFEMin, BinPFEMax)
+        self.hist["Hist_eventXiID_Energy_forward"] =  ROOT.TH1F("Hist_eventXiID_Energy_forward", "Hist_eventXiID_Energy_forward" , NbrPFEBins, BinPFEMin, BinPFEMax)
+        self.hist["Hist_eventXiID_Energy_forwardplus"] =  ROOT.TH1F("Hist_eventXiID_Energy_forwardplus", "Hist_eventXiID_Energy_forwardplus" , NbrPFEBins, BinPFEMin, BinPFEMax)
+        self.hist["Hist_eventXiID_Energy_forwardminus"] =  ROOT.TH1F("Hist_eventXiID_Energy_forwardminus", "Hist_eventXiID_Energy_forwardminus" , NbrPFEBins, BinPFEMin, BinPFEMax)
+        self.hist["Hist_eventXiID_Energy_Castor"] =  ROOT.TH1F("Hist_eventXiID_Energy_Castor", "Hist_eventXiID_Energy_Castor" , NbrPFEBins, BinPFEMin, BinPFEMax)
         
-        self.hist["Hist_eventID_reducedEnergy"] =  ROOT.TH1F("Hist_eventID_reducedEnergy", "Hist_eventID_reducedEnergy" , NbrPFEBins, BinPFEMin, BinPFEMax)
-        self.hist["Hist_eventID_reducedEnergy_barrel"] =  ROOT.TH1F("Hist_eventID_reducedEnergy_barrel", "Hist_eventID_reducedEnergy_barrel" , NbrPFEBins, BinPFEMin, BinPFEMax)
-        self.hist["Hist_eventID_reducedEnergy_endcap"] =  ROOT.TH1F("Hist_eventID_reducedEnergy_endcap", "Hist_eventID_reducedEnergy_endcap" , NbrPFEBins, BinPFEMin, BinPFEMax)
-        self.hist["Hist_eventID_reducedEnergy_endcap_forwardtransition"] =  ROOT.TH1F("Hist_eventID_reducedEnergy_endcap_forwardtransition", "Hist_eventID_reducedEnergy_endcap_forwardtransition" , NbrPFEBins, BinPFEMin, BinPFEMax)
-        self.hist["Hist_eventID_reducedEnergy_forward"] =  ROOT.TH1F("Hist_eventID_reducedEnergy_forward", "Hist_eventID_reducedEnergy_forward" , NbrPFEBins, BinPFEMin, BinPFEMax)
-        self.hist["Hist_eventID_reducedEnergy_forwardplus"] =  ROOT.TH1F("Hist_eventID_reducedEnergy_forwardplus", "Hist_eventID_reducedEnergy_forwardplus" , NbrPFEBins, BinPFEMin, BinPFEMax)
-        self.hist["Hist_eventID_reducedEnergy_forwardminus"] =  ROOT.TH1F("Hist_eventID_reducedEnergy_forwardminus", "Hist_eventID_reducedEnergy_forwardminus" , NbrPFEBins, BinPFEMin, BinPFEMax)
-        self.hist["Hist_eventID_reducedEnergy_Castor"] =  ROOT.TH1F("Hist_eventID_reducedEnergy_Castor", "Hist_eventID_reducedEnergy_Castor" , NbrPFEBins, BinPFEMin, BinPFEMax)
-  
-
+        self.hist["Hist_eventXiID_reducedEnergy"] =  ROOT.TH1F("Hist_eventXiID_reducedEnergy", "Hist_eventXiID_reducedEnergy" , NbrPFEBins, BinPFEMin, BinPFEMax)
+        self.hist["Hist_eventXiID_reducedEnergy_barrel"] =  ROOT.TH1F("Hist_eventXiID_reducedEnergy_barrel", "Hist_eventXiID_reducedEnergy_barrel" , NbrPFEBins, BinPFEMin, BinPFEMax)
+        self.hist["Hist_eventXiID_reducedEnergy_endcap"] =  ROOT.TH1F("Hist_eventXiID_reducedEnergy_endcap", "Hist_eventXiID_reducedEnergy_endcap" , NbrPFEBins, BinPFEMin, BinPFEMax)
+        self.hist["Hist_eventXiID_reducedEnergy_endcap_forwardtransition"] =  ROOT.TH1F("Hist_eventXiID_reducedEnergy_endcap_forwardtransition", "Hist_eventXiID_reducedEnergy_endcap_forwardtransition" , NbrPFEBins, BinPFEMin, BinPFEMax)
+        self.hist["Hist_eventXiID_reducedEnergy_forward"] =  ROOT.TH1F("Hist_eventXiID_reducedEnergy_forward", "Hist_eventXiID_reducedEnergy_forward" , NbrPFEBins, BinPFEMin, BinPFEMax)
+        self.hist["Hist_eventXiID_reducedEnergy_forwardplus"] =  ROOT.TH1F("Hist_eventXiID_reducedEnergy_forwardplus", "Hist_eventXiID_reducedEnergy_forwardplus" , NbrPFEBins, BinPFEMin, BinPFEMax)
+        self.hist["Hist_eventXiID_reducedEnergy_forwardminus"] =  ROOT.TH1F("Hist_eventXiID_reducedEnergy_forwardminus", "Hist_eventXiID_reducedEnergy_forwardminus" , NbrPFEBins, BinPFEMin, BinPFEMax)
+        self.hist["Hist_eventXiID_reducedEnergy_Castor"] =  ROOT.TH1F("Hist_eventXiID_reducedEnergy_Castor", "Hist_eventXiID_reducedEnergy_Castor" , NbrPFEBins, BinPFEMin, BinPFEMax)
         self.hist["Hist_reducedEnergy"] =  ROOT.TH1F("Hist_reducedEnergy", "Hist_reducedEnergy" , NbrPFEBins, BinPFEMin, BinPFEMax)
         self.hist["Hist_reducedEnergy_barrel"] =  ROOT.TH1F("Hist_reducedEnergy_barrel", "Hist_reducedEnergy_barrel" , NbrPFEBins, BinPFEMin, BinPFEMax)
         self.hist["Hist_reducedEnergy_endcap"] =  ROOT.TH1F("Hist_reducedEnergy_endcap", "Hist_reducedEnergy_endcap" , NbrPFEBins, BinPFEMin, BinPFEMax)
@@ -203,9 +196,6 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
         self.hist["Hist_reducedEnergy_Castor"] =  ROOT.TH1F("Hist_reducedEnergy_Castor", "Hist_reducedEnergy_Castor" , NbrPFEBins, BinPFEMin, BinPFEMax)
   
  
-          
-
-
 
         NbrLogXiBins = 100
         BinLogXiMin = -11.5
@@ -222,7 +212,8 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
         self.hist["Hist_XiY"] =  ROOT.TH1F("Hist_XiY", "Hist_XiY", NbrXiBins, BinXiMin, BinXiMax)
         self.hist["Hist_calculated_log10XiDD"] =  ROOT.TH1F("Hist_calculated_log10XiDD", "Hist_calculated_log10XiDD", NbrLogXiBins, BinLogXiMin, BinLogXiMax)
         self.hist["Hist_2D_calculated_log10XiDD_Deltamax"]= ROOT.TH2D("Hist_2D_calculated_log10XiDD_Deltamax","Hist_2D_calculated_log10XiDD_Deltamax",NbrLogXiBins, BinLogXiMin,BinLogXiMax,NbrDetaBins, BinDetaMin, BinDetaMax)
-        self.hist["Hist_Reco_log10Xi_DD"] =  ROOT.TH1F("Hist_Reco_log10Xi_DD", "Hist_Reco_log10Xi_DD", NbrLogXiBins, BinLogXiMin, BinLogXiMax)
+        self.hist["Hist_Reco_log10XiDD"] =  ROOT.TH1F("Hist_Reco_log10XiDD", "Hist_Reco_log10XiDD", NbrLogXiBins, BinLogXiMin, BinLogXiMax)
+        self.hist["Hist_eventXiID_Reco_log10XiDD"] =  ROOT.TH1F("Hist_eventXiID_Reco_log10XiDD", "Hist_eventXiID_Reco_log10XiDD", NbrLogXiBins, BinLogXiMin, BinLogXiMax)
         self.hist["Hist_2DRecoLogXi_DDGenLogXi_DD"] = ROOT.TH2D("Hist_2DRecoLogXi_DDGenLogXi_DD", "Hist_2DRecoLogXi_DDGenLogXi_DD", NbrLogXiBins, BinLogXiMin, BinLogXiMax, NbrLogXiBins, BinLogXiMin, BinLogXiMax)
         self.hist["Hist_log10XiX"] =  ROOT.TH1F("Hist_log10XiX", "Hist_log10XiX", NbrLogXiBins, BinLogXiMin, BinLogXiMax)
         self.hist["Hist_log10XiY"] =  ROOT.TH1F("Hist_log10XiY", "Hist_log10XiY", NbrLogXiBins, BinLogXiMin, BinLogXiMax)
@@ -241,11 +232,12 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
         self.hist["Hist_2D_FG2_2DLogGenXiX_LogGenXiY"] = ROOT.TH2D("Hist_2D_FG2_2DLogGenXiX_LogGenXiY", "Hist_2D_FG2_2DLogGenXiX_LogGenXiY", NbrLogXiBins, BinLogXiMin, BinLogXiMax, NbrLogXiBins, BinLogXiMin, BinLogXiMax)
         self.hist["Hist_2D_FG1_2DLogGenXiX_LogGenXiY"] = ROOT.TH2D("Hist_2D_FG1_2DLogGenXiX_LogGenXiY", "Hist_2D_FG1_2DLogGenXiX_LogGenXiY", NbrLogXiBins, BinLogXiMin, BinLogXiMax, NbrLogXiBins, BinLogXiMin, BinLogXiMax)
         self.hist["Hist_2D_CG_2DLogGenXiX_LogGenXiY"] = ROOT.TH2D("Hist_2D_CG_2DLogGenXiX_LogGenXiY", "Hist_2D_CG_2DLogGenXiX_LogGenXiY", NbrLogXiBins, BinLogXiMin, BinLogXiMax, NbrLogXiBins, BinLogXiMin, BinLogXiMax)
-        self.hist["Hist_eventID_log10XiX"] =  ROOT.TH1F("Hist_eventID_log10XiX", "Hist_eventID_log10XiX", NbrLogXiBins, BinLogXiMin, BinLogXiMax)
-        self.hist["Hist_eventID_log10XiY"] =  ROOT.TH1F("Hist_eventID_log10XiY", "Hist_eventID_log10XiY", NbrLogXiBins, BinLogXiMin, BinLogXiMax)
-        self.hist["Hist_GP_eventID_log10XiX"] =  ROOT.TH1F("Hist_GP_eventID_log10XiX", "Hist_GP_eventID_log10XiX", NbrLogXiBins, BinLogXiMin, BinLogXiMax)
-        self.hist["Hist_GP_eventID_log10XiY"] =  ROOT.TH1F("Hist_GP_eventID_log10XiY", "Hist_GP_eventID_log10XiY", NbrLogXiBins, BinLogXiMin, BinLogXiMax)
-
+        self.hist["Hist_eventXiID_log10XiX"] =  ROOT.TH1F("Hist_eventXiID_log10XiX", "Hist_eventXiID_log10XiX", NbrLogXiBins, BinLogXiMin, BinLogXiMax)
+        self.hist["Hist_eventXiID_log10XiY"] =  ROOT.TH1F("Hist_eventXiID_log10XiY", "Hist_eventXiID_log10XiY", NbrLogXiBins, BinLogXiMin, BinLogXiMax)
+        self.hist["Hist_GP_eventXiID_log10XiX"] =  ROOT.TH1F("Hist_GP_eventXiID_log10XiX", "Hist_GP_eventXiID_log10XiX", NbrLogXiBins, BinLogXiMin, BinLogXiMax)
+        self.hist["Hist_GP_eventXiID_log10XiY"] =  ROOT.TH1F("Hist_GP_eventXiID_log10XiY", "Hist_GP_eventXiID_log10XiY", NbrLogXiBins, BinLogXiMin, BinLogXiMax)
+        
+        
        
         for ip in Process_ID:
             self.hist["Hist_Eta_Min"+str(ip)] = ROOT.TH1D("Hist_Eta_Min"+str(ip),"Hist_Eta_Min ", NbrEtaBins, BinEtaMin, BinEtaMax)
@@ -279,7 +271,7 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
             self.hist["Hist_reducedEnergy_Castor"+str(ip)] =  ROOT.TH1F("Hist_reducedEnergy_Castor"+str(ip), "Hist_reducedEnergy_Castor"+str(ip) , NbrPFEBins, BinPFEMin, BinPFEMax)
             
             self.hist["Hist_2Dlog10MxMy"+str(ip)] =  ROOT.TH2D("Hist_2Dlog10MxMy"+str(ip), "Hist_2Dlog10MxMy"+str(ip), NbrLogMBins, BinLogMMin, BinLogMMax, NbrLogMBins, BinLogMMin, BinLogMMax)
-            self.hist["Hist_eventID_2Dlog10MxMy"+str(ip)] =  ROOT.TH2D("Hist_eventID_2Dlog10MxMy"+str(ip), "Hist_eventID_2Dlog10MxMy"+str(ip), NbrLogMBins, BinLogMMin, BinLogMMax, NbrLogMBins, BinLogMMin, BinLogMMax)
+            self.hist["Hist_eventXiID_2Dlog10MxMy"+str(ip)] =  ROOT.TH2D("Hist_eventXiID_2Dlog10MxMy"+str(ip), "Hist_eventXiID_2Dlog10MxMy"+str(ip), NbrLogMBins, BinLogMMin, BinLogMMax, NbrLogMBins, BinLogMMin, BinLogMMax)
             self.hist["Hist_log10Mx"+str(ip)] =  ROOT.TH1D("Hist_log10Mx"+str(ip), "Hist_log10Mx"+str(ip), NbrLogMBins, BinLogMMin, BinLogMMax)
             self.hist["Hist_log10My"+str(ip)] =  ROOT.TH1D("Hist_log10My"+str(ip), "Hist_log10My"+str(ip), NbrLogMBins, BinLogMMin, BinLogMMax)
             self.hist["Hist_GP_log10Mx"+str(ip)] =  ROOT.TH1D("Hist_GP_log10Mx"+str(ip), "Hist_GP_log10Mx"+str(ip), NbrLogMBins, BinLogMMin, BinLogMMax)
@@ -297,60 +289,62 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
             self.hist["Hist_log10XiX"+str(ip)] =  ROOT.TH1F("Hist_log10XiX"+str(ip), "Hist_log10XiX"+str(ip), NbrLogXiBins, BinLogXiMin, BinLogXiMax)
             self.hist["Hist_log10XiY"+str(ip)] =  ROOT.TH1F("Hist_log10XiY"+str(ip), "Hist_log10XiY"+str(ip), NbrLogXiBins, BinLogXiMin, BinLogXiMax)
             self.hist["Hist_2Dlog10XiXXiY"+str(ip)] = ROOT.TH2D("Hist_2Dlog10XiXXiY"+str(ip), "Hist_2Dlog10XiXXiY"+str(ip), NbrLogXiBins, BinLogXiMin, BinLogXiMax, NbrLogXiBins, BinLogXiMin, BinLogXiMax)
+            self.hist["Hist_Reco_log10XiDD"+str(ip)] =  ROOT.TH1F("Hist_Reco_log10XiDD"+str(ip), "Hist_Reco_log10XiDD"+str(ip), NbrLogXiBins, BinLogXiMin, BinLogXiMax)
             self.hist["Hist_2DLogRecoXiX_logGenXiX"+str(ip)] = ROOT.TH2D("Hist_2DLogRecoXiX_logGenXiX"+str(ip), "Hist_2DLogRecoXiX_logGenXiX"+str(ip), NbrLogXiBins, BinLogXiMin, BinLogXiMax, NbrLogXiBins, BinLogXiMin, BinLogXiMax)
             self.hist["Hist_2DLogRecoXiY_logGenLogXiY"+str(ip)] = ROOT.TH2D("Hist_2DLogRecoXiY_logGenLogXiY"+str(ip), "Hist_2DLogRecoXiY_logGenLogXiY"+str(ip), NbrLogXiBins, BinLogXiMin, BinLogXiMax, NbrLogXiBins, BinLogXiMin, BinLogXiMax)
             self.hist["Hist_2DLogGenXiX_LogGenXiY"+str(ip)] = ROOT.TH2D("Hist_2DLogGenXiX_LogGenXiY"+str(ip), "Hist_2DLogGenXiX_LogGenXiY"+str(ip), NbrLogXiBins,BinLogXiMin, BinLogXiMax, NbrLogXiBins, BinLogXiMin, BinLogXiMax)
             self.hist["Hist_calculated_log10XiDD"+str(ip)] =  ROOT.TH1F("Hist_calculated_log10XiDD"+str(ip), "Hist_calculated_log10XiDD"+str(ip), NbrLogXiBins, BinLogXiMin, BinLogXiMax)
+            self.hist["Hist_numberoftowerebovenoise_forwardplus"+str(ip)] = ROOT.TH1F("Hist_numberoftowerebovenoise_forwardplus"+str(ip),"Hist_numberoftowerebovenoise_forwardplus"+str(ip),30, 0,300) 
+            self.hist["Hist_numberoftowerebovenoise_forwardminus"+str(ip)] = ROOT.TH1F("Hist_numberoftowerebovenoise_forwardminus"+str(ip),"Hist_numberoftowerebovenoise_forwardminus"+str(ip),30, 0,300) 
+            self.hist["Hist_numberoftowerebovenoise_castor"+str(ip)] = ROOT.TH1F("Hist_numberoftowerebovenoise_castor"+str(ip),"Hist_numberoftowerebovenoise_castor"+str(ip),16, 0,16) 
+            self.hist["Hist_NbrTracks"+str(ip)] = ROOT.TH1F("Hist_NbrTracks"+str(ip),"Hist_NbrTracks"+str(ip),NbrSizeBins, BinSizeEMin,100)
+            self.hist["Hist_eventXiID_NbrTracks"+str(ip)] = ROOT.TH1F("Hist_eventXiID_NbrTracks"+str(ip),"Hist_eventXiID_NbrTracks"+str(ip),NbrSizeBins, BinSizeEMin,100)
            
-            self.hist["Hist_HFplus_Numberoftowerebovenoise"+str(ip)] = ROOT.TH1F("Hist_HFplus_Numberoftowerebovenoise"+str(ip),"Hist_HFplus_Numberoftowerebovenoise"+str(ip),30, 0,300) 
-            self.hist["Hist_HFminus_Numberoftowerebovenoise"+str(ip)] = ROOT.TH1F("Hist_HFminus_Numberoftowerebovenoise"+str(ip),"Hist_HFminus_Numberoftowerebovenoise"+str(ip),30, 0,300) 
-            self.hist["Hist_CASTOR_Numberoftowerebovenoise"+str(ip)] = ROOT.TH1F("Hist_CASTOR_Numberoftowerebovenoise"+str(ip),"Hist_CASTOR_Numberoftowerebovenoise"+str(ip),10, 0,50) 
- 
-
-            # eventID is process Id which is defined by the cuts that are applied on Xi , no using process ID from Pythi8
-            self.hist["Hist_GP_eventID_Min"+str(ip)] = ROOT.TH1D("Hist_GP_eventID_Min"+str(ip),"Hist_GP_eventID_Min ", NbrEtaBins, BinEtaMin, BinEtaMax)
-            self.hist["Hist_GP_eventID_Max"+str(ip)] = ROOT.TH1D("Hist_GP_eventID_Max"+str(ip),"Hist_GP_eventID_Max ", NbrEtaBins, BinEtaMin, BinEtaMax) 
-            self.hist["Hist_GP_eventID_DeltaMax"+str(ip)] =  ROOT.TH1F("Hist_GP_eventID_DeltaMax"+str(ip), "Hist_GP_eventID_DeltaMax"+str(ip), NbrDetaBins, BinDetaMin, BinDetaMax)
-            self.hist["Hist_GP_eventID_DeltaZero"+str(ip)] =  ROOT.TH1F("Hist_GP_eventID_DeltaZero"+str(ip), "Hist_GP_eventID_DeltaZero"+str(ip), NbrDetaBins, BinDetaMin, BinDetaMax)
-            self.hist["Hist_eventID_Min"+str(ip)] = ROOT.TH1D("Hist_eventID_Min"+str(ip),"Hist_eventID_Min ", NbrEtaBins, BinEtaMin, BinEtaMax)
-            self.hist["Hist_eventID_Max"+str(ip)] = ROOT.TH1D("Hist_eventID_Max"+str(ip),"Hist_eventID_Max ", NbrEtaBins, BinEtaMin, BinEtaMax) 
-            self.hist["Hist_eventID_DeltaMax"+str(ip)] =  ROOT.TH1F("Hist_eventID_DeltaMax"+str(ip), "Hist_eventID_DeltaMax"+str(ip), NbrDetaBins, BinDetaMin, BinDetaMax)
-            self.hist["Hist_eventID_DeltaZero"+str(ip)] =  ROOT.TH1F("Hist_eventID_DeltaZero"+str(ip), "Hist_eventID_DeltaZero"+str(ip), NbrDetaBins, BinDetaMin, BinDetaMax)
-            self.hist["Hist_eventID_log10Mx"+str(ip)] =  ROOT.TH1D("Hist_eventID_log10Mx"+str(ip), "Hist_eventID_log10Mx"+str(ip), NbrLogMBins, BinLogMMin, BinLogMMax)
-            self.hist["Hist_eventID_log10My"+str(ip)] =  ROOT.TH1D("Hist_eventID_log10My"+str(ip), "Hist_eventID_log10My"+str(ip), NbrLogMBins, BinLogMMin, BinLogMMax)
-            self.hist["Hist_eventID_GP_2Dlog10MxMy"+str(ip)] =  ROOT.TH2D("Hist_eventID_GP_2Dlog10MxMy"+str(ip), "Hist_eventID_GP_2Dlog10MxMy"+str(ip), NbrLogMBins, BinLogMMin, BinLogMMax, NbrLogMBins, BinLogMMin, BinLogMMax)
-            self.hist["Hist_eventID_log10XiX"+str(ip)] =  ROOT.TH1F("Hist_eventID_log10XiX"+str(ip), "Hist_eventID_log10XiX"+str(ip), NbrLogXiBins, BinLogXiMin, BinLogXiMax)
-            self.hist["Hist_eventID_log10XiY"+str(ip)] =  ROOT.TH1F("Hist_eventID_log10XiY"+str(ip), "Hist_eventID_log10XiY"+str(ip), NbrLogXiBins, BinLogXiMin, BinLogXiMax)
-            self.hist["Hist_GP_eventID_log10XiX"+str(ip)] =  ROOT.TH1F("Hist_GP_eventID_log10XiX"+str(ip), "Hist_GP_eventID_log10XiX"+str(ip), NbrLogXiBins, BinLogXiMin, BinLogXiMax)
-            self.hist["Hist_GP_eventID_log10XiY"+str(ip)] =  ROOT.TH1F("Hist_GP_eventID_log10XiY"+str(ip), "Hist_GP_eventID_log10XiY"+str(ip), NbrLogXiBins, BinLogXiMin, BinLogXiMax)
-            self.hist["Hist_eventID_2DLogGenXiX_LogGenXiY"+str(ip)] = ROOT.TH2D("Hist_eventID_2DLogGenXiX_LogGenXiY"+str(ip), "Hist_eventID_2DLogGenXiX_LogGenXiY"+str(ip), NbrLogXiBins,BinLogXiMin, BinLogXiMax, NbrLogXiBins, BinLogXiMin, BinLogXiMax)
-            self.hist["Hist_eventID_Energy"+str(ip)] =  ROOT.TH1F("Hist_eventID_Energy"+str(ip), "Hist_eventID_Energy"+str(ip) , NbrPFEBins, BinPFEMin, BinPFEMax)
-            self.hist["Hist_eventID_Energy_barrel"+str(ip)] =  ROOT.TH1F("Hist_eventID_Energy_barrel"+str(ip), "Hist_eventID_Energy_barrel"+str(ip) , NbrPFEBins, BinPFEMin, BinPFEMax)
-            self.hist["Hist_eventID_Energy_endcap"+str(ip)] =  ROOT.TH1F("Hist_eventID_Energy_endcap"+str(ip), "Hist_eventID_Energy_endcap"+str(ip) , NbrPFEBins, BinPFEMin, BinPFEMax)
-            self.hist["Hist_eventID_Energy_endcap_forwardtransition"+str(ip)] =  ROOT.TH1F("Hist_eventID_Energy_endcap_forwardtransition"+str(ip), "Hist_eventID_Energy_endcap_forwardtransition"+str(ip) , NbrPFEBins, BinPFEMin, BinPFEMax)
-            self.hist["Hist_eventID_Energy_forward"+str(ip)] =  ROOT.TH1F("Hist_eventID_Energy_forward"+str(ip), "Hist_eventID_Energy_forward"+str(ip) , NbrPFEBins, BinPFEMin, BinPFEMax)
-            self.hist["Hist_eventID_Energy_forwardplus"+str(ip)] =  ROOT.TH1F("Hist_eventID_Energy_forwardplus"+str(ip), "Hist_eventID_Energy_forwardplus"+str(ip) , NbrPFEBins, BinPFEMin, BinPFEMax)
-            self.hist["Hist_eventID_Energy_forwardminus"+str(ip)] =  ROOT.TH1F("Hist_eventID_Energy_forwardminus"+str(ip), "Hist_eventID_Energy_forwardminus"+str(ip) , NbrPFEBins, BinPFEMin, BinPFEMax)
+             # eventID is process Id which is defined by the cuts that are applied on Xi , no using process ID from Pythi8
+            self.hist["Hist_GP_eventXiID_Min"+str(ip)] = ROOT.TH1D("Hist_GP_eventXiID_Min"+str(ip),"Hist_GP_eventXiID_Min ", NbrEtaBins, BinEtaMin, BinEtaMax)
+            self.hist["Hist_GP_eventXiID_Max"+str(ip)] = ROOT.TH1D("Hist_GP_eventXiID_Max"+str(ip),"Hist_GP_eventXiID_Max ", NbrEtaBins, BinEtaMin, BinEtaMax) 
+            self.hist["Hist_GP_eventXiID_DeltaMax"+str(ip)] =  ROOT.TH1F("Hist_GP_eventXiID_DeltaMax"+str(ip), "Hist_GP_eventXiID_DeltaMax"+str(ip), NbrDetaBins, BinDetaMin, BinDetaMax)
+            self.hist["Hist_GP_eventXiID_DeltaZero"+str(ip)] =  ROOT.TH1F("Hist_GP_eventXiID_DeltaZero"+str(ip), "Hist_GP_eventXiID_DeltaZero"+str(ip), NbrDetaBins, BinDetaMin, BinDetaMax)
+            self.hist["Hist_eventXiID_Min"+str(ip)] = ROOT.TH1D("Hist_eventXiID_Min"+str(ip),"Hist_eventXiID_Min ", NbrEtaBins, BinEtaMin, BinEtaMax)
+            self.hist["Hist_eventXiID_Max"+str(ip)] = ROOT.TH1D("Hist_eventXiID_Max"+str(ip),"Hist_eventXiID_Max ", NbrEtaBins, BinEtaMin, BinEtaMax) 
+            self.hist["Hist_eventXiID_DeltaMax"+str(ip)] = ROOT.TH1F("Hist_eventXiID_DeltaMax"+str(ip), "Hist_eventXiID_DeltaMax"+str(ip), NbrDetaBins, BinDetaMin, BinDetaMax)
+            self.hist["Hist_eventXiID_DeltaZero"+str(ip)] = ROOT.TH1F("Hist_eventXiID_DeltaZero"+str(ip), "Hist_eventXiID_DeltaZero"+str(ip), NbrDetaBins, BinDetaMin, BinDetaMax)
+            self.hist["Hist_eventXiID_log10Mx"+str(ip)] = ROOT.TH1D("Hist_eventXiID_log10Mx"+str(ip), "Hist_eventXiID_log10Mx"+str(ip), NbrLogMBins, BinLogMMin, BinLogMMax)
+            self.hist["Hist_eventXiID_log10My"+str(ip)] = ROOT.TH1D("Hist_eventXiID_log10My"+str(ip), "Hist_eventXiID_log10My"+str(ip), NbrLogMBins, BinLogMMin, BinLogMMax)
+            self.hist["Hist_eventXiID_GP_2Dlog10MxMy"+str(ip)] =  ROOT.TH2D("Hist_eventXiID_GP_2Dlog10MxMy"+str(ip), "Hist_eventXiID_GP_2Dlog10MxMy"+str(ip), NbrLogMBins, BinLogMMin, BinLogMMax, NbrLogMBins, BinLogMMin, BinLogMMax)
+            self.hist["Hist_eventXiID_log10XiX"+str(ip)] = ROOT.TH1F("Hist_eventXiID_log10XiX"+str(ip), "Hist_eventXiID_log10XiX"+str(ip), NbrLogXiBins, BinLogXiMin, BinLogXiMax)
+            self.hist["Hist_eventXiID_log10XiY"+str(ip)] = ROOT.TH1F("Hist_eventXiID_log10XiY"+str(ip), "Hist_eventXiID_log10XiY"+str(ip), NbrLogXiBins, BinLogXiMin, BinLogXiMax)
             
-            self.hist["Hist_eventID_Energy_Castor"+str(ip)] =  ROOT.TH1F("Hist_eventID_Energy_Castor"+str(ip), "Hist_eventID_Energy_Castor"+str(ip) , NbrPFEBins, BinPFEMin, BinPFEMax)
-            self.hist["Hist_eventID_reducedEnergy"+str(ip)] =  ROOT.TH1F("Hist_eventID_reducedEnergy"+str(ip), "Hist_eventID_reducedEnergy"+str(ip) , NbrPFEBins, BinPFEMin, BinPFEMax)
-            self.hist["Hist_eventID_reducedEnergy_barrel"+str(ip)] =  ROOT.TH1F("Hist_eventID_reducedEnergy_barrel"+str(ip), "Hist_eventID_reducedEnergy_barrel"+str(ip) , NbrPFEBins, BinPFEMin, BinPFEMax)
-            self.hist["Hist_eventID_reducedEnergy_endcap"+str(ip)] =  ROOT.TH1F("Hist_eventID_reducedEnergy_endcap"+str(ip), "Hist_eventID_reducedEnergy_endcap"+str(ip) , NbrPFEBins, BinPFEMin, BinPFEMax)
-            self.hist["Hist_eventID_reducedEnergy_endcap_forwardtransition"+str(ip)] =  ROOT.TH1F("Hist_eventID_reducedEnergy_endcap_forwardtransition"+str(ip), "Hist_eventID_reducedEnergy_endcap_forwardtransition"+str(ip) , NbrPFEBins, BinPFEMin, BinPFEMax)
-            self.hist["Hist_eventID_reducedEnergy_forward"+str(ip)] =  ROOT.TH1F("Hist_eventID_reducedEnergy_forward"+str(ip), "Hist_eventID_reducedEnergy_forward"+str(ip) , NbrPFEBins, BinPFEMin, BinPFEMax)
-            self.hist["Hist_eventID_reducedEnergy_forwardplus"+str(ip)] =  ROOT.TH1F("Hist_eventID_reducedEnergy_forwardplus"+str(ip), "Hist_eventID_reducedEnergy_forwardplus"+str(ip) , NbrPFEBins, BinPFEMin, BinPFEMax)
-            self.hist["Hist_eventID_reducedEnergy_forwardminus"+str(ip)] =  ROOT.TH1F("Hist_eventID_reducedEnergy_forwardminus"+str(ip), "Hist_eventID_reducedEnergy_forwardminus"+str(ip) , NbrPFEBins, BinPFEMin, BinPFEMax)
-            self.hist["Hist_eventID_reducedEnergy_Castor"+str(ip)] =  ROOT.TH1F("Hist_eventID_reducedEnergy_Castor"+str(ip), "Hist_eventID_reducedEnergy_Castor"+str(ip) , NbrPFEBins, BinPFEMin, BinPFEMax)
-            
-            self.hist["Hist_eventID_HFplus_Numberoftowerebovenoise"+str(ip)] = ROOT.TH1F("Hist_eventID_HFplus_Numberoftowerebovenoise"+str(ip),"Hist_eventID_HFplus_Numberoftowerebovenoise"+str(ip),30, 0,300) 
-            self.hist["Hist_eventID_HFminus_Numberoftowerebovenoise"+str(ip)] = ROOT.TH1F("Hist_eventID_HFminus_Numberoftowerebovenoise"+str(ip),"Hist_eventID_HFminus_Numberoftowerebovenoise"+str(ip),30, 0,300) 
-            self.hist["Hist_eventID_CASTOR_Numberoftowerebovenoise"+str(ip)] = ROOT.TH1F("Hist_eventID_CASTOR_Numberoftowerebovenoise"+str(ip),"Hist_eventID_CASTOR_Numberoftowerebovenoise"+str(ip),10, 0,50) 
-               
-            self.hist["Hist_2DHFminus_Castor_Ntowers"+str(ip)]= ROOT.TH2D("Hist_2DHFminus_Castor_Ntowers"+str(ip),"Hist_2DHFminus_Castor_Ntowers"+str(ip),30,0,300,10,0,50)
-            self.hist["Hist_2DHFplus_Castor_Ntowers"+str(ip)]= ROOT.TH2D("Hist_2DHFplus_Castor_Ntowers"+str(ip),"Hist_2DHFplus_Castor_Ntowers"+str(ip),30,0,300,10,0,50)
-            self.hist["Hist_eventID_2DHFminus_Castor_Ntowers"+str(ip)]= ROOT.TH2D("Hist_eventID_2DHFminus_Castor_Ntowers"+str(ip),"Hist_eventID_2DHFminus_Castor_Ntowers"+str(ip),30,0,300,10,0,50)
-            self.hist["Hist_eventID_2DHFplus_Castor_Ntowers"+str(ip)]= ROOT.TH2D("Hist_eventID_2DHFplus_Castor_Ntowers"+str(ip),"Hist_eventID_2DHFplus_Castor_Ntowers"+str(ip),30,0,300,10,0,50)
+          
+            self.hist["Hist_GP_eventXiID_log10XiX"+str(ip)] = ROOT.TH1F("Hist_GP_eventXiID_log10XiX"+str(ip), "Hist_GP_eventXiID_log10XiX"+str(ip), NbrLogXiBins, BinLogXiMin, BinLogXiMax)
+            self.hist["Hist_GP_eventXiID_log10XiY"+str(ip)] = ROOT.TH1F("Hist_GP_eventXiID_log10XiY"+str(ip), "Hist_GP_eventXiID_log10XiY"+str(ip), NbrLogXiBins, BinLogXiMin, BinLogXiMax)
+            self.hist["Hist_eventXiID_2DLogGenXiX_LogGenXiY"+str(ip)] = ROOT.TH2D("Hist_eventXiID_2DLogGenXiX_LogGenXiY"+str(ip), "Hist_eventXiID_2DLogGenXiX_LogGenXiY"+str(ip), NbrLogXiBins,BinLogXiMin, BinLogXiMax, NbrLogXiBins, BinLogXiMin, BinLogXiMax)
+            self.hist["Hist_eventXiID_Reco_log10XiDD"+str(ip)] = ROOT.TH1F("Hist_eventXiID_Reco_log10XiDD"+str(ip), "Hist_eventXiID_Reco_log10XiDD"+str(ip), NbrLogXiBins, BinLogXiMin, BinLogXiMax)
+            self.hist["Hist_eventXiID_Energy"+str(ip)] =  ROOT.TH1F("Hist_eventXiID_Energy"+str(ip), "Hist_eventXiID_Energy"+str(ip) , NbrPFEBins, BinPFEMin, BinPFEMax)
+            self.hist["Hist_eventXiID_Energy_barrel"+str(ip)] = ROOT.TH1F("Hist_eventXiID_Energy_barrel"+str(ip), "Hist_eventXiID_Energy_barrel"+str(ip) , NbrPFEBins, BinPFEMin, BinPFEMax)
+            self.hist["Hist_eventXiID_Energy_endcap"+str(ip)] = ROOT.TH1F("Hist_eventXiID_Energy_endcap"+str(ip), "Hist_eventXiID_Energy_endcap"+str(ip) , NbrPFEBins, BinPFEMin, BinPFEMax)
+            self.hist["Hist_eventXiID_Energy_endcap_forwardtransition"+str(ip)] =  ROOT.TH1F("Hist_eventXiID_Energy_endcap_forwardtransition"+str(ip), "Hist_eventXiID_Energy_endcap_forwardtransition"+str(ip) , NbrPFEBins, BinPFEMin, BinPFEMax)
+            self.hist["Hist_eventXiID_Energy_forward"+str(ip)] =  ROOT.TH1F("Hist_eventXiID_Energy_forward"+str(ip), "Hist_eventXiID_Energy_forward"+str(ip) , NbrPFEBins, BinPFEMin, BinPFEMax)
+            self.hist["Hist_eventXiID_Energy_forwardplus"+str(ip)] =  ROOT.TH1F("Hist_eventXiID_Energy_forwardplus"+str(ip), "Hist_eventXiID_Energy_forwardplus"+str(ip) , NbrPFEBins, BinPFEMin, BinPFEMax)
+            self.hist["Hist_eventXiID_Energy_forwardminus"+str(ip)] =  ROOT.TH1F("Hist_eventXiID_Energy_forwardminus"+str(ip), "Hist_eventXiID_Energy_forwardminus"+str(ip) , NbrPFEBins, BinPFEMin, BinPFEMax)
+            self.hist["Hist_eventXiID_Energy_Castor"+str(ip)] =  ROOT.TH1F("Hist_eventXiID_Energy_Castor"+str(ip), "Hist_eventXiID_Energy_Castor"+str(ip) , NbrPFEBins, BinPFEMin, BinPFEMax)
+            self.hist["Hist_eventXiID_reducedEnergy"+str(ip)] =  ROOT.TH1F("Hist_eventXiID_reducedEnergy"+str(ip), "Hist_eventXiID_reducedEnergy"+str(ip) , NbrPFEBins, BinPFEMin, BinPFEMax)
+            self.hist["Hist_eventXiID_reducedEnergy_barrel"+str(ip)] =  ROOT.TH1F("Hist_eventXiID_reducedEnergy_barrel"+str(ip), "Hist_eventXiID_reducedEnergy_barrel"+str(ip) , NbrPFEBins, BinPFEMin, BinPFEMax)
+            self.hist["Hist_eventXiID_reducedEnergy_endcap"+str(ip)] =  ROOT.TH1F("Hist_eventXiID_reducedEnergy_endcap"+str(ip), "Hist_eventXiID_reducedEnergy_endcap"+str(ip) , NbrPFEBins, BinPFEMin, BinPFEMax)
+            self.hist["Hist_eventXiID_reducedEnergy_endcap_forwardtransition"+str(ip)] =  ROOT.TH1F("Hist_eventXiID_reducedEnergy_endcap_forwardtransition"+str(ip), "Hist_eventXiID_reducedEnergy_endcap_forwardtransition"+str(ip) , NbrPFEBins, BinPFEMin, BinPFEMax)
+            self.hist["Hist_eventXiID_reducedEnergy_forward"+str(ip)] =  ROOT.TH1F("Hist_eventXiID_reducedEnergy_forward"+str(ip), "Hist_eventXiID_reducedEnergy_forward"+str(ip) , NbrPFEBins, BinPFEMin, BinPFEMax)
+            self.hist["Hist_eventXiID_reducedEnergy_forwardplus"+str(ip)] =  ROOT.TH1F("Hist_eventXiID_reducedEnergy_forwardplus"+str(ip), "Hist_eventXiID_reducedEnergy_forwardplus"+str(ip) , NbrPFEBins, BinPFEMin, BinPFEMax)
+            self.hist["Hist_eventXiID_reducedEnergy_forwardminus"+str(ip)] =  ROOT.TH1F("Hist_eventXiID_reducedEnergy_forwardminus"+str(ip), "Hist_eventXiID_reducedEnergy_forwardminus"+str(ip) , NbrPFEBins, BinPFEMin, BinPFEMax)
+            self.hist["Hist_eventXiID_reducedEnergy_Castor"+str(ip)] =  ROOT.TH1F("Hist_eventXiID_reducedEnergy_Castor"+str(ip), "Hist_eventXiID_reducedEnergy_Castor"+str(ip) , NbrPFEBins, BinPFEMin, BinPFEMax)
+            self.hist["Hist_eventXiID_numberoftowerebovenoise_forwardplus"+str(ip)] = ROOT.TH1F("Hist_eventXiID_numberoftowerebovenoise_forwardplus"+str(ip),"Hist_eventXiID_numberoftowerebovenoise_forwardplus"+str(ip),30, 0,300) 
+            self.hist["Hist_eventXiID_numberoftowerebovenoise_forwardminus"+str(ip)] = ROOT.TH1F("Hist_eventXiID_numberoftowerebovenoise_forwardminus"+str(ip),"Hist_eventXiID_numberoftowerebovenoise_forwardminus"+str(ip),30, 0,300) 
+            self.hist["Hist_eventXiID_numberoftowerebovenoise_castor"+str(ip)] = ROOT.TH1F("Hist_eventXiID_numberoftowerebovenoise_castor"+str(ip),"Hist_eventXiID_numberoftowerebovenoise_castor"+str(ip),16, 0,16) 
+            self.hist["Hist_2DHFminus_Castor_Ntowers"+str(ip)]= ROOT.TH2D("Hist_2DHFminus_Castor_Ntowers"+str(ip),"Hist_2DHFminus_Castor_Ntowers"+str(ip),30,0,300,16,0,16)
+            self.hist["Hist_2DHFplus_Castor_Ntowers"+str(ip)]= ROOT.TH2D("Hist_2DHFplus_Castor_Ntowers"+str(ip),"Hist_2DHFplus_Castor_Ntowers"+str(ip),30,0,300,16,0,16)
+            self.hist["Hist_eventXiID_2DHFminus_Castor_Ntowers"+str(ip)]= ROOT.TH2D("Hist_eventXiID_2DHFminus_Castor_Ntowers"+str(ip),"Hist_eventXiID_2DHFminus_Castor_Ntowers"+str(ip),30,0,300,16,0,16)
+            self.hist["Hist_eventXiID_2DHFplus_Castor_Ntowers"+str(ip)]= ROOT.TH2D("Hist_eventXiID_2DHFplus_Castor_Ntowers"+str(ip),"Hist_eventXiID_2DHFplus_Castor_Ntowers"+str(ip),30,0,300,16,0,16)
 
+            
 
 
       
@@ -362,11 +356,12 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
         self.castor_tower_p4 = []
         self.CMenergy = 13000 # GeV
         self.protonmass = 0.938 # GeV
-        self.Xi_p= -8.28 # Mp*2/CMenergylog10(1/13e3/13e3)
+        self.Xi_p = -8.28 # Mp*2/CMenergylog10(1/13e3/13e3)
         for isec in xrange(0,16):
             self.castor_tower_p4.append( ROOT.ROOT.Math.LorentzVector('ROOT::Math::PxPyPzE4D<double>')(0,0,0,0) )
 
         sigTree = ROOT.TTree("sigTree", "selected DD events")
+
         self.OUTlog10XixGen = array( 'f', 1 * [0] )
         self.OUTlog10XiyGen = array( 'f', 1 * [0] )
         self.OUTlog10XixReco = array( 'f', 1 * [0] )
@@ -382,8 +377,14 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
         self.OUTetamax = array( 'f', 1 * [0] )
         self.OUTCastorNtowers = array( 'i', 1 * [0] )
         self.OUTHFminusNtowers = array( 'i', 1 * [0] )
+        self.OUTNtracks = array( 'i', 1 * [0] )
         self.OUTHFplusNtowers = array( 'i', 1 * [0] )
-        
+        self.OUTlog10XiDD = array( 'f', 1 * [0] )
+        self.OUTPythia8processid = array( 'i', 1 * [0] )
+        self.OUTEventselectionXiprocessid = array( 'i', 1 * [0] )
+
+        sigTree.Branch('EventselectionXiprocessid', self.OUTEventselectionXiprocessid,'EventselectionXiprocessid/I')
+        sigTree.Branch('Pythia8processid', self.OUTPythia8processid,'Pythia8processid/I')
         sigTree.Branch('log10XixGen', self.OUTlog10XixGen,'log10XixGen/F')
         sigTree.Branch('log10XiyGen', self.OUTlog10XiyGen,'log10XiyGen/F')
         sigTree.Branch('log10XixReco', self.OUTlog10XixReco,'log10XixReco/F')
@@ -396,30 +397,18 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
         sigTree.Branch('CastorNtowers', self.OUTCastorNtowers, 'CastorNtowers/I')
         sigTree.Branch('HFminusNtowers', self.OUTHFminusNtowers,'HFminusNtowers/I')
         sigTree.Branch('HFplusNtowers', self.OUTHFplusNtowers,'HFplusNtowers/I')
+        sigTree.Branch('Ntracks', self.OUTNtracks,'Ntracks/I')
+
+        
+
+        sigTree.Branch('log10XiDD', self.OUTlog10XiDD,'log10XiDD/F')
+
         setattr(self, "sigTree", sigTree)
         self.addToOutput(self.sigTree)
         
-        
-
-        
         bkgTree = ROOT.TTree("bkgTree", "all events except the DD")
-        self.OUTlog10XixGen = array( 'f', 1 * [0] )
-        self.OUTlog10XiyGen = array( 'f', 1 * [0] )
-        self.OUTlog10XixReco = array( 'f', 1 * [0] )
-        self.OUTlog10XiyReco = array( 'f', 1 * [0] )
-        self.OUTlog10MxGen = array( 'f', 1 * [0] )
-        self.OUTlog10MyGen = array( 'f', 1 * [0] )
-        self.OUTlog10MxReco = array( 'f', 1 * [0] )
-        self.OUTlog10MyReco = array( 'f', 1 * [0] )
-        self.OUTdeltazero = array( 'f', 1 * [0] )
-        self.OUTdelta = array( 'f', 1 * [0] )
-        self.OUTetamin = array( 'f', 1 * [0] )
-        self.OUTetamax = array( 'f', 1 * [0] )
-        self.OUTrapditygapmean = array( 'f', 1 * [0] )
-        self.OUTCastorNtowers = array( 'i', 1 * [0] )
-        self.OUTHFminusNtowers = array('i', 1 * [0] )
-        self.OUTHFplusNtowers = array('i', 1 * [0] )
-        
+        bkgTree.Branch('EventselectionXiprocessid', self.OUTEventselectionXiprocessid,'EventselectionXiprocessid/I')
+        bkgTree.Branch('Pythia8processid', self.OUTPythia8processid,'Pythia8processid/I')
         bkgTree.Branch('log10XixGen', self.OUTlog10XixGen, 'log10XixGen/F')
         bkgTree.Branch('log10XiyGen', self.OUTlog10XiyGen, 'log10XiyGen/F')
         bkgTree.Branch('log10XixReco', self.OUTlog10XixReco, 'log10XixReco/F')
@@ -432,13 +421,63 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
         bkgTree.Branch('CastorNtowers', self.OUTCastorNtowers, 'CastorNtowers/I')
         bkgTree.Branch('HFminusNtowers', self.OUTHFminusNtowers, 'HFminusNtowers/I')
         bkgTree.Branch('HFplusNtowers', self.OUTHFplusNtowers, 'HFplusNtowers/I')
-
+        bkgTree.Branch('log10XiDD', self.OUTlog10XiDD,'log10XiDD/F')
+        bkgTree.Branch('Ntracks', self.OUTNtracks,'Ntracks/I')
         setattr(self, "bkgTree",bkgTree)
         self.addToOutput(self.bkgTree)
         
 
+
+
+        AllTree = ROOT.TTree("AllTree", "all events")
+        AllTree.Branch('EventselectionXiprocessid', self.OUTEventselectionXiprocessid,'EventselectionXiprocessid/I')
+        AllTree.Branch('Pythia8processid', self.OUTPythia8processid,'Pythia8processid/I')
+        AllTree.Branch('log10XixGen', self.OUTlog10XixGen, 'log10XixGen/F')
+        AllTree.Branch('log10XiyGen', self.OUTlog10XiyGen, 'log10XiyGen/F')
+        AllTree.Branch('log10XixReco', self.OUTlog10XixReco, 'log10XixReco/F')
+        AllTree.Branch('log10XiyReco', self.OUTlog10XiyReco, 'log10XiyReco/F')
+        AllTree.Branch('delta', self.OUTdelta, 'delta/F')
+        AllTree.Branch('deltazero', self.OUTdeltazero, 'deltazero/F')
+        AllTree.Branch('etamin', self.OUTetamin, 'etamin/F')
+        AllTree.Branch('etamax', self.OUTetamax, 'etamax/F')
+        AllTree.Branch('RGmean', self.OUTrapditygapmean,'RGmean/F')
+        AllTree.Branch('CastorNtowers', self.OUTCastorNtowers, 'CastorNtowers/I')
+        AllTree.Branch('HFminusNtowers', self.OUTHFminusNtowers, 'HFminusNtowers/I')
+        AllTree.Branch('HFplusNtowers', self.OUTHFplusNtowers, 'HFplusNtowers/I')
+        AllTree.Branch('log10XiDD', self.OUTlog10XiDD,'log10XiDD/F')
+        AllTree.Branch('Ntracks', self.OUTNtracks,'Ntracks/I')
+        setattr(self, "AllTree",AllTree)
+        self.addToOutput(self.AllTree)
+        
+
+    def get_Pythia_Process_ID(self):
+        if self.fChain.processID == 101:
+            return '_Rest', self.fChain.processID
+        if self.fChain.processID == 103:
+            return '_SD1', self.fChain.processID
+        if self.fChain.processID == 104:
+            return '_SD2', self.fChain.processID
+        if self.fChain.processID == 105:
+            return '_DD', self.fChain.processID
+        if self.fChain.processID == 106:
+            return '_CD', self.fChain.processID
+
+        return '_NONE', -1
+
+
+        
+    def get_EventSelectionXiProcess_ID(self,GenXi_DD,GenXiX,GenXiY):
+        if (log10(GenXi_DD) > -3) :
+            return '_Rest', 101
+        elif (log10(GenXiY) < self.Xi_p + 0.04) and (log10(GenXiY) > self.Xi_p-0.04):
+            return '_SD1', 103 
+        elif (log10(GenXiX) < self.Xi_p + 0.04) and (log10(GenXiX) > self.Xi_p -0.04):
+            return '_SD2', 104
+        
+        return '_DD', 105
           
-   
+
+
 
     def analyze(self):
         # return 1
@@ -475,29 +514,14 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
         self.hist["hProcessesIdPythia"].Fill("all",1)
 
         Pythia_Process_ID = '_NONE'
+        int_Pythia_Process_ID = -1
+        EventSelectionXiProcess_ID = '_NONE'
+        int_EventSelectionXiProcess_ID = -1
+        
         if not self.isData:
-            if self.fChain.processID == 101:
-                Proces_ND= self.fChain.processID == 101
-                Pythia_Process_ID = '_ND'
-                self.hist["hProcessesIdPythia"].Fill("ND",1)
-            if self.fChain.processID == 103:    
-                Proces_SD1= self.fChain.processID == 103   
-                Pythia_Process_ID = '_SD1'
-                self.hist["hProcessesIdPythia"].Fill("SD1",1)
-            if self.fChain.processID == 104: 
-                Proces_SD2= self.fChain.processID==104
-                Pythia_Process_ID = '_SD2'
-                self.hist["hProcessesIdPythia"].Fill("SD2",1)
-            if self.fChain.processID == 105:
-                process_DD= self.fChain.processID == 105 
-                Pythia_Process_ID = '_DD'
-                self.hist["hProcessesIdPythia"].Fill("DD",1)
-            if self.fChain.processID == 106:
-                process_CD= self.fChain.processID == 106 
-                Pythia_Process_ID = '_CD'
-                self.hist["hProcessesIdPythia"].Fill("CD",1)
+            Pythia_Process_ID, int_Pythia_Process_ID = self.get_Pythia_Process_ID()
+            self.hist["hProcessesIdPythia"].Fill(Pythia_Process_ID[1:],1)
    
-
 
         self.hist["hNentries"].Fill("all",1)
         self.hist["BunchCrossing"].Fill(self.fChain.bx)
@@ -534,8 +558,7 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
         Deltaeta = -1
        
         # self.hist["hNentries"].Fill("hf cut",1)         
-        EventSelectionProcess_ID = '_NONE'
-
+       
         if  not self.isData:
            
             ngenParticle = self.fChain.genParticlesp4.size()
@@ -616,15 +639,21 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
                     XPxtot += GenParticleClass[igp][0].Px()
                     XPytot += GenParticleClass[igp][0].Py()
                     XPztot += GenParticleClass[igp][0].Pz()
+                    
+                   
 
                 if GenParticleClass[igp][0].eta() >= ChargedGenParticleClass[deltaetamax_Gen_pos+1][0].eta():
                     YGenEtot += GenParticleClass[igp][0].E()
                     YPxtot += GenParticleClass[igp][0].Px()
                     YPytot += GenParticleClass[igp][0].Py()
                     YPztot += GenParticleClass[igp][0].Pz()
-                
-                MeanGen = (ChargedGenParticleClass[deltaetamax_Gen_pos+1][0].eta() + ChargedGenParticleClass[deltaetamax_Gen_pos][0].eta())/2 
+                    
 
+
+
+
+                MeanGen = (ChargedGenParticleClass[deltaetamax_Gen_pos+1][0].eta() + ChargedGenParticleClass[deltaetamax_Gen_pos][0].eta())/2 
+               
 
             Px2 =  XPxtot**2 + XPytot**2 +XPztot**2
             Py2 =  YPxtot**2 + YPytot**2 +YPztot**2
@@ -670,50 +699,38 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
             self.hist["Hist_2D_calculated_log10XiDD_Deltamax"].Fill(log10(GenXi_DD), delta_max_gen)
             self.hist["Hist_2D_calculated_log10XiDD_Deltamax"+Pythia_Process_ID].Fill(log10(GenXi_DD), delta_max_gen)
            
-            if (log10(GenXi_DD) > -3) :
-                EventSelectionProcess_ID = '_ND'
-                self.hist["hProcessescut"].Fill("ND",1)
 
-            elif (log10(GenXiY) < self.Xi_p + 0.04) and (log10(GenXiY) > self.Xi_p-0.04):
-                
-                EventSelectionProcess_ID = '_SD1'
-                self.hist["hProcessescut"].Fill("SD1",1)
-
-            elif (log10(GenXiX) < self.Xi_p + 0.04) and (log10(GenXiX) > self.Xi_p -0.04):
-                EventSelectionProcess_ID = '_SD2'
-                self.hist["hProcessescut"].Fill("SD2",1)
-                
-            #elif (log10(GenXiX) + log10(GenXiY)) > -8.1 :
-           
-
-            else:
-                EventSelectionProcess_ID = '_DD'
-                self.hist["hProcessescut"].Fill("DD",1)  
+            EventSelectionXiProcess_ID, int_EventSelectionXiProcess_ID = self.get_EventSelectionXiProcess_ID(GenXi_DD,GenXiX,GenXiY)
+            self.hist["hProcessescut"].Fill(EventSelectionXiProcess_ID[1:],1)
            
 
                 
-            self.hist["Hist_GP_eventID_DeltaMax"].Fill(delta_max_gen)
-            self.hist["Hist_GP_eventID_DeltaZero"].Fill(delta_zero_gen)
-            self.hist["Hist_GP_eventID_DeltaMax"+ EventSelectionProcess_ID].Fill(delta_max_gen)
-            self.hist["Hist_GP_eventID_DeltaZero"+ EventSelectionProcess_ID].Fill(delta_zero_gen)
-            self.hist["Hist_GP_eventID_Min"].Fill(mingeneta)
-            self.hist["Hist_GP_eventID_Max"].Fill(maxgeneta) 
-            self.hist["Hist_GP_eventID_Min"+ EventSelectionProcess_ID].Fill(mingeneta)
-            self.hist["Hist_GP_eventID_Max"+ EventSelectionProcess_ID].Fill(maxgeneta)  
+            self.hist["Hist_GP_eventXiID_DeltaMax"].Fill(delta_max_gen)
+            self.hist["Hist_GP_eventXiID_DeltaZero"].Fill(delta_zero_gen)
+            self.hist["Hist_GP_eventXiID_DeltaMax"+ EventSelectionXiProcess_ID].Fill(delta_max_gen)
+            self.hist["Hist_GP_eventXiID_DeltaZero"+ EventSelectionXiProcess_ID].Fill(delta_zero_gen)
+            self.hist["Hist_GP_eventXiID_Min"].Fill(mingeneta)
+            self.hist["Hist_GP_eventXiID_Max"].Fill(maxgeneta) 
+            self.hist["Hist_GP_eventXiID_Min"+ EventSelectionXiProcess_ID].Fill(mingeneta)
+            self.hist["Hist_GP_eventXiID_Max"+ EventSelectionXiProcess_ID].Fill(maxgeneta)  
             
-            self.hist["Hist_eventID_log10Mx"+ EventSelectionProcess_ID].Fill(log10(MxGen))
-            self.hist["Hist_eventID_log10My"+ EventSelectionProcess_ID].Fill(log10(MyGen))
-            self.hist["Hist_eventID_GP_2Dlog10MxMy"+ EventSelectionProcess_ID].Fill(log10(MxGen),log10(MyGen))
+            self.hist["Hist_eventXiID_log10Mx"+ EventSelectionXiProcess_ID].Fill(log10(MxGen))
+            self.hist["Hist_eventXiID_log10My"+ EventSelectionXiProcess_ID].Fill(log10(MyGen))
+            self.hist["Hist_eventXiID_GP_2Dlog10MxMy"+ EventSelectionXiProcess_ID].Fill(log10(MxGen),log10(MyGen))
 
           
-            self.hist["Hist_GP_eventID_log10XiX"].Fill(log10(GenXiX))
-            self.hist["Hist_GP_eventID_log10XiY"].Fill(log10(GenXiY)) 
-            self.hist["Hist_GP_eventID_log10XiX"+EventSelectionProcess_ID].Fill(log10(GenXiX))
-            self.hist["Hist_GP_eventID_log10XiY"+EventSelectionProcess_ID].Fill(log10(GenXiY))
-            self.hist["Hist_eventID_2DLogGenXiX_LogGenXiY"+EventSelectionProcess_ID].Fill(log10(GenXiX),log10(GenXiY))
+            self.hist["Hist_GP_eventXiID_log10XiX"].Fill(log10(GenXiX))
+            self.hist["Hist_GP_eventXiID_log10XiY"].Fill(log10(GenXiY)) 
+            self.hist["Hist_GP_eventXiID_log10XiX"+EventSelectionXiProcess_ID].Fill(log10(GenXiX))
+            self.hist["Hist_GP_eventXiID_log10XiY"+EventSelectionXiProcess_ID].Fill(log10(GenXiY))
+            self.hist["Hist_eventXiID_2DLogGenXiX_LogGenXiY"+EventSelectionXiProcess_ID].Fill(log10(GenXiX),log10(GenXiY))
+
+
+           
+            
     ##################Track##############################################################3
         TrackCandClass = []
-       
+        Nbrtracks = 0
         nTrackCand = self.fChain.ZeroTeslaPixelnoPreSplittingVtx_trktheta.size()
         for itrk in xrange(nTrackCand):
             theta= self.fChain.ZeroTeslaPixelnoPreSplittingVtx_trktheta[itrk]
@@ -728,8 +745,15 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
         if len(TrackCandClass) == 0:
                 return 0
 
-        self.hist["Hist_TrackCandClass"].Fill(len(TrackCandClass))  
+        #self.hist["Hist_TrackCandClass"].Fill(len(TrackCandClass))  
+        self.hist["Hist_NbrTracks"].Fill(len(TrackCandClass))  
+        self.hist["Hist_NbrTracks"+ Pythia_Process_ID].Fill(len(TrackCandClass))
+        self.hist["Hist_eventXiID_NbrTracks"].Fill(len(TrackCandClass))  
+        self.hist["Hist_eventXiID_NbrTracks"+EventSelectionXiProcess_ID].Fill(len(TrackCandClass))
+        
+    
 
+        Nbrtracks = len(TrackCandClass)
         TrackCandClass.sort(cmp=compareTracketa)
         mineta =  TrackCandClass[0][0]
         maxeta =  TrackCandClass[len(TrackCandClass)-1][0] #eta()pseduorapidty
@@ -741,14 +765,10 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
         self.hist["Hist_Eta_Min" + Pythia_Process_ID].Fill(mineta)
         self.hist["Hist_Eta_Max" + Pythia_Process_ID].Fill(maxeta)  
         self.hist["Hist_Eta_Delta" + Pythia_Process_ID].Fill(Deltaeta) 
-        self.hist["Hist_eventID_Min"].Fill(mineta)
-        self.hist["Hist_eventID_Max"].Fill(maxeta) 
-        self.hist["Hist_eventID_Min"+ EventSelectionProcess_ID].Fill(mineta)
-        self.hist["Hist_eventID_Max"+ EventSelectionProcess_ID].Fill(maxeta)  
-
-
-
-
+        self.hist["Hist_eventXiID_Min"].Fill(mineta)
+        self.hist["Hist_eventXiID_Max"].Fill(maxeta) 
+        self.hist["Hist_eventXiID_Min"+ EventSelectionXiProcess_ID].Fill(mineta)
+        self.hist["Hist_eventXiID_Max"+ EventSelectionXiProcess_ID].Fill(maxeta)  
         self.hist["hNentries"].Fill("Track",1)    
 
         deltaeta = -1
@@ -781,21 +801,18 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
             self.hist["Hist_Eta_DeltaMax"+ Pythia_Process_ID].Fill(deltaetamax)
             self.hist["Hist_Eta_DeltaZero"+ Pythia_Process_ID].Fill(delta_zero)
           
-            self.hist["Hist_eventID_DeltaMax"].Fill(deltaetamax)
-            self.hist["Hist_eventID_DeltaZero"].Fill(delta_zero)
-            self.hist["Hist_eventID_DeltaMax"+ EventSelectionProcess_ID].Fill(deltaetamax)
-            self.hist["Hist_eventID_DeltaZero"+ EventSelectionProcess_ID].Fill(delta_zero)
+            self.hist["Hist_eventXiID_DeltaMax"].Fill(deltaetamax)
+            self.hist["Hist_eventXiID_DeltaZero"].Fill(delta_zero)
+            self.hist["Hist_eventXiID_DeltaMax"+ EventSelectionXiProcess_ID].Fill(deltaetamax)
+            self.hist["Hist_eventXiID_DeltaZero"+ EventSelectionXiProcess_ID].Fill(delta_zero)
             
-       
-
+    
             deltagenreco = (delta_zero_gen - delta_zero)
             self.hist["Hist_Deltazero_deltagenreco"].Fill(deltagenreco)
             self.hist["Hist_2D_recogen_DeltaZero"].Fill(delta_zero, delta_zero_gen)
             self.hist["Hist_2D_recogen_DeltaMax"].Fill(deltaetamax, delta_max_gen) 
             self.hist["Hist_2D_recogen_EtaMiniumum"].Fill(mineta,mingeneta)
             self.hist["Hist_2D_recogen_EtaMax"].Fill(maxeta,maxgeneta)
-            
-        
 
 
          ####################################Calotower######################################
@@ -835,23 +852,25 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
                 if (calop4.e()) < 2.2: continue
                 HFplus_Numberoftowerebovenoise += 1
                 # self.hist["Hist_Energy_forwardplus"]
-                self.hist["Hist_HFplus_Numberoftowerebovenoise"].Fill(HFplus_Numberoftowerebovenoise)
-                self.hist["Hist_eventID_HFplus_Numberoftowerebovenoise"].Fill(HFplus_Numberoftowerebovenoise)
-                self.hist["Hist_HFplus_Numberoftowerebovenoise"+ Pythia_Process_ID].Fill(HFplus_Numberoftowerebovenoise)
-                self.hist["Hist_eventID_HFplus_Numberoftowerebovenoise"+ EventSelectionProcess_ID].Fill(HFplus_Numberoftowerebovenoise)
             if  calop4.eta() > -5.2 and calop4.eta() < -3.2:
                 if (calop4.e()) < 2.2: continue
                 HFminus_Numberoftowerebovenoise += 1
                 # self.hist["Hist_Energy_forwardminus"]
-                self.hist["Hist_HFminus_Numberoftowerebovenoise"].Fill(HFminus_Numberoftowerebovenoise)
-                self.hist["Hist_eventID_HFminus_Numberoftowerebovenoise"].Fill(HFminus_Numberoftowerebovenoise)
-                self.hist["Hist_HFminus_Numberoftowerebovenoise"+ Pythia_Process_ID].Fill(HFminus_Numberoftowerebovenoise)
-                self.hist["Hist_eventID_HFminus_Numberoftowerebovenoise"+ EventSelectionProcess_ID].Fill(HFminus_Numberoftowerebovenoise)
 
 
             CaloReducedenergyClass.append([calop4,caloem,calohad])
          
- 
+
+        self.hist["Hist_numberoftowerebovenoise_forwardplus"].Fill(HFplus_Numberoftowerebovenoise)
+        self.hist["Hist_eventXiID_numberoftowerebovenoise_forwardplus"].Fill(HFplus_Numberoftowerebovenoise)
+        self.hist["Hist_numberoftowerebovenoise_forwardplus"+ Pythia_Process_ID].Fill(HFplus_Numberoftowerebovenoise)
+        self.hist["Hist_eventXiID_numberoftowerebovenoise_forwardplus"+ EventSelectionXiProcess_ID].Fill(HFplus_Numberoftowerebovenoise)
+
+        self.hist["Hist_numberoftowerebovenoise_forwardminus"].Fill(HFminus_Numberoftowerebovenoise)
+        self.hist["Hist_eventXiID_numberoftowerebovenoise_forwardminus"].Fill(HFminus_Numberoftowerebovenoise)
+        self.hist["Hist_numberoftowerebovenoise_forwardminus"+ Pythia_Process_ID].Fill(HFminus_Numberoftowerebovenoise)
+        self.hist["Hist_eventXiID_numberoftowerebovenoise_forwardminus"+ EventSelectionXiProcess_ID].Fill(HFminus_Numberoftowerebovenoise)
+
 
 
         ####################################Castortower######################################
@@ -899,25 +918,27 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
 
             if (energy) < 0.8:continue   #Threshold for castor: 5.600000 ############# Castor noise cut
             CASTOR_Numberoftowerebovenoise += 1
-            self.hist["Hist_CASTOR_Numberoftowerebovenoise"].Fill(CASTOR_Numberoftowerebovenoise)
-            self.hist["Hist_eventID_CASTOR_Numberoftowerebovenoise"].Fill(CASTOR_Numberoftowerebovenoise)
-            self.hist["Hist_CASTOR_Numberoftowerebovenoise"+ Pythia_Process_ID].Fill(CASTOR_Numberoftowerebovenoise)
-            self.hist["Hist_eventID_CASTOR_Numberoftowerebovenoise"+ EventSelectionProcess_ID].Fill(CASTOR_Numberoftowerebovenoise)
+
             CaloReducedenergyClass.append([self.castor_tower_p4[isec], 
                                 # self.castor_id[isec],
                                 self.sum_CAS_E_em[isec],
                                 self.sum_CAS_E_had[isec]])
     
+
+        self.hist["Hist_numberoftowerebovenoise_castor"].Fill(CASTOR_Numberoftowerebovenoise)
+        self.hist["Hist_eventXiID_numberoftowerebovenoise_castor"].Fill(CASTOR_Numberoftowerebovenoise)
+        self.hist["Hist_numberoftowerebovenoise_castor"+ Pythia_Process_ID].Fill(CASTOR_Numberoftowerebovenoise)
+        self.hist["Hist_eventXiID_numberoftowerebovenoise_castor"+ EventSelectionXiProcess_ID].Fill(CASTOR_Numberoftowerebovenoise)
         
-            self.hist["Hist_2DHFminus_Castor_Ntowers"].Fill(HFminus_Numberoftowerebovenoise,CASTOR_Numberoftowerebovenoise)
-            self.hist["Hist_2DHFplus_Castor_Ntowers"].Fill(HFplus_Numberoftowerebovenoise,CASTOR_Numberoftowerebovenoise)
-            self.hist["Hist_2DHFminus_Castor_Ntowers"+ Pythia_Process_ID].Fill(HFminus_Numberoftowerebovenoise,CASTOR_Numberoftowerebovenoise)
-            self.hist["Hist_2DHFplus_Castor_Ntowers"+ Pythia_Process_ID].Fill(HFplus_Numberoftowerebovenoise,CASTOR_Numberoftowerebovenoise)
-           
-            self.hist["Hist_eventID_2DHFminus_Castor_Ntowers"].Fill(HFminus_Numberoftowerebovenoise,CASTOR_Numberoftowerebovenoise)
-            self.hist["Hist_eventID_2DHFplus_Castor_Ntowers"].Fill(HFplus_Numberoftowerebovenoise,CASTOR_Numberoftowerebovenoise)
-            self.hist["Hist_eventID_2DHFplus_Castor_Ntowers"+ EventSelectionProcess_ID].Fill(HFplus_Numberoftowerebovenoise,CASTOR_Numberoftowerebovenoise)
-            self.hist["Hist_eventID_2DHFminus_Castor_Ntowers"+ EventSelectionProcess_ID].Fill(HFminus_Numberoftowerebovenoise,CASTOR_Numberoftowerebovenoise)
+        self.hist["Hist_2DHFminus_Castor_Ntowers"].Fill(HFminus_Numberoftowerebovenoise,CASTOR_Numberoftowerebovenoise)
+        self.hist["Hist_2DHFplus_Castor_Ntowers"].Fill(HFplus_Numberoftowerebovenoise,CASTOR_Numberoftowerebovenoise)
+        self.hist["Hist_2DHFminus_Castor_Ntowers"+ Pythia_Process_ID].Fill(HFminus_Numberoftowerebovenoise,CASTOR_Numberoftowerebovenoise)
+        self.hist["Hist_2DHFplus_Castor_Ntowers"+ Pythia_Process_ID].Fill(HFplus_Numberoftowerebovenoise,CASTOR_Numberoftowerebovenoise)
+       
+        self.hist["Hist_eventXiID_2DHFminus_Castor_Ntowers"].Fill(HFminus_Numberoftowerebovenoise,CASTOR_Numberoftowerebovenoise)
+        self.hist["Hist_eventXiID_2DHFplus_Castor_Ntowers"].Fill(HFplus_Numberoftowerebovenoise,CASTOR_Numberoftowerebovenoise)
+        self.hist["Hist_eventXiID_2DHFplus_Castor_Ntowers"+ EventSelectionXiProcess_ID].Fill(HFplus_Numberoftowerebovenoise,CASTOR_Numberoftowerebovenoise)
+        self.hist["Hist_eventXiID_2DHFminus_Castor_Ntowers"+ EventSelectionXiProcess_ID].Fill(HFminus_Numberoftowerebovenoise,CASTOR_Numberoftowerebovenoise)
           
             
            
@@ -943,11 +964,11 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
             
             self.hist["Hist_reducedEta"].Fill(calop4.eta()) 
             self.hist["Hist_reducedEnergy"].Fill(calop4.e())
-            self.hist["Hist_eventID_reducedEnergy"].Fill(calop4.e())         
+            self.hist["Hist_eventXiID_reducedEnergy"].Fill(calop4.e())         
 
             self.hist["Hist_reducedEta" + Pythia_Process_ID].Fill(calop4.eta())     
             self.hist["Hist_reducedEnergy" + Pythia_Process_ID].Fill(calop4.e()) 
-            self.hist["Hist_reducedEnergy" + EventSelectionProcess_ID].Fill(calop4.e())      
+            self.hist["Hist_reducedEnergy" + EventSelectionXiProcess_ID].Fill(calop4.e())      
            
             self.hist["hParticleCounts"].Fill("all",1)
           
@@ -956,50 +977,50 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
             if abs( calop4.eta() ) < 1.4:
                 self.hist["Hist_reducedEnergy_barrel"].Fill(calop4.e()) 
                 self.hist["Hist_reducedEnergy_barrel" + Pythia_Process_ID].Fill(calop4.e()) 
-                self.hist["Hist_eventID_reducedEnergy_barrel"].Fill(calop4.e()) 
-                self.hist["Hist_eventID_reducedEnergy_barrel" + EventSelectionProcess_ID].Fill(calop4.e()) 
+                self.hist["Hist_eventXiID_reducedEnergy_barrel"].Fill(calop4.e()) 
+                self.hist["Hist_eventXiID_reducedEnergy_barrel" + EventSelectionXiProcess_ID].Fill(calop4.e()) 
 
 
             if  abs( calop4.eta() ) > 1.8 and abs( calop4.eta() ) < 3.1:
                 self.hist["Hist_reducedEnergy_endcap"].Fill(calop4.e()) 
                 self.hist["Hist_reducedEnergy_endcap" + Pythia_Process_ID].Fill(calop4.e()) 
-                self.hist["Hist_eventID_reducedEnergy_endcap"].Fill(calop4.e()) 
-                self.hist["Hist_eventID_reducedEnergy_endcap" + EventSelectionProcess_ID].Fill(calop4.e()) 
+                self.hist["Hist_eventXiID_reducedEnergy_endcap"].Fill(calop4.e()) 
+                self.hist["Hist_eventXiID_reducedEnergy_endcap" + EventSelectionXiProcess_ID].Fill(calop4.e()) 
                                        
            
             if  abs( calop4.eta() ) > 2.8 and abs( calop4.eta() ) < 3.2:
                 self.hist["Hist_reducedEnergy_endcap_forwardtransition"].Fill(calop4.e()) 
                 self.hist["Hist_reducedEnergy_endcap_forwardtransition" + Pythia_Process_ID].Fill(calop4.e()) 
-                self.hist["Hist_eventID_reducedEnergy_endcap_forwardtransition"].Fill(calop4.e()) 
-                self.hist["Hist_eventID_reducedEnergy_endcap_forwardtransition" + EventSelectionProcess_ID].Fill(calop4.e()) 
+                self.hist["Hist_eventXiID_reducedEnergy_endcap_forwardtransition"].Fill(calop4.e()) 
+                self.hist["Hist_eventXiID_reducedEnergy_endcap_forwardtransition" + EventSelectionXiProcess_ID].Fill(calop4.e()) 
                             
 
             if  abs (calop4.eta()) > 3.2 and abs(calop4.eta()) < 5.2:
                 self.hist["Hist_reducedEnergy_forward"].Fill(calop4.e())
                 self.hist["Hist_reducedEnergy_forward" + Pythia_Process_ID].Fill(calop4.e()) 
-                self.hist["Hist_eventID_reducedEnergy_forward"].Fill(calop4.e())
-                self.hist["Hist_eventID_reducedEnergy_forward" + EventSelectionProcess_ID].Fill(calop4.e()) 
+                self.hist["Hist_eventXiID_reducedEnergy_forward"].Fill(calop4.e())
+                self.hist["Hist_eventXiID_reducedEnergy_forward" + EventSelectionXiProcess_ID].Fill(calop4.e()) 
                     
             if calop4.eta() > 3.2 and calop4.eta() < 5.2:
                 self.hist["Hist_reducedEnergy_forwardplus"].Fill(calop4.e())
                 self.hist["Hist_reducedEnergy_forwardplus" + Pythia_Process_ID].Fill(calop4.e()) 
-                self.hist["Hist_eventID_reducedEnergy_forwardplus"].Fill(calop4.e())
-                self.hist["Hist_eventID_reducedEnergy_forwardplus" + EventSelectionProcess_ID].Fill(calop4.e()) 
+                self.hist["Hist_eventXiID_reducedEnergy_forwardplus"].Fill(calop4.e())
+                self.hist["Hist_eventXiID_reducedEnergy_forwardplus" + EventSelectionXiProcess_ID].Fill(calop4.e()) 
                 
 
             if calop4.eta() > -5.2 and calop4.eta() < -3.2:
                 self.hist["Hist_reducedEnergy_forwardminus"].Fill(calop4.e())
                 self.hist["Hist_reducedEnergy_forwardminus" + Pythia_Process_ID].Fill(calop4.e()) 
-                self.hist["Hist_eventID_reducedEnergy_forwardminus"].Fill(calop4.e())
-                self.hist["Hist_eventID_reducedEnergy_forwardminus" + EventSelectionProcess_ID].Fill(calop4.e()) 
+                self.hist["Hist_eventXiID_reducedEnergy_forwardminus"].Fill(calop4.e())
+                self.hist["Hist_eventXiID_reducedEnergy_forwardminus" + EventSelectionXiProcess_ID].Fill(calop4.e()) 
                
            
             if  (calop4.eta()) > -6.6 and (calop4.eta()) < -5.2 :
                 self.hist["Hist_reducedEnergy_Castor"].Fill(calop4.e())
                 # CASTOR_Numberoftowerebovenoise += calop4.e()
                 self.hist["Hist_reducedEnergy_Castor" + Pythia_Process_ID].Fill(calop4.e()) 
-                self.hist["Hist_eventID_reducedEnergy_Castor"].Fill(calop4.e())
-                self.hist["Hist_eventID_reducedEnergy_Castor" + EventSelectionProcess_ID].Fill(calop4.e()) 
+                self.hist["Hist_eventXiID_reducedEnergy_Castor"].Fill(calop4.e())
+                self.hist["Hist_eventXiID_reducedEnergy_Castor" + EventSelectionXiProcess_ID].Fill(calop4.e()) 
             
             self.hist["hNentries"].Fill("CaloReducedenergyClass2",1)    
         XEtot =  0
@@ -1036,7 +1057,7 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
 
             self.hist["Hist_Eta" + Pythia_Process_ID].Fill(calop4.eta())     
             self.hist["Hist_Energy" + Pythia_Process_ID].Fill(calop4.e())     
-            self.hist["Hist_eventID_Energy" + EventSelectionProcess_ID].Fill(calop4.e())  
+            self.hist["Hist_eventXiID_Energy" + EventSelectionXiProcess_ID].Fill(calop4.e())  
             self.hist["hParticleCounts"].Fill("all",1)
            
             
@@ -1044,48 +1065,48 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
             if abs( calop4.eta() ) < 1.4:
                 self.hist["Hist_Energy_barrel"].Fill(calop4.e()) 
                 self.hist["Hist_Energy_barrel" + Pythia_Process_ID].Fill(calop4.e()) 
-                self.hist["Hist_eventID_Energy_barrel"].Fill(calop4.e()) 
-                self.hist["Hist_eventID_Energy_barrel" + EventSelectionProcess_ID].Fill(calop4.e()) 
+                self.hist["Hist_eventXiID_Energy_barrel"].Fill(calop4.e()) 
+                self.hist["Hist_eventXiID_Energy_barrel" + EventSelectionXiProcess_ID].Fill(calop4.e()) 
                
 
             if  abs( calop4.eta() ) > 1.8 and abs( calop4.eta() ) < 3.1:
                 self.hist["Hist_Energy_endcap"].Fill(calop4.e()) 
                 self.hist["Hist_Energy_endcap" + Pythia_Process_ID].Fill(calop4.e()) 
-                self.hist["Hist_eventID_Energy_endcap"].Fill(calop4.e()) 
-                self.hist["Hist_eventID_Energy_endcap" + EventSelectionProcess_ID].Fill(calop4.e()) 
+                self.hist["Hist_eventXiID_Energy_endcap"].Fill(calop4.e()) 
+                self.hist["Hist_eventXiID_Energy_endcap" + EventSelectionXiProcess_ID].Fill(calop4.e()) 
                                        
            
             if  abs( calop4.eta() ) > 2.8 and abs( calop4.eta() ) < 3.2:
                 self.hist["Hist_Energy_endcap_forwardtransition"].Fill(calop4.e()) 
                 self.hist["Hist_Energy_endcap_forwardtransition" + Pythia_Process_ID].Fill(calop4.e()) 
-                self.hist["Hist_eventID_Energy_endcap_forwardtransition"].Fill(calop4.e()) 
-                self.hist["Hist_eventID_Energy_endcap_forwardtransition" + EventSelectionProcess_ID].Fill(calop4.e()) 
+                self.hist["Hist_eventXiID_Energy_endcap_forwardtransition"].Fill(calop4.e()) 
+                self.hist["Hist_eventXiID_Energy_endcap_forwardtransition" + EventSelectionXiProcess_ID].Fill(calop4.e()) 
                             
 
             if  abs (calop4.eta()) > 3.2 and abs(calop4.eta()) < 5.2:
                 self.hist["Hist_Energy_forward"].Fill(calop4.e())
                 self.hist["Hist_Energy_forward" + Pythia_Process_ID].Fill(calop4.e()) 
-                self.hist["Hist_eventID_Energy_forward"].Fill(calop4.e())
-                self.hist["Hist_eventID_Energy_forward" + EventSelectionProcess_ID].Fill(calop4.e()) 
+                self.hist["Hist_eventXiID_Energy_forward"].Fill(calop4.e())
+                self.hist["Hist_eventXiID_Energy_forward" + EventSelectionXiProcess_ID].Fill(calop4.e()) 
                     
             if calop4.eta() > 3.2 and calop4.eta() < 5.2:
                 self.hist["Hist_Energy_forwardplus"].Fill(calop4.e())
                 self.hist["Hist_Energy_forwardplus" + Pythia_Process_ID].Fill(calop4.e()) 
-                self.hist["Hist_eventID_Energy_forwardplus"].Fill(calop4.e())
-                self.hist["Hist_eventID_Energy_forwardplus" + EventSelectionProcess_ID].Fill(calop4.e())
+                self.hist["Hist_eventXiID_Energy_forwardplus"].Fill(calop4.e())
+                self.hist["Hist_eventXiID_Energy_forwardplus" + EventSelectionXiProcess_ID].Fill(calop4.e())
          
             if calop4.eta() > -5.2 and calop4.eta() < -3.2:
                 self.hist["Hist_Energy_forwardminus"].Fill(calop4.e())
                 self.hist["Hist_Energy_forwardminus" + Pythia_Process_ID].Fill(calop4.e()) 
                
-                self.hist["Hist_eventID_Energy_forwardminus"].Fill(calop4.e())
-                self.hist["Hist_eventID_Energy_forwardminus" + EventSelectionProcess_ID].Fill(calop4.e()) 
+                self.hist["Hist_eventXiID_Energy_forwardminus"].Fill(calop4.e())
+                self.hist["Hist_eventXiID_Energy_forwardminus" + EventSelectionXiProcess_ID].Fill(calop4.e()) 
 
             if  (calop4.eta()) > -6.6 and (calop4.eta()) < -5.2 :
                 self.hist["Hist_Energy_Castor"].Fill(calop4.e())
                 self.hist["Hist_Energy_Castor" + Pythia_Process_ID].Fill(calop4.e()) 
-                self.hist["Hist_eventID_Energy_Castor"].Fill(calop4.e())
-                self.hist["Hist_eventID_Energy_Castor" + EventSelectionProcess_ID].Fill(calop4.e()) 
+                self.hist["Hist_eventXiID_Energy_Castor"].Fill(calop4.e())
+                self.hist["Hist_eventXiID_Energy_Castor" + EventSelectionXiProcess_ID].Fill(calop4.e()) 
 
 
       
@@ -1156,48 +1177,41 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
             self.hist["Hist_log10Mx"+ Pythia_Process_ID].Fill(log10(Mx))
             self.hist["Hist_log10My"+ Pythia_Process_ID].Fill(log10(My))
             self.hist["Hist_2Dlog10MxMy"+ Pythia_Process_ID].Fill(log10(Mx),log10(My))
-            
-            self.hist["Hist_eventID_2Dlog10MxMy"].Fill(log10(Mx),log10(My))
-            self.hist["Hist_eventID_2Dlog10MxMy"+ EventSelectionProcess_ID].Fill(log10(Mx),log10(My))
-
-            self.hist["Hist_eventID_log10XiY"].Fill(log10(xiy))
-            self.hist["Hist_eventID_log10XiX"].Fill(log10(xix))
-            self.hist["Hist_eventID_log10XiX"+EventSelectionProcess_ID].Fill(log10(xix))
-            self.hist["Hist_eventID_log10XiY"+EventSelectionProcess_ID].Fill(log10(xiy))
+            self.hist["Hist_eventXiID_2Dlog10MxMy"].Fill(log10(Mx),log10(My))
+            self.hist["Hist_eventXiID_2Dlog10MxMy"+ EventSelectionXiProcess_ID].Fill(log10(Mx),log10(My))
+            self.hist["Hist_eventXiID_log10XiY"].Fill(log10(xiy))
+            self.hist["Hist_eventXiID_log10XiX"].Fill(log10(xix))
+            self.hist["Hist_eventXiID_log10XiX"+EventSelectionXiProcess_ID].Fill(log10(xix))
+            self.hist["Hist_eventXiID_log10XiY"+EventSelectionXiProcess_ID].Fill(log10(xiy))
             self.hist["hNentries"].Fill("Xi",1)
-
-
-
-            if self.fChain.processID == 105 :
-                # self.OUTlog10XixGen[0] =log10(GenXiX)
-                # self.OUTlog10XiyGen[0] = log10(GenXiY)
-                self.OUTlog10XixReco[0] = log10(xix)
-                self.OUTlog10XiyReco[0] = log10(xiy)
-                self.OUTdeltazero[0] = delta_zero
-                self.OUTdeltazero[0] = deltaetamax
-                self.OUTetamin[0] = mineta
-                self.OUTetamax[0] = maxeta
-                self.OUTrapditygapmean [0] = MeanReco
-                self.OUTCastorNtowers[0] = CASTOR_Numberoftowerebovenoise
-                self.OUTHFminusNtowers[0] = HFminus_Numberoftowerebovenoise
-                self.OUTHFplusNtowers[0] = HFplus_Numberoftowerebovenoise
-                self.sigTree.Fill()
-                
-            else:
-                # self.OUTlog10XixGen[0] = log10(GenXiX)
-                # self.OUTlog10XiyGen[0] = log10(GenXiY)
-                self.OUTlog10XixReco[0] = log10(xix)
-                self.OUTlog10XiyReco[0] = log10(xiy)
-                self.OUTdeltazero[0] = delta_zero
-                self.OUTdeltazero[0] = deltaetamax
-                self.OUTetamin[0] = mineta
-                self.OUTetamax[0] = maxeta
-                self.OUTrapditygapmean[0] = MeanReco
-                self.OUTCastorNtowers [0] = CASTOR_Numberoftowerebovenoise
-                self.OUTHFminusNtowers[0] = HFminus_Numberoftowerebovenoise
-                self.OUTHFplusNtowers[0] = HFplus_Numberoftowerebovenoise
-                self.bkgTree.Fill()
             
+          
+
+            self.OUTlog10XiDD[0] =log10(Xi_DD)
+            # self.OUTlog10XiyGen[0] = log10(GenXiY)
+            self.OUTlog10XixReco[0] = log10(xix)
+            self.OUTlog10XiyReco[0] = log10(xiy)
+            self.OUTdeltazero[0] = delta_zero
+            self.OUTdeltazero[0] = deltaetamax
+            self.OUTetamin[0] = mineta
+            self.OUTetamax[0] = maxeta
+            self.OUTrapditygapmean [0] = MeanReco
+            self.OUTCastorNtowers[0] = CASTOR_Numberoftowerebovenoise
+            self.OUTHFminusNtowers[0] = HFminus_Numberoftowerebovenoise
+            self.OUTHFplusNtowers[0] = HFplus_Numberoftowerebovenoise
+            self.OUTNtracks[0] = Nbrtracks
+            self.OUTPythia8processid[0] = int_Pythia_Process_ID
+            self.OUTEventselectionXiprocessid[0] = int_EventSelectionXiProcess_ID
+          
+
+            self.AllTree.Fill()     
+            if self.fChain.processID == 105 :
+                self.sigTree.Fill()        
+            else:
+                self.bkgTree.Fill()
+                
+
+
             if not self.isData:
                 self.hist["Hist_2DLogRecoXiX_logGenXiX"].Fill(log10(xix),log10(GenXiX))
                 self.hist["Hist_2DLogRecoXiY_logGenLogXiY"].Fill(log10(xiy),log10(GenXiY))
@@ -1207,14 +1221,12 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
                 self.hist["Hist_2Drecogen_EnergyX"].Fill(XEtot,XGenEtot)
                 self.hist["Hist_2Drecogen_EnergyY"].Fill(YEtot,YGenEtot)
                 self.hist["Hist_2D_recogen_Mean"].Fill(MeanReco, MeanGen)
-                self.hist["Hist_Reco_log10Xi_DD"].Fill(log10(Xi_DD)) 
+                self.hist["Hist_Reco_log10XiDD"].Fill(log10(Xi_DD)) 
+                self.hist["Hist_eventXiID_Reco_log10XiDD"].Fill(log10(Xi_DD)) 
+                self.hist["Hist_Reco_log10XiDD"+ Pythia_Process_ID].Fill(log10(Xi_DD)) 
+                self.hist["Hist_eventXiID_Reco_log10XiDD"+ EventSelectionXiProcess_ID].Fill(log10(Xi_DD)) 
                 self.hist["Hist_2DRecoLogXi_DDGenLogXi_DD"].Fill(log10(Xi_DD),log10(GenXi_DD))
                 
-
-
-                
-
-
 
                 # if maxeta < 1:
                 #     self.hist["Hist_2D_FG1_2DLogGenXiX_LogGenXiY"].Fill(log10(GenXiX),log10(GenXiY))
@@ -1241,12 +1253,14 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
 
     def finalize(self):
         print "Finalize:"
+        if hasattr(self, 'AllTree'):
+            self.AllTree.AutoSave()    
         if hasattr(self, 'sigTree'):
             self.sigTree.AutoSave()
         if hasattr(self, 'bkgTree'):
-            self.bkgTree.AutoSave()    
-        
-
+            self.bkgTree.AutoSave()       
+       
+    
 if __name__ == "__main__":
     sys.stdout = os.fdopen(sys.stdout.fileno(), 'w', 0)
     ROOT.gSystem.Load("libFWCoreFWLite.so")
@@ -1254,8 +1268,8 @@ if __name__ == "__main__":
 
     sampleList = []
     # sampleList.append("MinBias_TuneMBR_13TeV-pythia8_MagnetOff_CASTORmeasured_newNoise")
-    # sampleList.append("MinBias_EPOS_13TeV_MagnetOff_CASTORmeasured_newNoise")
-    sampleList.append("data_ZeroBias1_CASTOR")
+    sampleList.append("MinBias_EPOS_13TeV_MagnetOff_CASTORmeasured_newNoise")
+    # sampleList.append("data_ZeroBias1_CASTOR")
     # sampleList.append("data_ZeroBias1_CASTOR247934")
     maxFilesMC = None# run through all ffiles found
     maxFilesData = None# same
@@ -1273,6 +1287,6 @@ if __name__ == "__main__":
            maxFilesMC = maxFilesMC,
            maxFilesData = maxFilesData,
            nWorkers= nWorkers,
-           maxNevents = 20000,
+           maxNevents = 2000000,
            verbosity = 2,
-           outFile = "trackanddiffractive.root")
+           outFile = "trackanddiffractive_sigDD_epos.root")
