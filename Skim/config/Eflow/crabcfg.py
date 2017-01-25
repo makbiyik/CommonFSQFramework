@@ -10,7 +10,7 @@ config.JobType.psetName = 'treemaker_Eflow_74X_mc.py'
 
 config.section_("Data")
 config.Data.inputDataset = '/A/B/C'
-config.Data.inputDBS = 'global'
+# config.Data.inputDBS = 'global'
 
 # config.Data.inputDBS = 'phys03'
 config.Data.splitting = 'FileBased' # alt: LumiBased                                                                                
@@ -25,4 +25,4 @@ config.Data.publication = False
 
 config.section_("Site")
 config.Site.storageSite = 'T2_CH_CERN'
-config.Data.outLFNDirBase = '/store/group/phys_heavyions/makbiyik/MC_newNoise_1'
+config.Data.outLFNDirBase = '/store/group/phys_heavyions/makbiyik/MC_EPOS'

@@ -114,7 +114,7 @@ def validateRootFiles(fileListUnvalidated, maxFiles=None, quiet = False):
     return validationResult
 
 
-def getTreeFilesAndNormalizations(maxFilesMC = None, maxFilesData = None, quiet = False, samplesToProcess = None, usePickle=False, donotvalidate=False):
+def getTreeFilesAndNormalizations(maxFilesMC = None, maxFilesData = None, quiet = False, samplesToProcess = None, usePickle=False, donotvalidate=True):
     # in principle we should check if lcg-ls supports -c/ -o argumets
     legacyMode = "slc5" in os.environ["SCRAM_ARCH"] 
     if legacyMode:
@@ -148,8 +148,8 @@ def getTreeFilesAndNormalizations(maxFilesMC = None, maxFilesData = None, quiet 
     if "xrd" in localROOTPrefix: isXrootdAccess = True
     localAccess = not isXrootdAccess
     if isXrootdAccess:
-        if not  distutils.spawn.find_executable("lcg-ls"):
-            raise Exception("Cannot find lcg-ls executable. Check your grid environment!")
+        if not  distutils.spawn.find_executable("gfal-ls"):
+            raise Exception("Cannot find gfal-ls executable. Check your grid environment!")
 
 
     samplesFileDir = os.path.dirname(CommonFSQFramework.Core.Util.getFullPathToAnaDefinitionFile())+"/"
@@ -202,16 +202,21 @@ def getTreeFilesAndNormalizations(maxFilesMC = None, maxFilesData = None, quiet 
                             fname = dirpath.replace("//","/") + f   # somehow root doesnt like // at the begining
                             fileListUnvalidated.add(localROOTPrefix+fname)
 		if "eos/cms" in sampleList[s]["pathTrees"]:
+		    dirname = sampleList[s]["pathTrees"].replace('/root://eoscms.cern.ch/','')
 		    # only works on lxplus...
-		    lscomm = ["xrd", "eoscms", "ls", sampleList[s]["pathTrees"]]
+		    # lscomm = ["xrd", "eoscms", "ls", sampleList[s]["pathTrees"]]
+		    lscomm = ["xrd", "eoscms", "ls", dirname]
 		    proc = subprocess.Popen(lscomm, stdout=subprocess.PIPE)
+		    # print proc.stdout.readline()
 		    for line in iter(proc.stdout.readline,''):
+		        # print line
 		        ifile = line.strip()
 			if "trees_" not in ifile: continue
 			if ".root" not in ifile: continue
 			filename = ifile.split("//")[-1]
-			fileListUnvalidated.add("root://eoscms/"+sampleList[s]["pathTrees"]+filename)
-			
+			# print ifile
+			fileListUnvalidated.add("root://eoscms//eos/cms/"+filename)
+
             elif isXrootdAccess:
                 if not quiet: print tab, "will access trees from:",sampleList[s]["pathSE"]
                 # Warning: duplicated from copyAnaData. Fixme
@@ -221,9 +226,10 @@ def getTreeFilesAndNormalizations(maxFilesMC = None, maxFilesData = None, quiet 
                 lastSize = len(fileListUnvalidated)
                 while True:
                     if legacyMode:
-                        command = ["lcg-ls", pathSE]
+                        command = ["gfal-ls", pathSE]
                     else:
-                        command = ["lcg-ls", "-c", str(cnt), "-o", str(offset), pathSE]
+                        #command = ["gfal-ls", "-c", str(cnt), "-o", str(offset), pathSE]
+                        command = ["gfal-ls", pathSE]
                     proc = subprocess.Popen(command, stdout=subprocess.PIPE)
                     for line in iter(proc.stdout.readline,''):
                         l = line.strip()

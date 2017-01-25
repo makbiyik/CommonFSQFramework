@@ -28,6 +28,8 @@ from math import log10
 
 from BadChannels2015 import badChannelsSecMod
 
+EventSelection_with_Xi = False
+Training_Signal = "SD1"
 
 def compareTracketa(first,second):
     if first[0] > second[0]: return 1
@@ -406,7 +408,7 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
         setattr(self, "sigTree", sigTree)
         self.addToOutput(self.sigTree)
         
-        bkgTree = ROOT.TTree("bkgTree", "all events except the DD")
+        bkgTree = ROOT.TTree("bkgTree", "all events except DD")
         bkgTree.Branch('EventselectionXiprocessid', self.OUTEventselectionXiprocessid,'EventselectionXiprocessid/I')
         bkgTree.Branch('Pythia8processid', self.OUTPythia8processid,'Pythia8processid/I')
         bkgTree.Branch('log10XixGen', self.OUTlog10XixGen, 'log10XixGen/F')
@@ -477,6 +479,19 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
         return '_DD', 105
           
 
+    def get_Process_ID_from_String(self,process):
+        if process == 'Rest':
+            return 101
+        if process == 'SD1':
+            return 103
+        if process == 'SD2':
+            return 104
+        if process == 'DD':
+            return 105
+        if process == 'CD':
+            return 106
+
+        return -1
 
 
     def analyze(self):
@@ -514,9 +529,9 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
         self.hist["hProcessesIdPythia"].Fill("all",1)
 
         Pythia_Process_ID = '_NONE'
-        int_Pythia_Process_ID = -1
+        int_Pythia_Process_ID = -11
         EventSelectionXiProcess_ID = '_NONE'
-        int_EventSelectionXiProcess_ID = -1
+        int_EventSelectionXiProcess_ID = -11
         
         if not self.isData:
             Pythia_Process_ID, int_Pythia_Process_ID = self.get_Pythia_Process_ID()
@@ -557,7 +572,7 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
         # deltagenreco = -1
         Deltaeta = -1
        
-        # self.hist["hNentries"].Fill("hf cut",1)         
+        # self.hist["hNentriess"].Fill("hf cut",1)         
        
         if  not self.isData:
            
@@ -769,7 +784,7 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
         self.hist["Hist_eventXiID_Max"].Fill(maxeta) 
         self.hist["Hist_eventXiID_Min"+ EventSelectionXiProcess_ID].Fill(mineta)
         self.hist["Hist_eventXiID_Max"+ EventSelectionXiProcess_ID].Fill(maxeta)  
-        self.hist["hNentries"].Fill("Track",1)    
+        # self.hist["hNentries"].Fill("Track",1)    
 
         deltaeta = -1
         delta_zero = -1
@@ -849,11 +864,11 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
             #     if (calop4.e()) < 2.2: continue
 
             if  calop4.eta() > 3.2 and calop4.eta() < 5.2:
-                if (calop4.e()) < 2.2: continue
+                if (calop4.e()) <5: continue
                 HFplus_Numberoftowerebovenoise += 1
                 # self.hist["Hist_Energy_forwardplus"]
             if  calop4.eta() > -5.2 and calop4.eta() < -3.2:
-                if (calop4.e()) < 2.2: continue
+                if (calop4.e()) <5: continue
                 HFminus_Numberoftowerebovenoise += 1
                 # self.hist["Hist_Energy_forwardminus"]
 
@@ -953,7 +968,7 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
             
         if len(CaloReducedenergyClass) == 0:
             return 0
-        self.hist["hNentries"].Fill("CaloReducedenergyClass1",1)
+        # self.hist["hNentries"].Fill("CaloReducedenergyClass1",1)
        
        
         for icalo in xrange(0,len(CaloReducedenergyClass)):
@@ -1022,7 +1037,7 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
                 self.hist["Hist_eventXiID_reducedEnergy_Castor"].Fill(calop4.e())
                 self.hist["Hist_eventXiID_reducedEnergy_Castor" + EventSelectionXiProcess_ID].Fill(calop4.e()) 
             
-            self.hist["hNentries"].Fill("CaloReducedenergyClass2",1)    
+            # self.hist["hNentries"].Fill("CaloReducedenergyClass2",1)    
         XEtot =  0
         XPxtot = 0
         XPytot = 0
@@ -1110,7 +1125,7 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
 
 
       
-            self.hist["hNentries"].Fill("CaloCandClass2",1)    
+            # self.hist["hNentries"].Fill("CaloCandClass2",1)    
             
             if calop4.eta() <= TrackCandClass[deltaetamax_Reco_pos][0]:
                
@@ -1183,7 +1198,7 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
             self.hist["Hist_eventXiID_log10XiX"].Fill(log10(xix))
             self.hist["Hist_eventXiID_log10XiX"+EventSelectionXiProcess_ID].Fill(log10(xix))
             self.hist["Hist_eventXiID_log10XiY"+EventSelectionXiProcess_ID].Fill(log10(xiy))
-            self.hist["hNentries"].Fill("Xi",1)
+            # self.hist["hNentries"].Fill("Xi",1)
             
           
 
@@ -1204,9 +1219,13 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
             self.OUTEventselectionXiprocessid[0] = int_EventSelectionXiProcess_ID
           
 
-            self.AllTree.Fill()     
-            if self.fChain.processID == 105 :
-                self.sigTree.Fill()        
+            Signal_ID = int_Pythia_Process_ID
+            if EventSelection_with_Xi:
+                Signal_ID = int_EventSelectionXiProcess_ID
+
+            self.AllTree.Fill()
+            if Signal_ID == self.get_Process_ID_from_String(Training_Signal):
+                self.sigTree.Fill()
             else:
                 self.bkgTree.Fill()
                 
@@ -1267,8 +1286,8 @@ if __name__ == "__main__":
     ROOT.AutoLibraryLoader.enable()
 
     sampleList = []
-    # sampleList.append("MinBias_TuneMBR_13TeV-pythia8_MagnetOff_CASTORmeasured_newNoise")
-    sampleList.append("MinBias_EPOS_13TeV_MagnetOff_CASTORmeasured_newNoise")
+    sampleList.append("MinBias_TuneMBR_13TeV-pythia8_MagnetOff_CASTORmeasured_newNoise")
+    #sampleList.append("MinBias_EPOS_13TeV_MagnetOff_CASTORmeasured_newNoise")
     # sampleList.append("data_ZeroBias1_CASTOR")
     # sampleList.append("data_ZeroBias1_CASTOR247934")
     maxFilesMC = None# run through all ffiles found
@@ -1289,4 +1308,4 @@ if __name__ == "__main__":
            nWorkers= nWorkers,
            maxNevents = 2000000,
            verbosity = 2,
-           outFile = "trackanddiffractive_sigDD_epos.root")
+           outFile = "trackanddiffractive_sigSD1_pythia8.root")
