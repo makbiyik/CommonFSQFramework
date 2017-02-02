@@ -3,14 +3,14 @@ config = Configuration()
 
 config.section_("General")
 config.General.workArea = 'crab_projects'
-
+config.User.voGroup = 'dcms'
 config.section_("JobType")
 config.JobType.pluginName = 'Analysis'
-config.JobType.psetName = 'treemaker_Eflow_74X_mc.py'
+config.JobType.psetName = 'treemaker_Eflow_74X.py'
 
 config.section_("Data")
 config.Data.inputDataset = '/A/B/C'
-# config.Data.inputDBS = 'global'
+config.Data.inputDBS = 'global'
 
 # config.Data.inputDBS = 'phys03'
 config.Data.splitting = 'FileBased' # alt: LumiBased                                                                                
@@ -24,5 +24,8 @@ config.Data.publication = False
 # config.Data.publishDataName = 'MA_Diffractive'                                                                                    
 
 config.section_("Site")
-config.Site.storageSite = 'T2_CH_CERN'
-config.Data.outLFNDirBase = '/store/group/phys_heavyions/makbiyik/MC_EPOS'
+config.Site.whitelist = ['T2_CH_*','T2_DE_*']
+# config.Site.storageSite = 'T2_CH_CERN'
+# config.Data.outLFNDirBase = '/store/group/phys_heavyions/cwohrman/CFF/CastorMuon'
+config.Site.storageSite = 'T2_DE_RWTH'
+

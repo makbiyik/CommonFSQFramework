@@ -374,6 +374,8 @@ class ExampleProofReader( ROOT.TPySelector ):
             variablesToFetch = ""
             coma = ""
 
+            # dataset.Print("a")
+
             variablesToSetInProof = {}
             for p in slaveParameters:
                 encodedName = cls.encodeEnvString(p)

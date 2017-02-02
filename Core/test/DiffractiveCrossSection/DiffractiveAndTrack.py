@@ -29,7 +29,7 @@ from math import log10
 from BadChannels2015 import badChannelsSecMod
 
 EventSelection_with_Xi = False
-Training_Signal = "SD1"
+Training_Signal = "DD"
 
 def compareTracketa(first,second):
     if first[0] > second[0]: return 1
@@ -495,15 +495,21 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
 
 
     def analyze(self):
-        # return 1
-        
+        Nbrvertex = 1 
 
         if self.isData:
+            if not self.fChain.run == 247324 and not self.fChain.run == 247934: return 1 
+        
+            Nbrvertex = self.fChain.ZeroTeslaPixelnoPreSplittingVtx_vrtxX.size()    
+        
             if self.fChain.ZeroTeslaPixelnoPreSplittingVtx_vrtxX.size() > 0: 
                 self.hist["Hist_NrVtx"].Fill(self.fChain.ZeroTeslaStripVtx_vrtxX.size())
 
-            if self.fChain.ZeroTeslaPixelnoPreSplittingVtx_vrtxX.size() > 1:  return 0
+            if self.fChain.ZeroTeslaPixelnoPreSplittingVtx_vrtxX.size() > 2:  return 0
 
+            if self.fChain.ZeroTeslaPixelnoPreSplittingVtx_vrtxX.size() == 2:
+                if abs(self.fChain.ZeroTeslaPixelnoPreSplittingVtx_vrtxZ[0] - self.fChain.ZeroTeslaPixelnoPreSplittingVtx_vrtxZ[1])> 0.5 : return 0
+                Nbrvertex = 1
 
         
 
@@ -570,7 +576,7 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
         delta_Gen_zero_pos = -1
         deltaetamax_Gen_pos = -1
         # deltagenreco = -1
-        Deltaeta = -1
+        Etarange = -1
        
         # self.hist["hNentriess"].Fill("hf cut",1)         
        
@@ -589,16 +595,16 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
                 ChargedGenParticleClass.append([genp4,genid])
        
        
-            if len(ChargedGenParticleClass) == 0:
-                return 0
+            # if len(ChargedGenParticleClass) == 0:
+            #     return 0
 
             ChargedGenParticleClass.sort(cmp=compareGeneta)
             mingeneta = ChargedGenParticleClass[0][0].eta()
             maxgeneta = ChargedGenParticleClass[len(ChargedGenParticleClass)-1][0].eta()
             self.hist["Hist_GP_Min"].Fill(mingeneta)
             self.hist["Hist_GP_Max"].Fill(maxgeneta)
-            Deltaeta = maxgeneta - mingeneta
-            self.hist["Hist_GP_Delta"].Fill(Deltaeta)
+            Etarange = maxgeneta - mingeneta
+            self.hist["Hist_GP_Delta"].Fill(Etarange)
            
 
             for igp in xrange(len(ChargedGenParticleClass)-1):
@@ -619,14 +625,14 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
             self.hist["Hist_GP_DeltaZero"].Fill(delta_zero_gen)
             self.hist["Hist_GP_Min" + Pythia_Process_ID].Fill(mingeneta)
             self.hist["Hist_GP_Max" + Pythia_Process_ID].Fill(maxgeneta)  
-            self.hist["Hist_GP_Delta" + Pythia_Process_ID].Fill(Deltaeta)
+            self.hist["Hist_GP_Delta" + Pythia_Process_ID].Fill(Etarange)
             self.hist["Hist_GP_DeltaMax" + Pythia_Process_ID].Fill(delta_max_gen)
             self.hist["Hist_GP_DeltaZero" + Pythia_Process_ID].Fill(delta_zero_gen)
             
            
 
-            if len(GenParticleClass) == 0:
-                return 0
+            # if len(GenParticleClass) == 0:
+            #     return 0
 
             # calculate Mx2 and My2 for all genetrated particles
             XGenEtot = 0
@@ -754,12 +760,14 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
             TrackCandClass.append([Eta,trkphi])
             
        
-        mineta = -1
-        maxeta = -1
-        Deltaeta = -1
-        if len(TrackCandClass) == 0:
-                return 0
-
+        mineta = -5
+        maxeta = 5
+        Etarange = -1
+        if len(TrackCandClass) > 0:
+            TrackCandClass.sort(cmp=compareTracketa)
+            mineta =  TrackCandClass[0][0]
+            maxeta =  TrackCandClass[len(TrackCandClass)-1][0] #eta()pseduorapidty
+ 
         #self.hist["Hist_TrackCandClass"].Fill(len(TrackCandClass))  
         self.hist["Hist_NbrTracks"].Fill(len(TrackCandClass))  
         self.hist["Hist_NbrTracks"+ Pythia_Process_ID].Fill(len(TrackCandClass))
@@ -767,19 +775,14 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
         self.hist["Hist_eventXiID_NbrTracks"+EventSelectionXiProcess_ID].Fill(len(TrackCandClass))
         
     
-
         Nbrtracks = len(TrackCandClass)
-        TrackCandClass.sort(cmp=compareTracketa)
-        mineta =  TrackCandClass[0][0]
-        maxeta =  TrackCandClass[len(TrackCandClass)-1][0] #eta()pseduorapidty
-        Deltaeta = maxeta - mineta
         
         self.hist["Hist_Eta_Min"].Fill(mineta)
         self.hist["Hist_Eta_Max"].Fill(maxeta)
-        self.hist["Hist_Eta_Delta"].Fill(Deltaeta)  
+        self.hist["Hist_Eta_Delta"].Fill(Etarange)  
         self.hist["Hist_Eta_Min" + Pythia_Process_ID].Fill(mineta)
         self.hist["Hist_Eta_Max" + Pythia_Process_ID].Fill(maxeta)  
-        self.hist["Hist_Eta_Delta" + Pythia_Process_ID].Fill(Deltaeta) 
+        self.hist["Hist_Eta_Delta" + Pythia_Process_ID].Fill(Etarange) 
         self.hist["Hist_eventXiID_Min"].Fill(mineta)
         self.hist["Hist_eventXiID_Max"].Fill(maxeta) 
         self.hist["Hist_eventXiID_Min"+ EventSelectionXiProcess_ID].Fill(mineta)
@@ -788,46 +791,32 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
 
         deltaeta = -1
         delta_zero = -1
-        delta_Reco_zero_pos = -1
+#        delta_Reco_zero_pos = -1
         deltaetamax = -1
-        deltaetamax_Reco_pos = -1
+ #       deltaetamax_Reco_pos = -1
         minangle = float("inf")
         # r = -10000
-        
-        for jtrk in xrange(0,len(TrackCandClass)-1): #change   GenParticleClass to  TrackCandClass for testing
-            tracketa  =  TrackCandClass[jtrk][0]
-            trackphi = TrackCandClass[jtrk][1]
-            # trackid  =  TrackCandClass[itrack][1]
+        rapidityGapeta= 0
 
-            self.hist["Hist_trkEta"].Fill(TrackCandClass[jtrk][0])
-            # deltaeta =  TrackCandClass[itrack+1][0].eta() -  TrackCandClass[itrack][0].eta()
-            deltaeta =  TrackCandClass[jtrk+1][0] - TrackCandClass[jtrk][0] #eta()pseduorapidty
-            self.hist["Hist_trkplusEta"].Fill(TrackCandClass[jtrk+1][0])
-            if  (deltaeta > deltaetamax):
-                deltaetamax = deltaeta
-                deltaetamax_Reco_pos = jtrk
+        if len(TrackCandClass) > 1:
+            for jtrk in xrange(0,len(TrackCandClass)-1): #change   GenParticleClass to  TrackCandClass for testing
+                tracketa  =  TrackCandClass[jtrk][0]
+                trackphi = TrackCandClass[jtrk][1]
+                # trackid  =  TrackCandClass[itrack][1]
 
-            if  TrackCandClass[jtrk+1][0] > 0 and TrackCandClass[jtrk][0]< 0:
-                delta_zero = deltaeta
-                delta_Reco_zero_pos = jtrk
-            
-            self.hist["Hist_Eta_DeltaZero"].Fill(delta_zero)
-            self.hist["Hist_Eta_DeltaMax"].Fill(deltaetamax)
-            self.hist["Hist_Eta_DeltaMax"+ Pythia_Process_ID].Fill(deltaetamax)
-            self.hist["Hist_Eta_DeltaZero"+ Pythia_Process_ID].Fill(delta_zero)
-          
-            self.hist["Hist_eventXiID_DeltaMax"].Fill(deltaetamax)
-            self.hist["Hist_eventXiID_DeltaZero"].Fill(delta_zero)
-            self.hist["Hist_eventXiID_DeltaMax"+ EventSelectionXiProcess_ID].Fill(deltaetamax)
-            self.hist["Hist_eventXiID_DeltaZero"+ EventSelectionXiProcess_ID].Fill(delta_zero)
-            
-    
-            deltagenreco = (delta_zero_gen - delta_zero)
-            self.hist["Hist_Deltazero_deltagenreco"].Fill(deltagenreco)
-            self.hist["Hist_2D_recogen_DeltaZero"].Fill(delta_zero, delta_zero_gen)
-            self.hist["Hist_2D_recogen_DeltaMax"].Fill(deltaetamax, delta_max_gen) 
-            self.hist["Hist_2D_recogen_EtaMiniumum"].Fill(mineta,mingeneta)
-            self.hist["Hist_2D_recogen_EtaMax"].Fill(maxeta,maxgeneta)
+                self.hist["Hist_trkEta"].Fill(TrackCandClass[jtrk][0])
+                # deltaeta =  TrackCandClass[itrack+1][0].eta() -  TrackCandClass[itrack][0].eta()
+                deltaeta =  TrackCandClass[jtrk+1][0] - TrackCandClass[jtrk][0] #eta()pseduorapidty
+                self.hist["Hist_trkplusEta"].Fill(TrackCandClass[jtrk+1][0])
+                if  (deltaeta > deltaetamax):
+                    deltaetamax = deltaeta
+#                    deltaetamax_Reco_pos = jtrk
+                    rapidityGapeta = (TrackCandClass[jtrk+1][0] +  TrackCandClass[jtrk][0])/2 
+                    
+                if  TrackCandClass[jtrk+1][0] > 0 and TrackCandClass[jtrk][0]< 0:
+                    delta_zero = deltaeta
+                    #delta_Reco_zero_pos = jtrk
+                
 
 
          ####################################Calotower######################################
@@ -961,17 +950,22 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
 
         ####### Vrtx cut######  
         if self.isData:
-            if self.fChain.ZeroTeslaPixelnoPreSplittingVtx_vrtxX.size() == 0 and len(CaloReducedenergyClass) == 0: return 0
+            if Nbrvertex == 0 and len(CaloReducedenergyClass) == 0: return 0
             # if not self.fChain.ZeroTeslaPixelnoPreSplittingVtx_vrtxX.size() == 1 and len(CaloReducedenergyClass) < 1: return 0
              
 
             
-        if len(CaloReducedenergyClass) == 0:
-            return 0
+        # if len(CaloReducedenergyClass) == 0:
+        #     return 0
         # self.hist["hNentries"].Fill("CaloReducedenergyClass1",1)
        
        
         for icalo in xrange(0,len(CaloReducedenergyClass)):
+            if calop4.eta() < mineta:
+                mineta = calop4.eta() 
+            if calop4.eta() > maxeta:   
+               maxeta = calop4.eta() 
+           
             calop4  = CaloReducedenergyClass[icalo][0]
             caloem  = CaloReducedenergyClass[icalo][1]
             calohad  = CaloReducedenergyClass[icalo][2]
@@ -1037,7 +1031,29 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
                 self.hist["Hist_eventXiID_reducedEnergy_Castor"].Fill(calop4.e())
                 self.hist["Hist_eventXiID_reducedEnergy_Castor" + EventSelectionXiProcess_ID].Fill(calop4.e()) 
             
-            # self.hist["hNentries"].Fill("CaloReducedenergyClass2",1)    
+        Etarange = maxeta - mineta
+        self.hist["Hist_Eta_DeltaZero"].Fill(delta_zero)
+        self.hist["Hist_Eta_DeltaMax"].Fill(deltaetamax)
+        self.hist["Hist_Eta_DeltaMax"+ Pythia_Process_ID].Fill(deltaetamax)
+        self.hist["Hist_Eta_DeltaZero"+ Pythia_Process_ID].Fill(delta_zero)
+      
+        self.hist["Hist_eventXiID_DeltaMax"].Fill(deltaetamax)
+        self.hist["Hist_eventXiID_DeltaZero"].Fill(delta_zero)
+        self.hist["Hist_eventXiID_DeltaMax"+ EventSelectionXiProcess_ID].Fill(deltaetamax)
+        self.hist["Hist_eventXiID_DeltaZero"+ EventSelectionXiProcess_ID].Fill(delta_zero)
+        
+
+        deltagenreco = (delta_zero_gen - delta_zero)
+        self.hist["Hist_Deltazero_deltagenreco"].Fill(deltagenreco)
+        self.hist["Hist_2D_recogen_DeltaZero"].Fill(delta_zero, delta_zero_gen)
+        self.hist["Hist_2D_recogen_DeltaMax"].Fill(deltaetamax, delta_max_gen) 
+        self.hist["Hist_2D_recogen_EtaMiniumum"].Fill(mineta,mingeneta)
+        self.hist["Hist_2D_recogen_EtaMax"].Fill(maxeta,maxgeneta)
+            # self.hist["hNentries"].Fill("CaloReducedenergyClass2",1) 
+
+
+
+               
         XEtot =  0
         XPxtot = 0
         XPytot = 0
@@ -1053,11 +1069,11 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
         Xi_DD = 0
         Px= 0
         Py= 0
-        MeanReco =0
+
           
 
-        if len(CaloCandClass) == 0:
-            return 0
+        # if len(CaloCandClass) == 0:
+        #     return 0
         
        
         self.hist["hNentries"].Fill("CaloCandClass1",1)    
@@ -1127,7 +1143,7 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
       
             # self.hist["hNentries"].Fill("CaloCandClass2",1)    
             
-            if calop4.eta() <= TrackCandClass[deltaetamax_Reco_pos][0]:
+            if calop4.eta() <= rapidityGapeta:
                
                 XEtot += calop4.E()
                 XPxtot += calop4.Px()
@@ -1136,15 +1152,14 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
                 
 
        
-            if calop4.eta() >= TrackCandClass[deltaetamax_Reco_pos+1][0]:
+            if calop4.eta() >= rapidityGapeta:
                   
                 YEtot += calop4.E()
                 YPxtot += calop4.Px()
                 YPytot += calop4.Py()
                 YPztot += calop4.Pz()
 
-            MeanReco = (TrackCandClass[deltaetamax_Reco_pos+1][0] +  TrackCandClass[deltaetamax_Reco_pos][0])/2 
-
+            
         
         Px2 =  XPxtot**2 + XPytot**2 +XPztot**2
         Py2 =  YPxtot**2 + YPytot**2 +YPztot**2
@@ -1210,7 +1225,7 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
             self.OUTdeltazero[0] = deltaetamax
             self.OUTetamin[0] = mineta
             self.OUTetamax[0] = maxeta
-            self.OUTrapditygapmean [0] = MeanReco
+            self.OUTrapditygapmean [0] = rapidityGapeta
             self.OUTCastorNtowers[0] = CASTOR_Numberoftowerebovenoise
             self.OUTHFminusNtowers[0] = HFminus_Numberoftowerebovenoise
             self.OUTHFplusNtowers[0] = HFplus_Numberoftowerebovenoise
@@ -1239,7 +1254,7 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
                 self.hist["Hist_2DLogRecoXiY_logGenLogXiY"+Pythia_Process_ID].Fill(log10(xiy),log10(GenXiY))
                 self.hist["Hist_2Drecogen_EnergyX"].Fill(XEtot,XGenEtot)
                 self.hist["Hist_2Drecogen_EnergyY"].Fill(YEtot,YGenEtot)
-                self.hist["Hist_2D_recogen_Mean"].Fill(MeanReco, MeanGen)
+                self.hist["Hist_2D_recogen_Mean"].Fill(rapidityGapeta, MeanGen)
                 self.hist["Hist_Reco_log10XiDD"].Fill(log10(Xi_DD)) 
                 self.hist["Hist_eventXiID_Reco_log10XiDD"].Fill(log10(Xi_DD)) 
                 self.hist["Hist_Reco_log10XiDD"+ Pythia_Process_ID].Fill(log10(Xi_DD)) 
@@ -1286,13 +1301,14 @@ if __name__ == "__main__":
     ROOT.AutoLibraryLoader.enable()
 
     sampleList = []
-    sampleList.append("MinBias_TuneMBR_13TeV-pythia8_MagnetOff_CASTORmeasured_newNoise")
+    # sampleList.append("MinBias_TuneMBR_13TeV-pythia8_MagnetOff_CASTORmeasured_newNoise")
     #sampleList.append("MinBias_EPOS_13TeV_MagnetOff_CASTORmeasured_newNoise")
-    # sampleList.append("data_ZeroBias1_CASTOR")
+    sampleList.append("data_ZeroBias_27Jan2016_LHCf") #247934 #sebastians tree for HF towers
     # sampleList.append("data_ZeroBias1_CASTOR247934")
-    maxFilesMC = None# run through all ffiles found
-    maxFilesData = None# same
-    nWorkers = 8# Use all cpu cores
+    # sampleList.append("data_ZeroBias1_CASTOR")
+    maxFilesMC = 1# run through all ffiles found
+    maxFilesData = 1 # same
+    nWorkers = 1# Use all cpu cores
    
    
     slaveParams = {}
@@ -1300,12 +1316,13 @@ if __name__ == "__main__":
 
 
     # use printTTree.py <sampleName> to see what trees are avaliable inside the skim file
-    DiffractiveAndTrack.runAll(treeName="EflowTree",
+    # DiffractiveAndTrack.runAll(treeName="EflowTree",
+    DiffractiveAndTrack.runAll(treeName="CFFTree", # if you use the sebastians tree    
            slaveParameters=slaveParams,
            sampleList=sampleList,
            maxFilesMC = maxFilesMC,
            maxFilesData = maxFilesData,
            nWorkers= nWorkers,
-           maxNevents = 2000000,
+           # maxNevents = 10000,
            verbosity = 2,
-           outFile = "trackanddiffractive_sigSD1_pythia8.root")
+           outFile = "trackanddiffractive_sigSigDD_data.root")

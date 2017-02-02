@@ -246,8 +246,7 @@ sam["MinBias_TuneMBR_13TeV-pythia8_MagnetOff_CASTORmeasured_newNoise"]["DS"]='/M
 
 
 ########################################################
-#### all LHCf Runs based on 27Jan2016 reReco, Runs:  247623, 247920,
-247934 #####
+#### all LHCf Runs based on 27Jan2016 reReco, Runs:  247623, 247920,247934 #####
 ########################################################
 
 sam["data_ZeroBias_27Jan2016_LHCf"]={}
@@ -263,6 +262,7 @@ sam["data_ZeroBias_27Jan2016_LHCf"]["lumiMinBias"]=-1
 sam["data_ZeroBias_27Jan2016_LHCf"]["XS"]=-1
 sam["data_ZeroBias_27Jan2016_LHCf"]["pathPAT"]='/XXXTMFPAT/store/user/sbaur/ZeroBiasAll/ZeroBias-27Jan2016_LHCf_CFF'
 sam["data_ZeroBias_27Jan2016_LHCf"]["DS"]='/ZeroBias1/Run2015A-27Jan2016-v1/RECO'
+
 
 
 
