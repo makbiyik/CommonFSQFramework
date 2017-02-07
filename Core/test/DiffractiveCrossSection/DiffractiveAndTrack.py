@@ -53,12 +53,20 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
         self.hist["BunchCrossing"] = ROOT.TH1F("BunchCrossing", "BunchCrossing",  3600, 0-0.5, 3600-0.5)
         self.hist["Runs"] =  ROOT.TH1F("Runs", "Runs",  2000, 246000-0.5, 278000-0.5)
         self.hist["HFEnergy"] = ROOT.TH1F("HFEnergy","HFEnergy",100, 0, 200)
+        
+
         self.hist["Hist_sum_CAS_E"] = ROOT.TH1F("Hist_sum_CAS_E", "Hist_sum_CAS_E" ,100,0,600)
         self.hist["hParticleCounts"] = ROOT.TH1F("hParticleCounts","hParticleCounts",10, 0, 20) 
         self.hist["Hist_Angle"] = ROOT.TH1F("Hist_Angle", "Hist_Angle", 200, 0, 5)    
         self.hist["Hist_2Drecogen_EnergyX"] = ROOT.TH2D("Hist_2Drecogen_EnergyX", "Hist_2Drecogen_EnergyX", 100, 0, 8000,100, 0, 8000)    
         self.hist["Hist_2Drecogen_EnergyY"] = ROOT.TH2D("Hist_2Drecogen_EnergyY", "Hist_2Drecogen_EnergyY", 100, 0, 8000,100, 0, 8000)
            
+        self.hist["Hist_numberoftowerebovenoise_endcap"] = ROOT.TH1F("Hist_numberoftowerebovenoise_endcap","Hist_numberoftowerebovenoise_endcap",30, 0,300) 
+        self.hist["Hist_numberoftowerebovenoise_barrel"] = ROOT.TH1F("Hist_numberoftowerebovenoise_barrel","Hist_numberoftowerebovenoise_barrel",30, 0,300) 
+        self.hist["Hist_numberoftowerebovenoise_endcapforwardtransition"] = ROOT.TH1F("Hist_numberoftowerebovenoise_endcapforwardtransition","Hist_numberoftowerebovenoise_endcapforwardtransition",30, 0,300) 
+
+         
+
         self.hist["Hist_numberoftowerebovenoise_forwardplus"] = ROOT.TH1F("Hist_numberoftowerebovenoise_forwardplus","Hist_numberoftowerebovenoise_forwardplus",30, 0,300) 
         self.hist["Hist_numberoftowerebovenoise_forwardminus"] = ROOT.TH1F("Hist_numberoftowerebovenoise_forwardminus","Hist_numberoftowerebovenoise_forwardminus",30, 0,300) 
         self.hist["Hist_numberoftowerebovenoise_castor"] = ROOT.TH1F("Hist_numberoftowerebovenoise_castor","Hist_numberoftowerebovenoise_castor",16, 0,16) 
@@ -196,7 +204,7 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
         self.hist["Hist_reducedEnergy_forwardplus"] =  ROOT.TH1F("Hist_reducedEnergy_forwardplus", "Hist_reducedEnergy_forwardplus" , NbrPFEBins, BinPFEMin, BinPFEMax)
         self.hist["Hist_reducedEnergy_forwardminus"] =  ROOT.TH1F("Hist_reducedEnergy_forwardminus", "Hist_reducedEnergy_forwardminus" , NbrPFEBins, BinPFEMin, BinPFEMax)
         self.hist["Hist_reducedEnergy_Castor"] =  ROOT.TH1F("Hist_reducedEnergy_Castor", "Hist_reducedEnergy_Castor" , NbrPFEBins, BinPFEMin, BinPFEMax)
-  
+        self.hist["Hist_CaloReducedenergyClass"]= ROOT.TH1F("Hist_CaloReducedenergyClass","Hist_CaloReducedenergyClass",NbrPFEBins, BinPFEMin, BinPFEMax)
  
 
         NbrLogXiBins = 100
@@ -263,6 +271,7 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
             self.hist["Hist_Energy_forwardminus"+str(ip)] =  ROOT.TH1F("Hist_Energy_forwardminus"+str(ip), "Hist_Energy_forwardminus"+str(ip) , NbrPFEBins, BinPFEMin, BinPFEMax)
             self.hist["Hist_Energy_Castor"+str(ip)] =  ROOT.TH1F("Hist_Energy_Castor"+str(ip), "Hist_Energy_Castor"+str(ip) , NbrPFEBins, BinPFEMin, BinPFEMax)
            
+            self.hist["Hist_CaloReducedenergyClass"+str(ip)]= ROOT.TH1F("Hist_CaloReducedenergyClass"+str(ip),"Hist_CaloReducedenergyClass"+str(ip),NbrPFEBins, BinPFEMin, BinPFEMax)
             self.hist["Hist_reducedEnergy"+str(ip)] =  ROOT.TH1F("Hist_reducedEnergy"+str(ip), "Hist_reducedEnergy"+str(ip) , NbrPFEBins, BinPFEMin, BinPFEMax)
             self.hist["Hist_reducedEnergy_barrel"+str(ip)] =  ROOT.TH1F("Hist_reducedEnergy_barrel"+str(ip), "Hist_reducedEnergy_barrel"+str(ip) , NbrPFEBins, BinPFEMin, BinPFEMax)
             self.hist["Hist_reducedEnergy_endcap"+str(ip)] =  ROOT.TH1F("Hist_reducedEnergy_endcap"+str(ip), "Hist_reducedEnergy_endcap"+str(ip) , NbrPFEBins, BinPFEMin, BinPFEMax)
@@ -301,7 +310,14 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
             self.hist["Hist_numberoftowerebovenoise_castor"+str(ip)] = ROOT.TH1F("Hist_numberoftowerebovenoise_castor"+str(ip),"Hist_numberoftowerebovenoise_castor"+str(ip),16, 0,16) 
             self.hist["Hist_NbrTracks"+str(ip)] = ROOT.TH1F("Hist_NbrTracks"+str(ip),"Hist_NbrTracks"+str(ip),NbrSizeBins, BinSizeEMin,100)
             self.hist["Hist_eventXiID_NbrTracks"+str(ip)] = ROOT.TH1F("Hist_eventXiID_NbrTracks"+str(ip),"Hist_eventXiID_NbrTracks"+str(ip),NbrSizeBins, BinSizeEMin,100)
-           
+            
+            self.hist["Hist_numberoftowerebovenoise_endcap"+str(ip)] = ROOT.TH1F("Hist_numberoftowerebovenoise_endcap"+str(ip),"Hist_numberoftowerebovenoise_endcap"+str(ip),30, 0,300) 
+            self.hist["Hist_numberoftowerebovenoise_barrel"+str(ip)] = ROOT.TH1F("Hist_numberoftowerebovenoise_barrel"+str(ip),"Hist_numberoftowerebovenoise_barrel"+str(ip),30, 0,300) 
+            self.hist["Hist_numberoftowerebovenoise_endcapforwardtransition"+str(ip)] = ROOT.TH1F("Hist_numberoftowerebovenoise_endcapforwardtransition"+str(ip),"Hist_numberoftowerebovenoise_endcapforwardtransition"+str(ip),30, 0,300) 
+
+            
+
+
              # eventID is process Id which is defined by the cuts that are applied on Xi , no using process ID from Pythi8
             self.hist["Hist_GP_eventXiID_Min"+str(ip)] = ROOT.TH1D("Hist_GP_eventXiID_Min"+str(ip),"Hist_GP_eventXiID_Min ", NbrEtaBins, BinEtaMin, BinEtaMax)
             self.hist["Hist_GP_eventXiID_Max"+str(ip)] = ROOT.TH1D("Hist_GP_eventXiID_Max"+str(ip),"Hist_GP_eventXiID_Max ", NbrEtaBins, BinEtaMin, BinEtaMax) 
@@ -498,16 +514,14 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
         Nbrvertex = 1 
 
         if self.isData:
-            if not self.fChain.run == 247324 and not self.fChain.run == 247934: return 1 
+            # if not self.fChain.run == 247324 and not self.fChain.run == 247934: return 1 
         
             Nbrvertex = self.fChain.ZeroTeslaPixelnoPreSplittingVtx_vrtxX.size()    
-        
-            if self.fChain.ZeroTeslaPixelnoPreSplittingVtx_vrtxX.size() > 0: 
-                self.hist["Hist_NrVtx"].Fill(self.fChain.ZeroTeslaStripVtx_vrtxX.size())
+            self.hist["Hist_NrVtx"].Fill(Nbrvertex)
 
-            if self.fChain.ZeroTeslaPixelnoPreSplittingVtx_vrtxX.size() > 2:  return 0
+            if Nbrvertex > 2:  return 0
 
-            if self.fChain.ZeroTeslaPixelnoPreSplittingVtx_vrtxX.size() == 2:
+            if Nbrvertex == 2:
                 if abs(self.fChain.ZeroTeslaPixelnoPreSplittingVtx_vrtxZ[0] - self.fChain.ZeroTeslaPixelnoPreSplittingVtx_vrtxZ[1])> 0.5 : return 0
                 Nbrvertex = 1
 
@@ -763,11 +777,15 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
         mineta = -5
         maxeta = 5
         Etarange = -1
+
+        # if len(TrackCandClass) == 0:
+        #     return 0
+
         if len(TrackCandClass) > 0:
             TrackCandClass.sort(cmp=compareTracketa)
             mineta =  TrackCandClass[0][0]
             maxeta =  TrackCandClass[len(TrackCandClass)-1][0] #eta()pseduorapidty
- 
+     
         #self.hist["Hist_TrackCandClass"].Fill(len(TrackCandClass))  
         self.hist["Hist_NbrTracks"].Fill(len(TrackCandClass))  
         self.hist["Hist_NbrTracks"+ Pythia_Process_ID].Fill(len(TrackCandClass))
@@ -832,6 +850,13 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
         CASTOR_Numberoftowerebovenoise = 0
         HFplus_Numberoftowerebovenoise = 0 
         HFminus_Numberoftowerebovenoise = 0 
+        Barrel_Numberoftowerebovenoise = 0 
+        Endcap_Numberoftowerebovenoise = 0 
+        endcapforwardtransition_Numberoftowerebovenoise =0
+
+       
+
+
         for icalo in xrange(0,CaloTower):
             calop4 = self.fChain.CaloTowersp4[icalo]
             caloem = self.fChain.CaloTowersemEnergy[icalo]
@@ -839,18 +864,24 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
 
             CaloCandClass.append([calop4,caloem,calohad])
             
-            if abs(calop4.eta()) < 1.6:
+           
+            if abs(calop4.eta()) < 1.4:
                
-                if (calop4.e()) < 2.40: continue
-                   
+                if (calop4.e()) < 2.00: continue
+                Barrel_Numberoftowerebovenoise += 1 
+
+
             if abs( calop4.eta()) > 1.4 and abs( calop4.eta()) < 2.8:
                 if (calop4.e()) < 1.80: continue
-              
+                Endcap_Numberoftowerebovenoise += 1
+
             if abs( calop4.eta()) > 2.8 and abs( calop4.eta()) < 3.2: 
-                if (calop4.e()) < 3.0: continue
-                   
+                if (calop4.e()) < 3.8: continue
+                endcapforwardtransition_Numberoftowerebovenoise += 1  
+                 
             # if abs(calop4.eta()) > 3.2 and abs(calop4.eta()) < 5.2 :
             #     if (calop4.e()) < 2.2: continue
+            #     endcapforwardtransition_Numberoftowerebovenoise += 1  
 
             if  calop4.eta() > 3.2 and calop4.eta() < 5.2:
                 if (calop4.e()) <5: continue
@@ -864,19 +895,7 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
 
             CaloReducedenergyClass.append([calop4,caloem,calohad])
          
-
-        self.hist["Hist_numberoftowerebovenoise_forwardplus"].Fill(HFplus_Numberoftowerebovenoise)
-        self.hist["Hist_eventXiID_numberoftowerebovenoise_forwardplus"].Fill(HFplus_Numberoftowerebovenoise)
-        self.hist["Hist_numberoftowerebovenoise_forwardplus"+ Pythia_Process_ID].Fill(HFplus_Numberoftowerebovenoise)
-        self.hist["Hist_eventXiID_numberoftowerebovenoise_forwardplus"+ EventSelectionXiProcess_ID].Fill(HFplus_Numberoftowerebovenoise)
-
-        self.hist["Hist_numberoftowerebovenoise_forwardminus"].Fill(HFminus_Numberoftowerebovenoise)
-        self.hist["Hist_eventXiID_numberoftowerebovenoise_forwardminus"].Fill(HFminus_Numberoftowerebovenoise)
-        self.hist["Hist_numberoftowerebovenoise_forwardminus"+ Pythia_Process_ID].Fill(HFminus_Numberoftowerebovenoise)
-        self.hist["Hist_eventXiID_numberoftowerebovenoise_forwardminus"+ EventSelectionXiProcess_ID].Fill(HFminus_Numberoftowerebovenoise)
-
-
-
+      
         ####################################Castortower######################################
        
         self.sum_CAS_E_em = [0.0] * 16
@@ -920,7 +939,7 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
             pz = energy/cosh(caseta) * sinh(caseta)
             self.castor_tower_p4[isec].SetPxPyPzE(px,py,pz,energy)
 
-            if (energy) < 0.8:continue   #Threshold for castor: 5.600000 ############# Castor noise cut
+            if (energy) < 2.5:continue   #Threshold for castor: 5.600000 ############# Castor noise cut
             CASTOR_Numberoftowerebovenoise += 1
 
             CaloReducedenergyClass.append([self.castor_tower_p4[isec], 
@@ -929,11 +948,38 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
                                 self.sum_CAS_E_had[isec]])
     
 
+
+        ####### Vrtx cut######  
+        if self.isData:
+            if Nbrtracks== 0 and len(CaloReducedenergyClass) == 0: return 0
+            # if not self.fChain.ZeroTeslaPixelnoPreSplittingVtx_vrtxX.size() == 1 and len(CaloReducedenergyClass) < 1: return 0
+             
         self.hist["Hist_numberoftowerebovenoise_castor"].Fill(CASTOR_Numberoftowerebovenoise)
         self.hist["Hist_eventXiID_numberoftowerebovenoise_castor"].Fill(CASTOR_Numberoftowerebovenoise)
         self.hist["Hist_numberoftowerebovenoise_castor"+ Pythia_Process_ID].Fill(CASTOR_Numberoftowerebovenoise)
         self.hist["Hist_eventXiID_numberoftowerebovenoise_castor"+ EventSelectionXiProcess_ID].Fill(CASTOR_Numberoftowerebovenoise)
         
+        self.hist["Hist_numberoftowerebovenoise_forwardplus"].Fill(HFplus_Numberoftowerebovenoise)
+        self.hist["Hist_eventXiID_numberoftowerebovenoise_forwardplus"].Fill(HFplus_Numberoftowerebovenoise)
+        self.hist["Hist_numberoftowerebovenoise_forwardplus"+ Pythia_Process_ID].Fill(HFplus_Numberoftowerebovenoise)
+        self.hist["Hist_eventXiID_numberoftowerebovenoise_forwardplus"+ EventSelectionXiProcess_ID].Fill(HFplus_Numberoftowerebovenoise)
+
+        self.hist["Hist_numberoftowerebovenoise_forwardminus"].Fill(HFminus_Numberoftowerebovenoise)
+        self.hist["Hist_eventXiID_numberoftowerebovenoise_forwardminus"].Fill(HFminus_Numberoftowerebovenoise)
+        self.hist["Hist_numberoftowerebovenoise_forwardminus"+ Pythia_Process_ID].Fill(HFminus_Numberoftowerebovenoise)
+        self.hist["Hist_eventXiID_numberoftowerebovenoise_forwardminus"+ EventSelectionXiProcess_ID].Fill(HFminus_Numberoftowerebovenoise)
+
+       
+        self.hist["Hist_numberoftowerebovenoise_barrel"].Fill(Barrel_Numberoftowerebovenoise)
+        self.hist["Hist_numberoftowerebovenoise_barrel"+Pythia_Process_ID].Fill(Barrel_Numberoftowerebovenoise)
+        self.hist["Hist_numberoftowerebovenoise_endcap"].Fill(Endcap_Numberoftowerebovenoise)
+        self.hist["Hist_numberoftowerebovenoise_endcap"+Pythia_Process_ID].Fill(Endcap_Numberoftowerebovenoise)
+        self.hist["Hist_numberoftowerebovenoise_endcapforwardtransition"].Fill(endcapforwardtransition_Numberoftowerebovenoise)
+        self.hist["Hist_numberoftowerebovenoise_endcapforwardtransition"+Pythia_Process_ID].Fill(endcapforwardtransition_Numberoftowerebovenoise)
+
+        self.hist ["Hist_CaloReducedenergyClass"] .Fill(len(CaloReducedenergyClass))
+        self.hist ["Hist_CaloReducedenergyClass"+ Pythia_Process_ID].Fill(len(CaloReducedenergyClass))
+
         self.hist["Hist_2DHFminus_Castor_Ntowers"].Fill(HFminus_Numberoftowerebovenoise,CASTOR_Numberoftowerebovenoise)
         self.hist["Hist_2DHFplus_Castor_Ntowers"].Fill(HFplus_Numberoftowerebovenoise,CASTOR_Numberoftowerebovenoise)
         self.hist["Hist_2DHFminus_Castor_Ntowers"+ Pythia_Process_ID].Fill(HFminus_Numberoftowerebovenoise,CASTOR_Numberoftowerebovenoise)
@@ -948,23 +994,16 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
            
 
 
-        ####### Vrtx cut######  
-        if self.isData:
-            if Nbrvertex == 0 and len(CaloReducedenergyClass) == 0: return 0
-            # if not self.fChain.ZeroTeslaPixelnoPreSplittingVtx_vrtxX.size() == 1 and len(CaloReducedenergyClass) < 1: return 0
-             
-
             
         # if len(CaloReducedenergyClass) == 0:
         #     return 0
         # self.hist["hNentries"].Fill("CaloReducedenergyClass1",1)
-       
-       
+    
         for icalo in xrange(0,len(CaloReducedenergyClass)):
             if calop4.eta() < mineta:
                 mineta = calop4.eta() 
             if calop4.eta() > maxeta:   
-               maxeta = calop4.eta() 
+                maxeta = calop4.eta() 
            
             calop4  = CaloReducedenergyClass[icalo][0]
             caloem  = CaloReducedenergyClass[icalo][1]
@@ -990,7 +1029,7 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
                 self.hist["Hist_eventXiID_reducedEnergy_barrel" + EventSelectionXiProcess_ID].Fill(calop4.e()) 
 
 
-            if  abs( calop4.eta() ) > 1.8 and abs( calop4.eta() ) < 3.1:
+            if  abs( calop4.eta() ) > 1.4 and abs( calop4.eta() ) < 2.8:
                 self.hist["Hist_reducedEnergy_endcap"].Fill(calop4.e()) 
                 self.hist["Hist_reducedEnergy_endcap" + Pythia_Process_ID].Fill(calop4.e()) 
                 self.hist["Hist_eventXiID_reducedEnergy_endcap"].Fill(calop4.e()) 
@@ -1100,7 +1139,7 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
                 self.hist["Hist_eventXiID_Energy_barrel" + EventSelectionXiProcess_ID].Fill(calop4.e()) 
                
 
-            if  abs( calop4.eta() ) > 1.8 and abs( calop4.eta() ) < 3.1:
+            if  abs( calop4.eta() ) > 1.4 and abs( calop4.eta() ) <2.8:
                 self.hist["Hist_Energy_endcap"].Fill(calop4.e()) 
                 self.hist["Hist_Energy_endcap" + Pythia_Process_ID].Fill(calop4.e()) 
                 self.hist["Hist_eventXiID_Energy_endcap"].Fill(calop4.e()) 
@@ -1249,7 +1288,7 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
             if not self.isData:
                 self.hist["Hist_2DLogRecoXiX_logGenXiX"].Fill(log10(xix),log10(GenXiX))
                 self.hist["Hist_2DLogRecoXiY_logGenLogXiY"].Fill(log10(xiy),log10(GenXiY))
-                self.hist["Hist_2D_genreco_Deltapos"].Fill(ChargedGenParticleClass[deltaetamax_Gen_pos][0].eta(),TrackCandClass[deltaetamax_Reco_pos][0]) 
+                # self.hist["Hist_2D_genreco_Deltapos"].Fill(ChargedGenParticleClass[deltaetamax_Gen_pos][0].eta(),TrackCandClass[deltaetamax_Reco_pos][0]) 
                 self.hist["Hist_2DLogRecoXiX_logGenXiX"+Pythia_Process_ID].Fill(log10(xix),log10(GenXiX))
                 self.hist["Hist_2DLogRecoXiY_logGenLogXiY"+Pythia_Process_ID].Fill(log10(xiy),log10(GenXiY))
                 self.hist["Hist_2Drecogen_EnergyX"].Fill(XEtot,XGenEtot)
@@ -1301,14 +1340,14 @@ if __name__ == "__main__":
     ROOT.AutoLibraryLoader.enable()
 
     sampleList = []
-    # sampleList.append("MinBias_TuneMBR_13TeV-pythia8_MagnetOff_CASTORmeasured_newNoise")
-    #sampleList.append("MinBias_EPOS_13TeV_MagnetOff_CASTORmeasured_newNoise")
-    sampleList.append("data_ZeroBias_27Jan2016_LHCf") #247934 #sebastians tree for HF towers
+    sampleList.append("MinBias_TuneMBR_13TeV-pythia8_MagnetOff_CASTORmeasured_newNoise")
+    # sampleList.append("MinBias_EPOS_13TeV_MagnetOff_CASTORmeasured_newNoise")
+    # sampleList.append("data_ZeroBias_27Jan2016_LHCf") #247934 #sebastians tree for HF towers
     # sampleList.append("data_ZeroBias1_CASTOR247934")
     # sampleList.append("data_ZeroBias1_CASTOR")
-    maxFilesMC = 1# run through all ffiles found
-    maxFilesData = 1 # same
-    nWorkers = 1# Use all cpu cores
+    maxFilesMC = None# run through all ffiles found
+    maxFilesData = None # same
+    nWorkers = 8# Use all cpu cores
    
    
     slaveParams = {}
@@ -1316,13 +1355,13 @@ if __name__ == "__main__":
 
 
     # use printTTree.py <sampleName> to see what trees are avaliable inside the skim file
-    # DiffractiveAndTrack.runAll(treeName="EflowTree",
-    DiffractiveAndTrack.runAll(treeName="CFFTree", # if you use the sebastians tree    
+    DiffractiveAndTrack.runAll(treeName="EflowTree",
+    # DiffractiveAndTrack.runAll(treeName="CFFTree", # if you use the sebastians tree    
            slaveParameters=slaveParams,
            sampleList=sampleList,
            maxFilesMC = maxFilesMC,
            maxFilesData = maxFilesData,
            nWorkers= nWorkers,
-           # maxNevents = 10000,
+           maxNevents = 2000000,
            verbosity = 2,
-           outFile = "trackanddiffractive_sigSigDD_data.root")
+           outFile = "trackanddiffractive_sigDD_pythia8.root")# self.fChain.ZeroTeslaPixelnoPreSplittingVtx_vrtxX.size() > 0: 
