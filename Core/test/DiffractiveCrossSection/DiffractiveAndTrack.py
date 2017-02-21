@@ -988,14 +988,15 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
         # self.hist["hNentries"].Fill("CaloReducedenergyClass1",1)
     
         for icalo in xrange(0,len(CaloReducedenergyClass)):
+            calop4  = CaloReducedenergyClass[icalo][0]
+            caloem  = CaloReducedenergyClass[icalo][1]
+            calohad  = CaloReducedenergyClass[icalo][2]
+            
             if (calop4.eta()) < mineta:
                 mineta = calop4.eta()
             if (calop4.eta()) > maxeta:   
                 maxeta = calop4.eta()
            
-            calop4  = CaloReducedenergyClass[icalo][0]
-            caloem  = CaloReducedenergyClass[icalo][1]
-            calohad  = CaloReducedenergyClass[icalo][2]
            
             
             self.hist["Hist_reducedEta"].Fill(calop4.eta()) 
@@ -1006,33 +1007,33 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
             self.hist["Hist_reducedEnergy" + Pythia_Process_ID].Fill(calop4.e()) 
             self.hist["Hist_reducedEnergy" + EventSelectionXiProcess_ID].Fill(calop4.e())      
            
-            self.hist["Hist_numberoftowerebovenoise_castor"].Fill(CASTOR_Numberoftowerebovenoise)
-            self.hist["Hist_eventXiID_numberoftowerebovenoise_castor"].Fill(CASTOR_Numberoftowerebovenoise)
-            self.hist["Hist_numberoftowerebovenoise_castor"+ Pythia_Process_ID].Fill(CASTOR_Numberoftowerebovenoise)
-            self.hist["Hist_eventXiID_numberoftowerebovenoise_castor"+ EventSelectionXiProcess_ID].Fill(CASTOR_Numberoftowerebovenoise)
-            
-            self.hist["Hist_numberoftowerebovenoise_forwardplus"].Fill(HFplus_Numberoftowerebovenoise)
-            self.hist["Hist_eventXiID_numberoftowerebovenoise_forwardplus"].Fill(HFplus_Numberoftowerebovenoise)
-            self.hist["Hist_numberoftowerebovenoise_forwardplus"+ Pythia_Process_ID].Fill(HFplus_Numberoftowerebovenoise)
-            self.hist["Hist_eventXiID_numberoftowerebovenoise_forwardplus"+ EventSelectionXiProcess_ID].Fill(HFplus_Numberoftowerebovenoise)
+        self.hist["Hist_numberoftowerebovenoise_castor"].Fill(CASTOR_Numberoftowerebovenoise)
+        self.hist["Hist_eventXiID_numberoftowerebovenoise_castor"].Fill(CASTOR_Numberoftowerebovenoise)
+        self.hist["Hist_numberoftowerebovenoise_castor"+ Pythia_Process_ID].Fill(CASTOR_Numberoftowerebovenoise)
+        self.hist["Hist_eventXiID_numberoftowerebovenoise_castor"+ EventSelectionXiProcess_ID].Fill(CASTOR_Numberoftowerebovenoise)
+        
+        self.hist["Hist_numberoftowerebovenoise_forwardplus"].Fill(HFplus_Numberoftowerebovenoise)
+        self.hist["Hist_eventXiID_numberoftowerebovenoise_forwardplus"].Fill(HFplus_Numberoftowerebovenoise)
+        self.hist["Hist_numberoftowerebovenoise_forwardplus"+ Pythia_Process_ID].Fill(HFplus_Numberoftowerebovenoise)
+        self.hist["Hist_eventXiID_numberoftowerebovenoise_forwardplus"+ EventSelectionXiProcess_ID].Fill(HFplus_Numberoftowerebovenoise)
 
-            self.hist["Hist_numberoftowerebovenoise_forwardminus"].Fill(HFminus_Numberoftowerebovenoise)
-            self.hist["Hist_eventXiID_numberoftowerebovenoise_forwardminus"].Fill(HFminus_Numberoftowerebovenoise)
-            self.hist["Hist_numberoftowerebovenoise_forwardminus"+ Pythia_Process_ID].Fill(HFminus_Numberoftowerebovenoise)
-            self.hist["Hist_eventXiID_numberoftowerebovenoise_forwardminus"+ EventSelectionXiProcess_ID].Fill(HFminus_Numberoftowerebovenoise)
+        self.hist["Hist_numberoftowerebovenoise_forwardminus"].Fill(HFminus_Numberoftowerebovenoise)
+        self.hist["Hist_eventXiID_numberoftowerebovenoise_forwardminus"].Fill(HFminus_Numberoftowerebovenoise)
+        self.hist["Hist_numberoftowerebovenoise_forwardminus"+ Pythia_Process_ID].Fill(HFminus_Numberoftowerebovenoise)
+        self.hist["Hist_eventXiID_numberoftowerebovenoise_forwardminus"+ EventSelectionXiProcess_ID].Fill(HFminus_Numberoftowerebovenoise)
 
-           
-            self.hist["Hist_numberoftowerebovenoise_barrel"].Fill(Barrel_Numberoftowerebovenoise)
-            self.hist["Hist_numberoftowerebovenoise_barrel"+Pythia_Process_ID].Fill(Barrel_Numberoftowerebovenoise)
-            self.hist["Hist_numberoftowerebovenoise_endcap"].Fill(Endcap_Numberoftowerebovenoise)
-            self.hist["Hist_numberoftowerebovenoise_endcap"+Pythia_Process_ID].Fill(Endcap_Numberoftowerebovenoise)
-            self.hist["Hist_numberoftowerebovenoise_endcapforwardtransition"].Fill(endcapforwardtransition_Numberoftowerebovenoise)
-            self.hist["Hist_numberoftowerebovenoise_endcapforwardtransition"+Pythia_Process_ID].Fill(endcapforwardtransition_Numberoftowerebovenoise)
+       
+        self.hist["Hist_numberoftowerebovenoise_barrel"].Fill(Barrel_Numberoftowerebovenoise)
+        self.hist["Hist_numberoftowerebovenoise_barrel"+Pythia_Process_ID].Fill(Barrel_Numberoftowerebovenoise)
+        self.hist["Hist_numberoftowerebovenoise_endcap"].Fill(Endcap_Numberoftowerebovenoise)
+        self.hist["Hist_numberoftowerebovenoise_endcap"+Pythia_Process_ID].Fill(Endcap_Numberoftowerebovenoise)
+        self.hist["Hist_numberoftowerebovenoise_endcapforwardtransition"].Fill(endcapforwardtransition_Numberoftowerebovenoise)
+        self.hist["Hist_numberoftowerebovenoise_endcapforwardtransition"+Pythia_Process_ID].Fill(endcapforwardtransition_Numberoftowerebovenoise)
 
-            self.hist ["Hist_CaloReducedenergyClass"] .Fill(len(CaloReducedenergyClass))
-            self.hist ["Hist_CaloReducedenergyClass"+ Pythia_Process_ID].Fill(len(CaloReducedenergyClass))
-           
-            self.hist["hParticleCounts"].Fill("all",1)
+        self.hist ["Hist_CaloReducedenergyClass"] .Fill(len(CaloReducedenergyClass))
+        self.hist ["Hist_CaloReducedenergyClass"+ Pythia_Process_ID].Fill(len(CaloReducedenergyClass))
+       
+        self.hist["hParticleCounts"].Fill("all",1)
           
             
 
@@ -1352,11 +1353,11 @@ if __name__ == "__main__":
     ROOT.AutoLibraryLoader.enable()
 
     sampleList = []
-    sampleList.append("MinBias_TuneMBR_13TeV-pythia8_MagnetOff_CASTORmeasured_newNoise")
+    # sampleList.append("MinBias_TuneMBR_13TeV-pythia8_MagnetOff_CASTORmeasured_newNoise")
     # sampleList.append("MinBias_EPOS_13TeV_MagnetOff_CASTORmeasured_newNoise")
     # sampleList.append("data_ZeroBias_27Jan2016_LHCf") #247934 #sebastians tree for HF towers
     # sampleList.append("data_ZeroBias1_CASTOR247934")
-    # sampleList.append("data_ZeroBias1_CASTOR")
+    sampleList.append("data_ZeroBias1_CASTOR")
     maxFilesMC = None# run through all ffiles found
     maxFilesData = None # same
     nWorkers = 8# Use all cpu cores
@@ -1374,6 +1375,6 @@ if __name__ == "__main__":
            maxFilesMC = maxFilesMC,
            maxFilesData = maxFilesData,
            nWorkers= nWorkers,
-           maxNevents = 2000000,
+           # maxNevents = 2000000,
            verbosity = 2,
-           outFile = "trackanddiffractive_sigDD_pythia8.root") 
+           outFile = "trackanddiffractive_sigDD_Data.root") 
