@@ -125,8 +125,8 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
         self.hist["Hist_GP_DeltaZero"] = ROOT.TH1F("Hist_GP_DeltaZero", "Hist_GP_DeltaZero", NbrDetaBins, DetaMin, DetaMax)
         self.hist["Hist_GP_DeltaMax"] = ROOT.TH1F("Hist_GP_DeltaMax", "Hist_GP_DeltaMax", NbrDetaBins, DetaMin, DetaMax)
         self.hist["Hist_Deltazero_deltagenreco"] = ROOT.TH1F("Hist_Deltazero_deltagenreco", "Hist_Deltazero_deltagenreco", NbrDetaBins, -10, DetaMax)
-        self.hist["Hist_2D_recogen_DeltaZero"] = ROOT.TH2D("Hist_2D_recogen_DeltaZero","Hist_2D_recogen_DeltaZero", NbrDetaBins DetaMin, DetaMax,NbrDetaBins DetaMin, DetaMax);
-        self.hist["Hist_2D_recogen_DeltaMax"] = ROOT.TH2D("Hist_2D_recogen_DeltaMax","Hist_2D_recogen_DeltaMax", NbrDetaBins DetaMin, DetaMax,NbrDetaBins DetaMin, DetaMax);
+        self.hist["Hist_2D_recogen_DeltaZero"] = ROOT.TH2D("Hist_2D_recogen_DeltaZero","Hist_2D_recogen_DeltaZero", NbrDetaBins, DetaMin, DetaMax,NbrDetaBins, DetaMin, DetaMax);
+        self.hist["Hist_2D_recogen_DeltaMax"] = ROOT.TH2D("Hist_2D_recogen_DeltaMax","Hist_2D_recogen_DeltaMax", NbrDetaBins, DetaMin, DetaMax,NbrDetaBins, DetaMin, DetaMax);
         self.hist["Hist_2D_recogen_EtaMiniumum"] = ROOT.TH2D("Hist_2D_recogen_EtaMiniumum","Hist_2D_recogen_EtaMiniumum",NbrEtaBins, BinEtaMin, BinEtaMax,NbrEtaBins, BinEtaMin, BinEtaMax)
         self.hist["Hist_2D_recogen_EtaMax"]= ROOT.TH2D("Hist_2D_recogen_EtaMax","Hist_2D_recogen_EtaMax",NbrEtaBins, BinEtaMin, BinEtaMax,NbrEtaBins, BinEtaMin, BinEtaMax)
         
@@ -223,7 +223,7 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
         self.hist["Hist_XiX"] =  ROOT.TH1F("Hist_XiX", "Hist_XiX", NbrXiBins, XiMin, XiMax)
         self.hist["Hist_XiY"] =  ROOT.TH1F("Hist_XiY", "Hist_XiY", NbrXiBins, XiMin, XiMax)
         self.hist["Hist_calculated_log10XiDD"] =  ROOT.TH1F("Hist_calculated_log10XiDD", "Hist_calculated_log10XiDD", NbrLogXiBins, LogXiMin,LogXiMax)
-        self.hist["Hist_2D_calculated_log10XiDD_Deltamax"]= ROOT.TH2D("Hist_2D_calculated_log10XiDD_Deltamax","Hist_2D_calculated_log10XiDD_Deltamax",NbrLogXiBins, LogXiMinLogXiMax,NbrDetaBins, DetaMin, DetaMax)
+        self.hist["Hist_2D_calculated_log10XiDD_Deltamax"]= ROOT.TH2D("Hist_2D_calculated_log10XiDD_Deltamax","Hist_2D_calculated_log10XiDD_Deltamax",NbrLogXiBins, LogXiMin, LogXiMax,NbrDetaBins, DetaMin, DetaMax)
         self.hist["Hist_Reco_log10XiDD"] =  ROOT.TH1F("Hist_Reco_log10XiDD", "Hist_Reco_log10XiDD", NbrLogXiBins, LogXiMin,LogXiMax)
         self.hist["Hist_eventXiID_Reco_log10XiDD"] =  ROOT.TH1F("Hist_eventXiID_Reco_log10XiDD", "Hist_eventXiID_Reco_log10XiDD", NbrLogXiBins, LogXiMin,LogXiMax)
         self.hist["Hist_2DRecoLogXi_DDGenLogXi_DD"] = ROOT.TH2D("Hist_2DRecoLogXi_DDGenLogXi_DD", "Hist_2DRecoLogXi_DDGenLogXi_DD", NbrLogXiBins, LogXiMin,LogXiMax, NbrLogXiBins, LogXiMin,LogXiMax)
@@ -292,7 +292,7 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
             self.hist["Hist_GP_2Dlog10MxMy"+str(ip)] =  ROOT.TH2D("Hist_GP_2Dlog10MxMy"+str(ip), "Hist_GP_2Dlog10MxMy"+str(ip), NbrLogMBins, LogMin, LogMax, NbrLogMBins, LogMin, LogMax)
             self.hist["Hist_GP_log10XiX"+str(ip)] =  ROOT.TH1F("Hist_GP_log10XiX"+str(ip), "Hist_GP_log10XiX"+str(ip), NbrLogXiBins, LogXiMin,LogXiMax)
             self.hist["Hist_GP_log10XiY"+str(ip)] =  ROOT.TH1F("Hist_GP_log10XiY"+str(ip), "Hist_GP_log10XiY"+str(ip), NbrLogXiBins, LogXiMin,LogXiMax)
-            self.hist["Hist_2D_calculated_log10XiDD_Deltamax"+str(ip)]= ROOT.TH2D("Hist_2D_calculated_log10XiDD_Deltamax"+str(ip),"Hist_2D_calculated_log10XiDD_Deltamax"+str(ip),NbrLogXiBins, LogXiMinLogXiMax,NbrDetaBins, DetaMin, DetaMax)
+            self.hist["Hist_2D_calculated_log10XiDD_Deltamax"+str(ip)]= ROOT.TH2D("Hist_2D_calculated_log10XiDD_Deltamax"+str(ip),"Hist_2D_calculated_log10XiDD_Deltamax"+str(ip),NbrLogXiBins, LogXiMin, LogXiMax,NbrDetaBins, DetaMin, DetaMax)
             self.hist["Hist_Xi"+str(ip)] =  ROOT.TH1F("Hist_Xi"+str(ip), "Hist_Xi"+str(ip), NbrXiBins, XiMin, XiMax)
             self.hist["Hist_Xi"+str(ip)] =  ROOT.TH1F("Hist_Xi"+str(ip), "Hist_Xi"+str(ip), NbrXiBins, XiMin, XiMax)
             self.hist["Hist_XiX"+str(ip)] =  ROOT.TH1F("Hist_XiX"+str(ip), "Hist_XiX"+str(ip), NbrXiBins, XiMin, XiMax)
@@ -310,8 +310,8 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
             self.hist["Hist_numberoftowerebovenoise_forwardplus"+str(ip)] = ROOT.TH1F("Hist_numberoftowerebovenoise_forwardplus"+str(ip),"Hist_numberoftowerebovenoise_forwardplus"+str(ip),101, -0.5,100.5) 
             self.hist["Hist_numberoftowerebovenoise_forwardminus"+str(ip)] = ROOT.TH1F("Hist_numberoftowerebovenoise_forwardminus"+str(ip),"Hist_numberoftowerebovenoise_forwardminus"+str(ip),101, -0.5,100.5) 
             self.hist["Hist_numberoftowerebovenoise_castor"+str(ip)] = ROOT.TH1F("Hist_numberoftowerebovenoise_castor"+str(ip),"Hist_numberoftowerebovenoise_castor"+str(ip),16, 0,16) 
-            self.hist["Hist_NbrTracks"+str(ip)] = ROOT.TH1F("Hist_NbrTracks"+str(ip),"Hist_NbrTracks"+str(ip),50, SizeEMin,150
-            self.hist["Hist_eventXiID_NbrTracks"+str(ip)] = ROOT.TH1F("Hist_eventXiID_NbrTracks"+str(ip),"Hist_eventXiID_NbrTracks"+str(ip),NbrSizeBins, SizeEMin,150
+            self.hist["Hist_NbrTracks"+str(ip)] = ROOT.TH1F("Hist_NbrTracks"+str(ip),"Hist_NbrTracks"+str(ip),NbrSizeBins, SizeEMin,50)
+            self.hist["Hist_eventXiID_NbrTracks"+str(ip)] = ROOT.TH1F("Hist_eventXiID_NbrTracks"+str(ip),"Hist_eventXiID_NbrTracks"+str(ip),NbrSizeBins, SizeEMin,50)
             
             self.hist["Hist_numberoftowerebovenoise_endcap"+str(ip)] = ROOT.TH1F("Hist_numberoftowerebovenoise_endcap"+str(ip),"Hist_numberoftowerebovenoise_endcap"+str(ip),101, -0.5,100.5) 
             self.hist["Hist_numberoftowerebovenoise_barrel"+str(ip)] = ROOT.TH1F("Hist_numberoftowerebovenoise_barrel"+str(ip),"Hist_numberoftowerebovenoise_barrel"+str(ip),101, -0.5,100.5) 
@@ -395,7 +395,7 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
         self.OUTCastorNtowers = array( 'i', 1 * [0] )
         self.OUTHFminusNtowers = array( 'i', 1 * [0] )
         self.OUTNtracks = array( 'i', 1 * [0] )
-        self.OUTEtarange = array( 'i', 1 * [0] ) 
+        self.OUTEtarange = array( 'f', 1 * [0] ) 
 
         self.OUTHFplusNtowers = array( 'i', 1 * [0] )
         self.OUTlog10XiDD = array( 'f', 1 * [0] )
@@ -1350,7 +1350,7 @@ if __name__ == "__main__":
     sampleList.append("data_ZeroBias1_CASTOR")
     maxFilesMC = None# run through all ffiles found
     maxFilesData = None # same
-    nWorkers = 100# Use all cpu cores
+    nWorkers = 8# Use all cpu cores
    
    
     slaveParams = {}
@@ -1365,6 +1365,6 @@ if __name__ == "__main__":
            maxFilesMC = maxFilesMC,
            maxFilesData = maxFilesData,
            nWorkers= nWorkers,
-           maxNevents = 1000000,
+           maxNevents = 10000,
            verbosity = 2,
            outFile = "trackanddiffractive_sigDD_Data.root") 
