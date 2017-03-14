@@ -11,7 +11,7 @@ ROOT.gROOT.SetBatch(True)
 import ParticleDataTool as pd
 from collections import Counter
 from bad_calo_channel_list import bad_channels_eta_phi
-
+# from bad_calo_channel_list2 import bad_channels_eta_phi #lhcf run 24793
 from ROOT import edm
 
 from array import *
@@ -57,17 +57,21 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
         self.hist["BunchCrossing"] = ROOT.TH1F("BunchCrossing", "BunchCrossing",  3600, 0-0.5, 3600-0.5)
         self.hist["Runs"] =  ROOT.TH1F("Runs", "Runs",  2000, 246000-0.5, 278000-0.5)
         self.hist["HFEnergy"] = ROOT.TH1F("HFEnergy","HFEnergy",100, 0, 200)
-        self.hist["Hist_sum_CAS_E"] = ROOT.TH1F("Hist_sum_CAS_E", "Hist_sum_CAS_E" ,100,0,600)
         
-        self.hist["Hist_HFSumEnergy"] = ROOT.TH1F("Hist_HFSumEnergy", "Hist_HFSumEnergy" ,100,0,600)
-        self.hist["Hist_CastorSumEnergy"] = ROOT.TH1F("Hist_CastorSumEnergy", "Hist_CastorSumEnergy" ,100,0,600)  
-        self.hist["Hist_eventXiID_HFSumEnergy"] = ROOT.TH1F("Hist_eventXiID_HFSumEnergy", "Hist_eventXiID_HFSumEnergy" ,100,0,600)
-        self.hist["Hist_eventXiID_CastorSumEnergy"] = ROOT.TH1F("Hist_eventXiID_CastorSumEnergy", "Hist_eventXiID_CastorSumEnergy" ,100,0,600)  
+        
+        nBinSumE =250; 
+        MinSumE = 0 ; 
+        MaxSumE = 2500;
+        self.hist["Hist_sum_CAS_E"] = ROOT.TH1F("Hist_sum_CAS_E", "Hist_sum_CAS_E" ,nBinSumE, MinSumE, MaxSumE)
+        self.hist["Hist_HFSumEnergy"] = ROOT.TH1F("Hist_HFSumEnergy", "Hist_HFSumEnergy" ,nBinSumE,MinSumE, MaxSumE)
+        self.hist["Hist_CastorSumEnergy"] = ROOT.TH1F("Hist_CastorSumEnergy", "Hist_CastorSumEnergy" ,nBinSumE,MinSumE, MaxSumE)  
+        self.hist["Hist_eventXiID_HFSumEnergy"] = ROOT.TH1F("Hist_eventXiID_HFSumEnergy", "Hist_eventXiID_HFSumEnergy" ,nBinSumE,MinSumE, MaxSumE)
+        self.hist["Hist_eventXiID_CastorSumEnergy"] = ROOT.TH1F("Hist_eventXiID_CastorSumEnergy", "Hist_eventXiID_CastorSumEnergy" ,nBinSumE,MinSumE, MaxSumE)  
        
-        self.hist["Hist_MaxHFEnergy"] = ROOT.TH1F("Hist_MaxHFEnergy","Hist_MaxHFEnergy",101,-0.5,100.5) 
-        self.hist["Hist_MaxCastorEnergy"] = ROOT.TH1F("Hist_MaxCastorEnergy","Hist_MaxCastorEnergy",18,0,18) 
-        self.hist["Hist_eventXiID_MaxHFEnergy"] = ROOT.TH1F("Hist_eventXiID_MaxHFEnergy","Hist_eventXiID_MaxHFEnergy",101, -0.5,100.5)  
-        self.hist["Hist_eventXiID_MaxCastorEnergy"] = ROOT.TH1F("Hist_eventXiID_MaxCastorEnergy","Hist_eventXiID_MaxCastorEnergy",101, -0.5,100.5)  
+        self.hist["Hist_MaxHFEnergy"] = ROOT.TH1F("Hist_MaxHFEnergy","Hist_MaxHFEnergy",nBinSumE,MinSumE, MaxSumE) 
+        self.hist["Hist_MaxCastorEnergy"] = ROOT.TH1F("Hist_MaxCastorEnergy","Hist_MaxCastorEnergy",nBinSumE,MinSumE, MaxSumE) 
+        self.hist["Hist_eventXiID_MaxHFEnergy"] = ROOT.TH1F("Hist_eventXiID_MaxHFEnergy","Hist_eventXiID_MaxHFEnergy",nBinSumE,MinSumE, MaxSumE)  
+        self.hist["Hist_eventXiID_MaxCastorEnergy"] = ROOT.TH1F("Hist_eventXiID_MaxCastorEnergy","Hist_eventXiID_MaxCastorEnergy",nBinSumE,MinSumE, MaxSumE)  
      
 
         self.hist["hParticleCounts"] = ROOT.TH1F("hParticleCounts","hParticleCounts",10, 0, 20) 
@@ -328,10 +332,10 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
             self.hist["Hist_numberoftowerebovenoise_endcap"+str(ip)] = ROOT.TH1F("Hist_numberoftowerebovenoise_endcap"+str(ip),"Hist_numberoftowerebovenoise_endcap"+str(ip),101, -0.5,100.5) 
             self.hist["Hist_numberoftowerebovenoise_barrel"+str(ip)] = ROOT.TH1F("Hist_numberoftowerebovenoise_barrel"+str(ip),"Hist_numberoftowerebovenoise_barrel"+str(ip),101, -0.5,100.5) 
             self.hist["Hist_numberoftowerebovenoise_endcapforwardtransition"+str(ip)] = ROOT.TH1F("Hist_numberoftowerebovenoise_endcapforwardtransition"+str(ip),"Hist_numberoftowerebovenoise_endcapforwardtransition"+str(ip),101, -0.5,100.5) 
-            self.hist["Hist_HFSumEnergy"+str(ip)] = ROOT.TH1F("Hist_HFSumEnergy"+str(ip), "Hist_HFSumEnergy"+str(ip) ,100,0,600)
-            self.hist["Hist_CastorSumEnergy"+str(ip)] = ROOT.TH1F("Hist_CastorSumEnergy"+str(ip), "Hist_CastorSumEnergy"+str(ip) ,100,0,600)  
-            self.hist["Hist_MaxHFEnergy"+str(ip)] = ROOT.TH1F("Hist_MaxHFEnergy"+str(ip),"Hist_MaxHFEnergy"+str(ip),101,-0.5,100.5) 
-            self.hist["Hist_MaxCastorEnergy"+str(ip)] = ROOT.TH1F("Hist_MaxCastorEnergy"+str(ip),"Hist_MaxCastorEnergy"+str(ip),18,0,18) 
+            self.hist["Hist_HFSumEnergy"+str(ip)] = ROOT.TH1F("Hist_HFSumEnergy"+str(ip), "Hist_HFSumEnergy"+str(ip) ,nBinSumE, MinSumE, MaxSumE)
+            self.hist["Hist_CastorSumEnergy"+str(ip)] = ROOT.TH1F("Hist_CastorSumEnergy"+str(ip), "Hist_CastorSumEnergy"+str(ip) ,nBinSumE, MinSumE, MaxSumE)  
+            self.hist["Hist_MaxHFEnergy"+str(ip)] = ROOT.TH1F("Hist_MaxHFEnergy"+str(ip),"Hist_MaxHFEnergy"+str(ip),nBinSumE,MinSumE, MaxSumE) 
+            self.hist["Hist_MaxCastorEnergy"+str(ip)] = ROOT.TH1F("Hist_MaxCastorEnergy"+str(ip),"Hist_MaxCastorEnergy"+str(ip),nBinSumE,MinSumE, MaxSumE) 
             
 
             
@@ -379,10 +383,10 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
             self.hist["Hist_eventXiID_numberoftowerebovenoise_castor"+str(ip)] = ROOT.TH1F("Hist_eventXiID_numberoftowerebovenoise_castor"+str(ip),"Hist_eventXiID_numberoftowerebovenoise_castor"+str(ip),16, 0,16) 
             self.hist["Hist_eventXiID_CaloReducedenergyClass"+str(ip)]= ROOT.TH1F("Hist_eventXiID_CaloReducedenergyClass"+str(ip),"Hist_eventXiID_CaloReducedenergyClass"+str(ip),NbrEBins, BinEMin, BinEMax)
            
-            self.hist["Hist_eventXiID_HFSumEnergy"+str(ip)] = ROOT.TH1F("Hist_eventXiID_HFSumEnergy"+str(ip), "Hist_eventXiID_HFSumEnergy"+str(ip) ,100,0,600)
-            self.hist["Hist_eventXiID_CastorSumEnergy"+str(ip)] = ROOT.TH1F("Hist_eventXiID_CastorSumEnergy"+str(ip), "Hist_eventXiID_CastorSumEnergy"+str(ip) ,100,0,600)  
-            self.hist["Hist_eventXiID_MaxHFEnergy"+str(ip)] = ROOT.TH1F("Hist_eventXiID_MaxHFEnergy"+str(ip),"Hist_eventXiID_MaxHFEnergy"+str(ip),101, -0.5,100.5)  
-            self.hist["Hist_eventXiID_MaxCastorEnergy"+str(ip)] = ROOT.TH1F("Hist_eventXiID_MaxCastorEnergy"+str(ip),"Hist_eventXiID_MaxCastorEnergy"+str(ip),101, -0.5,100.5)  
+            self.hist["Hist_eventXiID_HFSumEnergy"+str(ip)] = ROOT.TH1F("Hist_eventXiID_HFSumEnergy"+str(ip), "Hist_eventXiID_HFSumEnergy"+str(ip) ,nBinSumE, MinSumE, MaxSumE)
+            self.hist["Hist_eventXiID_CastorSumEnergy"+str(ip)] = ROOT.TH1F("Hist_eventXiID_CastorSumEnergy"+str(ip), "Hist_eventXiID_CastorSumEnergy"+str(ip) ,nBinSumE, MinSumE, MaxSumE)  
+            self.hist["Hist_eventXiID_MaxHFEnergy"+str(ip)] = ROOT.TH1F("Hist_eventXiID_MaxHFEnergy"+str(ip),"Hist_eventXiID_MaxHFEnergy"+str(ip),nBinSumE,MinSumE, MaxSumE) 
+            self.hist["Hist_eventXiID_MaxCastorEnergy"+str(ip)] = ROOT.TH1F("Hist_eventXiID_MaxCastorEnergy"+str(ip),"Hist_eventXiID_MaxCastorEnergy"+str(ip),nBinSumE,MinSumE, MaxSumE) 
      
       
 
@@ -435,8 +439,8 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
         self.OUTCaloReducedenergyClass = array( 'i', 1 * [0] )
         self.OUTCastorSumEnergy= array( 'f', 1 * [0] )
         self.OUTHFSumEnergy= array('f', 1 * [0] )
-        self.OUTMaxHFEnergy = array('i', 1 * [0])
-        self.OUTMaxCastorEnergy = array('i', 1 * [0])
+        self.OUTMaxHFEnergy = array('f', 1 * [0])
+        self.OUTMaxCastorEnergy = array('f', 1 * [0])
 
 
 
@@ -460,8 +464,8 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
         sigTree.Branch('CaloReducedenergyClass', self.OUTCaloReducedenergyClass,'CaloReducedenergyClass/I')
         sigTree.Branch('CastorSumEnergy', self.OUTCastorSumEnergy, 'CastorSumEnergy/F')
         sigTree.Branch('HFSumEnergy', self.OUTHFSumEnergy, 'HFSumEnergy/F')  
-        sigTree.Branch('MaxHFEnergy', self.OUTMaxHFEnergy, 'MaxHFEnergy/I')
-        sigTree.Branch('MaxCastorEnergy', self.OUTMaxCastorEnergy, 'MaxCastorEnergy/I')
+        sigTree.Branch('MaxHFEnergy', self.OUTMaxHFEnergy, 'MaxHFEnergy/F')
+        sigTree.Branch('MaxCastorEnergy', self.OUTMaxCastorEnergy, 'MaxCastorEnergy/F')
        
         
 
@@ -489,12 +493,12 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
         bkgTree.Branch('HFplusNtowers', self.OUTHFplusNtowers, 'HFplusNtowers/I')
         bkgTree.Branch('log10XiDD', self.OUTlog10XiDD,'log10XiDD/F')
         bkgTree.Branch('Ntracks', self.OUTNtracks,'Ntracks/I')
-        bkgTree.Branch('Etarange', self.OUTEtarange, 'Etarange/I')
+        bkgTree.Branch('Etarange', self.OUTEtarange, 'Etarange/F')
         bkgTree.Branch('CaloReducedenergyClass', self.OUTCaloReducedenergyClass,'CaloReducedenergyClass/I')
         bkgTree.Branch('CastorSumEnergy', self.OUTCastorSumEnergy, 'CastorSumEnergy/F')
         bkgTree.Branch('HFSumEnergy', self.OUTHFSumEnergy, 'HFSumEnergy/F')  
-        bkgTree.Branch('MaxHFEnergy', self.OUTMaxHFEnergy, 'MaxHFEnergy/I')
-        bkgTree.Branch('MaxCastorEnergy', self.OUTMaxCastorEnergy, 'MaxCastorEnergy/I')
+        bkgTree.Branch('MaxHFEnergy', self.OUTMaxHFEnergy, 'MaxHFEnergy/F')
+        bkgTree.Branch('MaxCastorEnergy', self.OUTMaxCastorEnergy, 'MaxCastorEnergy/F')
 
         setattr(self, "bkgTree",bkgTree)
         self.addToOutput(self.bkgTree)
@@ -517,12 +521,12 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
         AllTree.Branch('HFplusNtowers', self.OUTHFplusNtowers, 'HFplusNtowers/I')
         AllTree.Branch('log10XiDD', self.OUTlog10XiDD,'log10XiDD/F')
         AllTree.Branch('Ntracks', self.OUTNtracks,'Ntracks/I')
-        AllTree.Branch('Etarange', self.OUTEtarange, 'Etarange/I')
+        AllTree.Branch('Etarange', self.OUTEtarange, 'Etarange/F')
         AllTree.Branch('CaloReducedenergyClass', self.OUTCaloReducedenergyClass,'CaloReducedenergyClass/I')
         AllTree.Branch('CastorSumEnergy', self.OUTCastorSumEnergy, 'CastorSumEnergy/F')
         AllTree.Branch('HFSumEnergy', self.OUTHFSumEnergy, 'HFSumEnergy/F')  
-        AllTree.Branch('MaxHFEnergy', self.OUTMaxHFEnergy, 'MaxHFEnergy/I')
-        AllTree.Branch('MaxCastorEnergy', self.OUTMaxCastorEnergy, 'MaxCastorEnergy/I')
+        AllTree.Branch('MaxHFEnergy', self.OUTMaxHFEnergy, 'MaxHFEnergy/F')
+        AllTree.Branch('MaxCastorEnergy', self.OUTMaxCastorEnergy, 'MaxCastorEnergy/F')
 
 
 
@@ -576,6 +580,7 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
         Nbrvertex = 1 
 
         if self.isData:
+            # if not self.fChain.run == 247934 : return 1 #247934   
             # if not self.fChain.run == 247324 and not self.fChain.run == 247934: return 1 
         
             Nbrvertex = self.fChain.ZeroTeslaPixelnoPreSplittingVtx_vrtxX.size()    
@@ -1086,15 +1091,8 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
                 self.hist["Hist_eventXiID_reducedEnergy_forward"].Fill(calop4.e())
                 self.hist["Hist_eventXiID_reducedEnergy_forward" + EventSelectionXiProcess_ID].Fill(calop4.e()) 
                 HFSumEnergy += calop4.e() 
-                self.hist["Hist_HFSumEnergy" + Pythia_Process_ID].Fill(HFSumEnergy) 
-                self.hist["Hist_eventXiID_HFSumEnergy"].Fill(HFSumEnergy)
-                self.hist["Hist_eventXiID_HFSumEnergy" + EventSelectionXiProcess_ID].Fill(HFSumEnergy) 
                 if calop4.e() > MaxHFEnergy :
                     MaxHFEnergy = calop4.e()
-                    self.hist["Hist_MaxHFEnergy" + Pythia_Process_ID].Fill(MaxHFEnergy) 
-                    self.hist["Hist_eventXiID_MaxHFEnergy"].Fill(MaxHFEnergy)
-                    self.hist["Hist_eventXiID_MaxHFEnergy" + EventSelectionXiProcess_ID].Fill(MaxHFEnergy) 
-                
 
             if (calop4.eta()) > 3.2 and (calop4.eta()) < 5.2:
                 self.hist["Hist_reducedEnergy_forwardplus"].Fill(calop4.e())
@@ -1116,20 +1114,31 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
                 self.hist["Hist_reducedEnergy_Castor" + Pythia_Process_ID].Fill(calop4.e()) 
                 self.hist["Hist_eventXiID_reducedEnergy_Castor"].Fill(calop4.e())
                 self.hist["Hist_eventXiID_reducedEnergy_Castor" + EventSelectionXiProcess_ID].Fill(calop4.e()) 
-                
                 CastorSumEnergy += calop4.e()
-                self.hist["Hist_CastorSumEnergy" + Pythia_Process_ID].Fill(CastorSumEnergy) 
-                self.hist["Hist_eventXiID_CastorSumEnergy"].Fill(CastorSumEnergy)
-                self.hist["Hist_eventXiID_CastorSumEnergy" + EventSelectionXiProcess_ID].Fill(CastorSumEnergy) 
                 if calop4.e()> MaxCastorEnergy:
                     MaxCastorEnergy = calop4.e()  
-                    self.hist["Hist_MaxCastorEnergy" + Pythia_Process_ID].Fill(MaxCastorEnergy) 
-                    self.hist["Hist_eventXiID_MaxCastorEnergy"].Fill(MaxCastorEnergy)
-                    self.hist["Hist_eventXiID_MaxCastorEnergy" + EventSelectionXiProcess_ID].Fill(MaxCastorEnergy) 
                 
+        self.hist["Hist_CastorSumEnergy"].Fill(CastorSumEnergy)       
+        self.hist["Hist_CastorSumEnergy" + Pythia_Process_ID].Fill(CastorSumEnergy) 
+        self.hist["Hist_eventXiID_CastorSumEnergy"].Fill(CastorSumEnergy)
+        self.hist["Hist_eventXiID_CastorSumEnergy" + EventSelectionXiProcess_ID].Fill(CastorSumEnergy) 
+        self.hist["Hist_MaxCastorEnergy"].Fill(MaxCastorEnergy) 
+        self.hist["Hist_MaxCastorEnergy" + Pythia_Process_ID].Fill(MaxCastorEnergy) 
+        self.hist["Hist_eventXiID_MaxCastorEnergy"].Fill(MaxCastorEnergy)
+        self.hist["Hist_eventXiID_MaxCastorEnergy" + EventSelectionXiProcess_ID].Fill(MaxCastorEnergy) 
+        self.hist["Hist_HFSumEnergy"].Fill(HFSumEnergy) 
+        self.hist["Hist_HFSumEnergy" + Pythia_Process_ID].Fill(HFSumEnergy) 
+        self.hist["Hist_eventXiID_HFSumEnergy"].Fill(HFSumEnergy)
+        self.hist["Hist_eventXiID_HFSumEnergy" + EventSelectionXiProcess_ID].Fill(HFSumEnergy) 
+        self.hist["Hist_MaxHFEnergy"].Fill(MaxHFEnergy) 
+        self.hist["Hist_MaxHFEnergy" + Pythia_Process_ID].Fill(MaxHFEnergy) 
+        self.hist["Hist_eventXiID_MaxHFEnergy"].Fill(MaxHFEnergy)
+        self.hist["Hist_eventXiID_MaxHFEnergy" + EventSelectionXiProcess_ID].Fill(MaxHFEnergy) 
+            
+        
 
                     
-        # if len(TrackCandClass) == 0:
+    # if len(TrackCandClass) == 0:
         #     return 0
 
 
@@ -1376,7 +1385,7 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
             self.hist["Hist_eventXiID_log10XiY"+EventSelectionXiProcess_ID].Fill(log10(xiy))
             # self.hist["hNentries"].Fill("Xi",1)
            
-            # if ( (CASTOR_Numberoftowerebovenoise) > 2) and ((HFminus_Numberoftowerebovenoise)>2) and ((HFplus_Numberoftowerebovenoise)>2) and ((Nbrtracks)>2): 
+            
             
             self.OUTlog10XiDD[0] =log10(Xi_DD) 
             # self.OUTlog10XiyGen[0] = log10(GenXiY)
@@ -1394,12 +1403,12 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
             self.OUTEtarange[0]= Etarange
             self.OUTPythia8processid[0] = int_Pythia_Process_ID
             self.OUTEventselectionXiprocessid[0] = int_EventSelectionXiProcess_ID
-            self.OUTCaloReducedenergyClass = (len(CaloReducedenergyClass))
-            self.OUTCastorSumEnergy= CastorSumEnergy
-            self.OUTHFSumEnergy= HFSumEnergy
-            self.OUTMaxHFEnergy = MaxHFEnergy
-            self.OUTMaxCastorEnergy = MaxCastorEnergy
- 
+            self.OUTCaloReducedenergyClass[0] = (len(CaloReducedenergyClass))
+            self.OUTCastorSumEnergy[0]= CastorSumEnergy
+            self.OUTHFSumEnergy[0]= HFSumEnergy
+            self.OUTMaxHFEnergy[0] = MaxHFEnergy
+            self.OUTMaxCastorEnergy[0] = MaxCastorEnergy
+
 
             Signal_ID = int_Pythia_Process_ID
             if EventSelection_with_Xi:
@@ -1429,7 +1438,7 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
                 self.hist["Hist_2DRecoLogXi_DDGenLogXi_DD"].Fill(log10(Xi_DD),log10(GenXi_DD))
                 
 
-               
+                   
               
                
     
@@ -1452,10 +1461,10 @@ if __name__ == "__main__":
 
     sampleList = []
     # sampleList.append("MinBias_TuneMBR_13TeV-pythia8_MagnetOff_CASTORmeasured_newNoise")
-    # sampleList.append("MinBias_EPOS_13TeV_MagnetOff_CASTORmeasured_newNoise")
+    sampleList.append("MinBias_EPOS_13TeV_MagnetOff_CASTORmeasured_newNoise")
     # sampleList.append("data_ZeroBias_27Jan2016_LHCf") #247934 #sebastians tree for HF towers
     # sampleList.append("data_ZeroBias1_CASTOR247934")
-    sampleList.append("data_ZeroBias1_CASTOR")
+    # sampleList.append("data_ZeroBias1_CASTOR")
     maxFilesMC = None# run through all ffiles found
     maxFilesData =None # same
     nWorkers = 8# Use all cpu cores
@@ -1473,6 +1482,6 @@ if __name__ == "__main__":
            maxFilesMC = maxFilesMC,
            maxFilesData = maxFilesData,
            nWorkers= nWorkers,
-           # maxNevents = 20000,
+           maxNevents = 2000000,
            verbosity = 2,
-           outFile = "trackanddiffractive_sigDD_data.root") 
+           outFile = "trackanddiffractive_sigDD_epos.root") 
