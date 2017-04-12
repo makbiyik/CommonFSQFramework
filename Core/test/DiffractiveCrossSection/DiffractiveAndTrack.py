@@ -1,18 +1,18 @@
 #!/usr/bin/env python
 
 
-import CommonFSQFramework.Core.ExampleProofReader
+
 #from rootpy.math.physics.vector import LorentzVector
 import sys, os, time
 sys.path.append(os.path.dirname(__file__))
-
+sys.path.append('../../../..') 
 import ROOT
 ROOT.gROOT.SetBatch(True)
 import ParticleDataTool as pd
 from collections import Counter
-from bad_calo_channel_list import bad_channels_eta_phi
-# from bad_calo_channel_list2 import bad_channels_eta_phi #lhcf run 24793
-from ROOT import edm
+from bad_calo_channel_list import bad_channels_eta_phi_dNdEta
+from bad_calo_channel_list2 import bad_channels_eta_phi_Run247934 #lhcf run 247934
+# from ROOT import edm
 
 from array import *
 import math
@@ -28,11 +28,16 @@ from math import log10
 from math import atan
 from math import exp
 
-EventSelection_with_Xi = False
+import CommonFSQFramework.Core.ExampleProofReader
+
+EventSelection_with_Xi = True
 Training_Signal = "DD"
 HF_energy_scale =1.00#0.9 #1.1
 
-
+# ParameterSet = 'Seb_dNdEta_LHCf'
+# ParameterSet = 'Melike_dNdEta'
+# ParameterSet = 'Seb_LHCf_Run247934'
+ParameterSet = 'MC'
 
 def compareTracketa(first,second):
     if first[0] > second[0]: return 1
@@ -580,16 +585,32 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
         Nbrvertex = 1 
 
         if self.isData:
-            # if not self.fChain.run == 247934 : return 1 #247934   
+            if ParameterSet == 'Melike_dNdEta' or ParameterSet == 'Seb_dNdEta_LHCf':
+                if not self.fChain.run == 247324: return 1
+            else:
+                if not self.fChain.run == 247934 : return 1 #247934   
             # if not self.fChain.run == 247324 and not self.fChain.run == 247934: return 1 
         
-            Nbrvertex = self.fChain.ZeroTeslaPixelnoPreSplittingVtx_vrtxX.size()    
+            vVertexZ = 0
+            if ParameterSet == 'Seb_LHCf_Run247934':
+                vVertexZ = self.fChain.ZeroTeslaTracking_PixelnoPreSplitting_VtxZ
+            else:
+                vVertexZ = self.fChain.ZeroTeslaPixelnoPreSplittingVtx_vrtxZ
+
+
+            Nbrvertex = vVertexZ.size()
+            # Nbrvertex = self.fChain.ZeroTeslaTracking_PixelnoPreSplitting_VtxX.size()
+            # Nbrvertex = self.fChain.ZeroTeslaPixelnoPreSplittingVtx_vrtxX.size()    
+            
+
             self.hist["Hist_NrVtx"].Fill(Nbrvertex)
 
             if Nbrvertex > 2:  return 0
 
             if Nbrvertex == 2:
-                if abs(self.fChain.ZeroTeslaPixelnoPreSplittingVtx_vrtxZ[0] - self.fChain.ZeroTeslaPixelnoPreSplittingVtx_vrtxZ[1])> 0.5 : return 0
+                if abs(vVertexZ[0] - vVertexZ[1])> 0.5 : return 0
+                
+                # if abs(self.fChain.ZeroTeslaPixelnoPreSplittingVtx_vrtxZ[0] - self.fChain.ZeroTeslaPixelnoPreSplittingVtx_vrtxZ[1])> 0.5 : return 0
                 Nbrvertex = 1
 
         
@@ -833,10 +854,27 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
         ##################Track##############################################################3
         TrackCandClass = []
         Nbrtracks = 0
-        nTrackCand = self.fChain.ZeroTeslaPixelnoPreSplittingVtx_trktheta.size()
+
+
+        vTrackTheta = 0
+        vTrackPhi   = 0
+        if ParameterSet == 'Seb_LHCf_Run247934':
+            vTrackTheta = self.fChain.ZeroTeslaTracking_PixelnoPreSplitting_TrackTheta
+            vTrackPhi   = self.fChain.ZeroTeslaTracking_PixelnoPreSplitting_TrackPhi
+        else:
+            vTrackTheta = self.fChain.ZeroTeslaPixelnoPreSplittingVtx_trktheta
+            vTrackPhi   = self.fChain.ZeroTeslaPixelnoPreSplittingVtx_trkphi
+
+        nTrackCand = vTrackPhi.size()
+        # nTrackCand = self.fChain.ZeroTeslaPixelnoPreSplittingVtx_trktheta.size()
+       
         for itrk in xrange(nTrackCand):
-            theta= self.fChain.ZeroTeslaPixelnoPreSplittingVtx_trktheta[itrk]
-            trkphi = self.fChain.ZeroTeslaPixelnoPreSplittingVtx_trkphi[itrk]
+            theta  = vTrackTheta[itrk]
+            trkphi = vTrackPhi[itrk]
+            
+            # theta= self.fChain.ZeroTeslaPixelnoPreSplittingVtx_trktheta[itrk]
+            # trkphi = self.fChain.ZeroTeslaPixelnoPreSplittingVtx_trkphi[itrk]
+
             Eta = -np.log(math.tan(theta/2))
             TrackCandClass.append([Eta,trkphi])
             
@@ -913,6 +951,13 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
             
 
             self.hist["Calotower2D_eta_phi_withnoisytowers"].Fill(caloieta, caloiphi)
+
+
+            bad_channels_eta_phi = []
+            if ParameterSet == 'Seb_LHCf_Run247934':
+                bad_channels_eta_phi = bad_channels_eta_phi_Run247934
+            else:
+                bad_channels_eta_phi = bad_channels_eta_phi_dNdEta
 
             if [caloieta,caloiphi] in bad_channels_eta_phi: continue
 
@@ -1030,6 +1075,7 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
 
         self.hist ["Hist_CaloReducedenergyClass"] .Fill(len(CaloReducedenergyClass))
         self.hist ["Hist_CaloReducedenergyClass"+ Pythia_Process_ID].Fill(len(CaloReducedenergyClass))
+        self.hist ["Hist_eventXiID_CaloReducedenergyClass"].Fill(len(CaloReducedenergyClass))
         self.hist ["Hist_eventXiID_CaloReducedenergyClass"+ EventSelectionXiProcess_ID ].Fill(len(CaloReducedenergyClass))
         self.hist["hParticleCounts"].Fill("all",1)
 
@@ -1456,12 +1502,21 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
     
 if __name__ == "__main__":
     sys.stdout = os.fdopen(sys.stdout.fileno(), 'w', 0)
-    ROOT.gSystem.Load("libFWCoreFWLite.so")
-    ROOT.AutoLibraryLoader.enable()
+    # ROOT.gSystem.Load("libFWCoreFWLite.so")
+    # ROOT.AutoLibraryLoader.enable()
 
     sampleList = []
+    # if ParameterSet == 'Seb_LHCf_Run247934':
+    #     sampleList.append("data_ZeroBias_27Jan2016_LHCf") #247934 #sebastians tree for HF towers    
+        
+    # if ParameterSet == 'Melike_dNdEta':
+    #    sampleList.append("data_ZeroBias1_CASTOR247934")  
+    if ParameterSet == 'MC':
+        # sampleList.append("MinBias_EPOS_13TeV_MagnetOff_CASTORmeasured_newNoise")    
+        sampleList.append("MinBias_TuneMBR_13TeV-pythia8_MagnetOff_CASTORmeasured_newNoise")
+
     # sampleList.append("MinBias_TuneMBR_13TeV-pythia8_MagnetOff_CASTORmeasured_newNoise")
-    sampleList.append("MinBias_EPOS_13TeV_MagnetOff_CASTORmeasured_newNoise")
+    # sampleList.append("MinBias_EPOS_13TeV_MagnetOff_CASTORmeasured_newNoise")
     # sampleList.append("data_ZeroBias_27Jan2016_LHCf") #247934 #sebastians tree for HF towers
     # sampleList.append("data_ZeroBias1_CASTOR247934")
     # sampleList.append("data_ZeroBias1_CASTOR")
@@ -1482,6 +1537,6 @@ if __name__ == "__main__":
            maxFilesMC = maxFilesMC,
            maxFilesData = maxFilesData,
            nWorkers= nWorkers,
-           maxNevents = 2000000,
+           # maxNevents = 20000,
            verbosity = 2,
-           outFile = "trackanddiffractive_sigDD_epos.root") 
+           outFile = "trackanddiffractive_sigDD_XiCutpythia8.root") 
