@@ -28,17 +28,18 @@ from math import sqrt
 from math import log10
 from math import atan
 from math import exp
+import random
 
 import CommonFSQFramework.Core.ExampleProofReader
 
 EventSelection_with_Xi = True
 Training_Signal = "DD"
-HF_energy_scale =1.00#0.9 #1.1
+# self.HF_energy_scale =1.00#0.9 #1.1
 
 # ParameterSet = 'Seb_dNdEta_LHCf'
 # ParameterSet = 'Melike_dNdEta'
 # ParameterSet = 'Seb_LHCf_Run247934'
-ParameterSet = 'MC'
+# ParameterSet = 'MC'
 
 
 
@@ -84,9 +85,11 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
         tree.Branch('MaxCastorEnergy', self.OUTMaxCastorEnergy, 'MaxCastorEnergy/F')
     
 
-    def init(self,maxEvents = None):
+#    def init(self, ParameterSet="MC", HF_energy_scale=1.0, Track_efficiency_scale=1.0, maxEvents = None):
+    def init(self, maxEvents = None):
         
         self.maxEvents = maxEvents
+
         self.hist = {}
         self.hist["hNentries"] = ROOT.TH1F("hNentries","hNentries",10, 0, 20)
         self.hist["hProcessesIdPythia"] = ROOT.TH1F("hProcessesIdPythia","hProcessesIdPythia",10, 0, 20)
@@ -479,37 +482,37 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
         self.OUTMaxHFEnergy = array('f', 1 * [0])
         self.OUTMaxCastorEnergy = array('f', 1 * [0])
 
-        sigTreeDD = ROOT.TTree("sigTreeDD", "selected DD events")
-        self.CreateTree(sigTreeDD) 
-        setattr(self, "sigTreeDD", sigTreeDD)
-        self.addToOutput(self.sigTreeDD)
+        # sigTreeDD = ROOT.TTree("sigTreeDD", "selected DD events")
+        # self.CreateTree(sigTreeDD) 
+        # setattr(self, "sigTreeDD", sigTreeDD)
+        # self.addToOutput(self.sigTreeDD)
 
-        sigTreeSD1 = ROOT.TTree("sigTreeSD1", "selected DD events")
-        self.CreateTree(sigTreeSD1) 
-        setattr(self, "sigTreeSD1", sigTreeSD1)
-        self.addToOutput(self.sigTreeSD1)
+        # sigTreeSD1 = ROOT.TTree("sigTreeSD1", "selected DD events")
+        # self.CreateTree(sigTreeSD1) 
+        # setattr(self, "sigTreeSD1", sigTreeSD1)
+        # self.addToOutput(self.sigTreeSD1)
 
-        sigTreeSD2 = ROOT.TTree("sigTreeSD2", "selected DD events")
-        self.CreateTree(sigTreeSD2) 
-        setattr(self, "sigTreeSD2", sigTreeSD2)
-        self.addToOutput(self.sigTreeSD2)
+        # sigTreeSD2 = ROOT.TTree("sigTreeSD2", "selected DD events")
+        # self.CreateTree(sigTreeSD2) 
+        # setattr(self, "sigTreeSD2", sigTreeSD2)
+        # self.addToOutput(self.sigTreeSD2)
 
         
         
-        bkgTreeDD = ROOT.TTree("bkgTreeDD", "all events except DD")
-        self.CreateTree(bkgTreeDD)
-        setattr(self, "bkgTreeDD",bkgTreeDD)
-        self.addToOutput(self.bkgTreeDD)
+        # bkgTreeDD = ROOT.TTree("bkgTreeDD", "all events except DD")
+        # self.CreateTree(bkgTreeDD)
+        # setattr(self, "bkgTreeDD",bkgTreeDD)
+        # self.addToOutput(self.bkgTreeDD)
 
-        bkgTreeSD1 = ROOT.TTree("bkgTreeSD1", "all events except DD")
-        self.CreateTree(bkgTreeSD1)
-        setattr(self, "bkgTreeSD1",bkgTreeSD1)
-        self.addToOutput(self.bkgTreeSD1)
+        # bkgTreeSD1 = ROOT.TTree("bkgTreeSD1", "all events except DD")
+        # self.CreateTree(bkgTreeSD1)
+        # setattr(self, "bkgTreeSD1",bkgTreeSD1)
+        # self.addToOutput(self.bkgTreeSD1)
         
-        bkgTreeSD2 = ROOT.TTree("bkgTreeSD2", "all events except DD")
-        self.CreateTree(bkgTreeSD2)
-        setattr(self, "bkgTreeSD2",bkgTreeSD2)
-        self.addToOutput(self.bkgTreeSD2)
+        # bkgTreeSD2 = ROOT.TTree("bkgTreeSD2", "all events except DD")
+        # self.CreateTree(bkgTreeSD2)
+        # setattr(self, "bkgTreeSD2",bkgTreeSD2)
+        # self.addToOutput(self.bkgTreeSD2)
         
 
         AllTree = ROOT.TTree("AllTree", "all events")
@@ -584,14 +587,14 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
         Nbrvertex = 1 
 
         if self.isData:
-            if ParameterSet == 'Melike_dNdEta' or ParameterSet == 'Seb_dNdEta_LHCf':
+            if self.ParameterSet == 'Melike_dNdEta'.lower() or self.ParameterSet == 'Seb_dNdEta_LHCf'.lower():
                 if not self.fChain.run == 247324: return 1
             else:
                 if not self.fChain.run == 247934 : return 1 #247934   
             # if not self.fChain.run == 247324 and not self.fChain.run == 247934: return 1 
         
             vVertexZ = 0
-            if ParameterSet == 'Seb_LHCf_Run247934':
+            if self.ParameterSet == 'Seb_LHCf_Run247934'.lower():
                 vVertexZ = self.fChain.ZeroTeslaTracking_PixelnoPreSplitting_VtxZ
             else:
                 vVertexZ = self.fChain.ZeroTeslaPixelnoPreSplittingVtx_vrtxZ
@@ -865,7 +868,7 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
 
         vTrackTheta = 0
         vTrackPhi   = 0
-        if ParameterSet == 'Seb_LHCf_Run247934':
+        if self.ParameterSet == 'Seb_LHCf_Run247934'.lower():
             vTrackTheta = self.fChain.ZeroTeslaTracking_PixelnoPreSplitting_TrackTheta
             vTrackPhi   = self.fChain.ZeroTeslaTracking_PixelnoPreSplitting_TrackPhi
         else:
@@ -876,6 +879,11 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
         # nTrackCand = self.fChain.ZeroTeslaPixelnoPreSplittingVtx_trktheta.size()
        
         for itrk in xrange(nTrackCand):
+
+            if self.Track_efficiency_scale<1.0:
+                if (random.random() > self.Track_efficiency_scale):
+                    continue
+
             theta  = vTrackTheta[itrk]
             trkphi = vTrackPhi[itrk]
             
@@ -944,12 +952,12 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
             #     endcapforwardtransition_Numberoftowerebovenoise += 1  
 
             if  (calop4.eta()) > 3.2 and (calop4.eta())< 5.2:
-                calop4 *= HF_energy_scale
+                calop4 *= self.HF_energy_scale
                 if (calop4.e()) <5: continue
                 HFplus_Numberoftowerebovenoise += 1
                 # self.hist["Hist_Energy_forwardplus"]
             if  (calop4.eta()) > -5.2 and (calop4.eta())< -3.2:
-                calop4 *= HF_energy_scale
+                calop4 *= self.HF_energy_scale
                 if (calop4.e()) <5: continue
                 HFminus_Numberoftowerebovenoise += 1
                 # self.hist["Hist_Energy_forwardminus"]
@@ -961,7 +969,7 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
 
 
             bad_channels_eta_phi = []
-            if ParameterSet == 'Seb_LHCf_Run247934':
+            if self.ParameterSet == 'Seb_LHCf_Run247934'.lower():
                 bad_channels_eta_phi = bad_channels_eta_phi_Run247934
             else:
                 bad_channels_eta_phi = bad_channels_eta_phi_dNdEta
@@ -1087,8 +1095,13 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
         self.hist ["Hist_eventXiID_CaloReducedenergyClass"].Fill(len(CaloReducedenergyClass))
         self.hist["hParticleCounts"].Fill("all",1)
         
-
-
+        self.hist["Hist_GP_log10XiX"].Fill(log10(GenXiX))
+        self.hist["Hist_GP_log10XiY"].Fill(log10(GenXiY))
+        self.hist["Hist_GP_log10XiX"+Pythia_Process_ID].Fill(log10(GenXiX))
+        self.hist["Hist_GP_log10XiY"+Pythia_Process_ID].Fill(log10(GenXiY))
+        self.hist["Hist_2DLogGenXiX_LogGenXiY"].Fill(log10(GenXiX),log10(GenXiY))
+        self.hist["Hist_2DLogGenXiX_LogGenXiY"+Pythia_Process_ID].Fill(log10(GenXiX),log10(GenXiY))
+          
        
 
 
@@ -1498,7 +1511,8 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
             
             
             self.OUTlog10XiDD[0] =log10(Xi_DD) 
-            # self.OUTlog10XiyGen[0] = log10(GenXiY)
+            self.OUTlog10XiyGen[0] = log10(GenXiY)
+            self.OUTlog10XiyGen[0] = log10(GenXiY)
             self.OUTlog10XixReco[0] = log10(xix)
             self.OUTlog10XiyReco[0] = log10(xiy)
             self.OUTdeltazero[0] = delta_zero
@@ -1527,42 +1541,42 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
             self.AllTree.Fill()
             
             # # #Signal_ID = int_Pythia_Process_ID
-            if EventSelection_with_Xi:
-                if ("_DD" in EventSelectionXiProcess_IDs):
-                    self.sigTreeDD.Fill()
-                else: 
-                    self.bkgTreeDD.Fill()    
+            # if EventSelection_with_Xi:
+            #     if ("_DD" in EventSelectionXiProcess_IDs):
+            #         self.sigTreeDD.Fill()
+            #     else: 
+            #         self.bkgTreeDD.Fill()    
        
-                if ("_SD1" in EventSelectionXiProcess_IDs):
-                    self.sigTreeSD1.Fill()
-                else: 
-                    self.bkgTreeSD1.Fill()   
+            #     if ("_SD1" in EventSelectionXiProcess_IDs):
+            #         self.sigTreeSD1.Fill()
+            #     else: 
+            #         self.bkgTreeSD1.Fill()   
 
-                if ("_SD2" in EventSelectionXiProcess_IDs):
-                    self.sigTreeSD2.Fill()
-                else: 
-                    self.bkgTreeSD2.Fill()   
+            #     if ("_SD2" in EventSelectionXiProcess_IDs):
+            #         self.sigTreeSD2.Fill()
+            #     else: 
+            #         self.bkgTreeSD2.Fill()   
 
 
                   
 
 
-            else: # process ID
-                if (int_Pythia_Process_ID ==105 ):
-                    self.sigTreeDD.Fill()
-                else: 
-                    self.bkgTreeDD.Fill()    
+            # else: # process ID
+            #     if (int_Pythia_Process_ID ==105 ):
+            #         self.sigTreeDD.Fill()
+            #     else: 
+            #         self.bkgTreeDD.Fill()    
 
-                if (int_Pythia_Process_ID ==103 ):
-                    self.sigTreeSD1.Fill()
-                else: 
-                    self.bkgTreeSD1.Fill()
+            #     if (int_Pythia_Process_ID ==103 ):
+            #         self.sigTreeSD1.Fill()
+            #     else: 
+            #         self.bkgTreeSD1.Fill()
 
 
-                if (int_Pythia_Process_ID ==104 ):
-                    self.sigTreeSD2.Fill()
-                else: 
-                    self.bkgTreeSD2.Fill()
+            #     if (int_Pythia_Process_ID ==104 ):
+            #         self.sigTreeSD2.Fill()
+            #     else: 
+            #         self.bkgTreeSD2.Fill()
                 
 
 
@@ -1593,38 +1607,76 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
         print "Finalize:"
         if hasattr(self, 'AllTree'):
             self.AllTree.AutoSave()    
-        if hasattr(self, 'sigTreeDD'):
-            self.sigTreeDD.AutoSave()
-        if hasattr(self, 'sigTreeSD1'):
-            self.sigTreeSD1.AutoSave()   
-        if hasattr(self, 'sigTreeSD2'):
-            self.sigTreeSD2.AutoSave()    
+        # if hasattr(self, 'sigTreeDD'):
+        #     self.sigTreeDD.AutoSave()
+        # if hasattr(self, 'sigTreeSD1'):
+        #     self.sigTreeSD1.AutoSave()   
+        # if hasattr(self, 'sigTreeSD2'):
+        #     self.sigTreeSD2.AutoSave()    
         
-        if hasattr(self, 'bkgTreeDD'):
-            self.bkgTreeDD.AutoSave()       
-        if hasattr(self, 'bkgTreeSD1'):
-            self.bkgTreeSD1.AutoSave() 
-        if hasattr(self, 'bkgTreeSD2'):
-            self.bkgTreeSD2.AutoSave() 
+        # if hasattr(self, 'bkgTreeDD'):
+        #     self.bkgTreeDD.AutoSave()       
+        # if hasattr(self, 'bkgTreeSD1'):
+        #     self.bkgTreeSD1.AutoSave() 
+        # if hasattr(self, 'bkgTreeSD2'):
+        #     self.bkgTreeSD2.AutoSave() 
 
 
         
 
     
 if __name__ == "__main__":
+       
+    if len(sys.argv) != 3 :
+        print ("please use: ./DiffractiveAndTrack ParameterSet Std|HFsysPlus|TrackPlus|TrackMinus.... ")
+        print ("Try again!!")
+        sys.exit(1)
+
+    HF_energy_scale = 1.0
+    Track_efficiency_scale = 1.0
+    
+    ParameterSet=str(sys.argv[1]).lower()
+    Outputname="trackanddiffractive"
+
+    sampleList = []
+    # if ParameterSet == 'Seb_LHCf_Run247934':
+    #     sampleList.append("data_ZeroBias_27Jan2016_LHCf") #247934 #sebastians tree for HF towers            
+    if ParameterSet == 'Melike_dNdEta'.lower():
+        sampleList.append("data_ZeroBias1_CASTOR")  
+        Outputname = Outputname + "_data"
+    elif ParameterSet == 'epos'.lower():
+        sampleList.append("MinBias_EPOS_13TeV_MagnetOff_CASTORmeasured_newNoise")    
+        Outputname = Outputname + "_epos"
+    elif ParameterSet == 'mbr'.lower():
+        sampleList.append("MinBias_TuneMBR_13TeV-pythia8_MagnetOff_CASTORmeasured_newNoise")
+        Outputname = Outputname + "_mbr"
+    else:
+        print("ParameterSet unkonwn")
+        sys.exit(1)
+
+
+    mode=str(sys.argv[2]).lower()
+    if (mode=="hfsysplus"):
+        HF_energy_scale = 1.1
+        Outputname = Outputname + "_sysHFPlus"
+    elif (mode=="trackplus"):
+        Track_efficiency_scale = 1.05
+        Outputname = Outputname + "_sysTrackPlus"
+    elif (mode=="trackminus"):
+        Track_efficiency_scale = 0.95
+        Outputname = Outputname + "_sysTrackMinus"
+    elif (mode=="std"):
+        pass
+    else:
+        print ("Please specify parameters!")
+        sys.exit(1)
+
+    Outputname = Outputname + ".root"
+
     sys.stdout = os.fdopen(sys.stdout.fileno(), 'w', 0)
     # ROOT.gSystem.Load("libFWCoreFWLite.so")
     # ROOT.AutoLibraryLoader.enable()
 
-    sampleList = []
-    # if ParameterSet == 'Seb_LHCf_Run247934':
-    #     sampleList.append("data_ZeroBias_27Jan2016_LHCf") #247934 #sebastians tree for HF towers    
-        
-    if ParameterSet == 'Melike_dNdEta':
-       sampleList.append("data_ZeroBias1_CASTOR")  
-    if ParameterSet == 'MC':
-        sampleList.append("MinBias_EPOS_13TeV_MagnetOff_CASTORmeasured_newNoise")    
-        # sampleList.append("MinBias_TuneMBR_13TeV-pythia8_MagnetOff_CASTORmeasured_newNoise")
 
     # sampleList.append("MinBias_TuneMBR_13TeV-pythia8_MagnetOff_CASTORmeasured_newNoise")
     # sampleList.append("MinBias_EPOS_13TeV_MagnetOff_CASTORmeasured_newNoise")
@@ -1638,16 +1690,24 @@ if __name__ == "__main__":
    
     slaveParams = {}
     # slaveParams["maxEta"] = 2.
+    slaveParams['ParameterSet'] = ParameterSet
+    slaveParams['HF_energy_scale'] = HF_energy_scale
+    slaveParams['Track_efficiency_scale'] = Track_efficiency_scale
 
+    print ("Outputname=" + Outputname)
 
     # use printTTree.py <sampleName> to see what trees are avaliable inside the skim file
+    #cff = DiffractiveAndTrack(  ParameterSet=ParameterSet,
+    #                            HF_energy_scale=HF_energy_scale,
+    #                            Track_efficiency_scale=Track_efficiency_scale )
+
     DiffractiveAndTrack.runAll(treeName="EflowTree",
-    # DiffractiveAndTrack.runAll(treeName="CFFTree", # if you use the sebastians tree    
+    #DiffractiveAndTrack.runAll(treeName="CFFTree", # if you use the sebastians tree    
            slaveParameters=slaveParams,
            sampleList=sampleList,
            maxFilesMC = maxFilesMC,
            maxFilesData = maxFilesData,
            nWorkers= nWorkers,
-           # maxNevents = 20000,
+           maxNevents = 20000,
            verbosity = 2,
-           outFile = "trackanddiffractive_EPOS.root") 
+           outFile = Outputname) 
