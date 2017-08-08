@@ -5,7 +5,7 @@
 #from rootpy.math.physics.vector import LorentzVector
 import sys, os, time
 sys.path.append(os.path.dirname(__file__))
-sys.path.append('/data01/castor/') 
+sys.path.append('/cr/data01/castor/') 
 
 import ROOT
 ROOT.gROOT.SetBatch(True)
@@ -199,6 +199,8 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
         self.hist["Hist_2D_recogen_DeltaZero"] = ROOT.TH2D("Hist_2D_recogen_DeltaZero","Hist_2D_recogen_DeltaZero", NbrDetaBins, DetaMin, DetaMax,NbrDetaBins, DetaMin, DetaMax);
         self.hist["Hist_2D_recogen_DeltaMax"] = ROOT.TH2D("Hist_2D_recogen_DeltaMax","Hist_2D_recogen_DeltaMax", NbrDetaBins, DetaMin, DetaMax,NbrDetaBins, DetaMin, DetaMax);
         self.hist["Hist_2D_recogen_EtaMiniumum"] = ROOT.TH2D("Hist_2D_recogen_EtaMiniumum","Hist_2D_recogen_EtaMiniumum",NbrEtaBins, BinEtaMin, BinEtaMax,NbrEtaBins, BinEtaMin, BinEtaMax)
+        
+        self.hist["Hist_2D_recogen_forwarddeltaEtaMiniumum"] = ROOT.TH2D("Hist_2D_recogen_forwarddeltaEtaMiniumum", "Hist_2D_recogen_forwarddeltaEtaMiniumum", NbrDetaBins, 0,9,NbrDetaBins, 0,9)
         self.hist["Hist_2D_recogen_EtaMax"]= ROOT.TH2D("Hist_2D_recogen_EtaMax","Hist_2D_recogen_EtaMax",NbrEtaBins, BinEtaMin, BinEtaMax,NbrEtaBins, BinEtaMin, BinEtaMax)
         
 
@@ -642,7 +644,6 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
         # Nbrvertex = self.fChain.ZeroTeslaTracking_PixelnoPreSplitting_VtxX.size()
         # Nbrvertex = self.fChain.ZeroTeslaPixelnoPreSplittingVtx_vrtxX.size()    
         
-        self.hist["Hist_NrVtx"].Fill(Nbrvertex)
 
         deltavertex = 0
         if Nbrvertex == 2:
@@ -659,15 +660,20 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
             
             if Nbrvertex > 2:  return 0
 
+        self.hist["Hist_NrVtx"].Fill(Nbrvertex)
+        self.hist["hNentries"].Fill("runcut",1)
+        self.hist["hNentriesWithEventSelectionCuts"].Fill("run",1)  
 
         if Nbrvertex == 2:
-            if self.isData and abs(deltavertex)> 0.5 : return 0
             self.hist["Hist_NrVtxdeltacut"].Fill(deltavertex)
+            if self.isData and abs(deltavertex)> 0.5 : return 0
+            if not self.isData and abs(deltavertex)>0.5 :
+                self.hist["hNentriesWithEventSelectionCuts"].Fill("mc_vtxcut",1)
             # if abs(vVertexZ[0] - vVertexZ[1])> 0.5 : return 0
             # if abs(self.fChain.ZeroTeslaPixelnoPreSplittingVtx_vrtxZ[0] - self.fChain.ZeroTeslaPixelnoPreSplittingVtx_vrtxZ[1])> 0.5 : return 0
             # Nbrvertex = 1
         
-        
+        self.hist["hNentriesWithEventSelectionCuts"].Fill("vtxcut",1)          
 
         weight = 1
         num = 0
@@ -1006,8 +1012,8 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
             calop4 = self.fChain.CaloTowersp4[icalo]
             caloem = self.fChain.CaloTowersemEnergy[icalo]
             calohad = self.fChain.CaloTowershadEnergy[icalo]
-            # caloieta = self.fChain.CaloTowersieta[icalo]
-            # caloiphi = self.fChain.CaloTowersiphi[icalo] 
+            caloieta = self.fChain.CaloTowersieta[icalo]
+            caloiphi = self.fChain.CaloTowersiphi[icalo] 
 
 
             if [caloieta,caloiphi] in bad_channels_eta_phi: continue
@@ -1426,6 +1432,7 @@ class DiffractiveAndTrack(CommonFSQFramework.Core.ExampleProofReader.ExampleProo
         self.hist["Hist_2D_recogen_DeltaZero"].Fill(delta_zero, delta_zero_gen)
         self.hist["Hist_2D_recogen_DeltaMax"].Fill(deltaetamax, delta_max_gen) 
         self.hist["Hist_2D_recogen_EtaMiniumum"].Fill(mineta,mingeneta)
+        self.hist["Hist_2D_recogen_forwarddeltaEtaMiniumum"].Fill(forwarddelta,forwardgendelta)
         self.hist["Hist_2D_recogen_EtaMax"].Fill(maxeta,maxgeneta)
             # self.hist["hNentries"].Fill("CaloReducedenergyClass2",1) 
 
@@ -1838,13 +1845,13 @@ if __name__ == "__main__":
     #                            HF_energy_scale=HF_energy_scale,
     #                            Track_efficiency_scale=Track_efficiency_scale )
 
-    # DiffractiveAndTrack.runAll(treeName="EflowTree",
-    DiffractiveAndTrack.runAll(treeName="CFFTree", # if you use the sebastians tree    
+    DiffractiveAndTrack.runAll(treeName="EflowTree",
+    # DiffractiveAndTrack.runAll(treeName="CFFTree", # if you use the sebastians tree    
            slaveParameters=slaveParams,
            sampleList=sampleList,
            maxFilesMC = maxFilesMC,
            maxFilesData = maxFilesData,
            nWorkers= nWorkers,
-           # maxNevents = 10000,
+           # maxNevents = 1000,
            verbosity = 2,
            outFile = Outputname) 
